@@ -73,7 +73,10 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
-    exit 1
+    VERDICT="FAILED"
+    V="-1"
+    ssh nb7build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --code-review=0 --label NetBSD-regression=$V $GIT_COMMIT
+    exit $RET
 fi
 echo
 

@@ -63,7 +63,6 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
-    RET=0
     VERDICT="FAILED"
     V="-1"
     ssh build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression=$V $GIT_COMMIT

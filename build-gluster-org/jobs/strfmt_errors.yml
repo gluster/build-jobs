@@ -42,7 +42,7 @@
         name: GERRIT_BRANCH
 
     publishers:
-    - build-log
+    - strfmt-build-log
 
     builders:
     - shell: !include-raw: ../scripts/strfmt_errors.sh

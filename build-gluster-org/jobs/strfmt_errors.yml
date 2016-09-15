@@ -24,8 +24,6 @@
           - draft-published-event
           - comment-added-contains-event:
               comment-contains-value: "recheck smoke"
-        skip-vote:
-          failed: true
         projects:
           - project-compare-type: 'PLAIN'
             project-pattern: 'glusterfs'

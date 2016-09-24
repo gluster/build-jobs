@@ -3,6 +3,7 @@
     node: smoke_tests
     description: Pre-commit Smoke test
     project-type: freestyle
+    concurrent: true
 
     scm:
     - glusterfs

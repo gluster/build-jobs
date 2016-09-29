@@ -16,7 +16,7 @@ RET=$?
 if [ $RET -ne 0 ]; then
     exit 1
 fi
-sudo /opt/qa/smoke.sh
+sudo -E bash /opt/qa/smoke.sh
 RET=$?
 
 echo smoke.sh returned $RET

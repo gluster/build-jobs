@@ -14,7 +14,8 @@ echo
 
 # Exit early with success if the change is on release-3.{5,6}
 # NetBSD regression doesn't run successfully on release-3.{5,6}
-if [ $GERRIT_BRANCH = "release-3.5" -o $GERRIT_BRANCH = "release-3.6" ]; then
+# FB gets a pass on regressions on their branch.
+if [ $GERRIT_BRANCH = "release-3.5" -o $GERRIT_BRANCH = "release-3.6" -o $GERRIT_BRANCH = "release-3.8-fb" ]; then
     echo "Skipping regression run for ${GERRIT_BRANCH}"
     RET=0
     VERDICT="Skipped for ${GERRIT_BRANCH}"

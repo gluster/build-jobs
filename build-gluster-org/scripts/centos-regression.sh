@@ -12,6 +12,15 @@ echo
 echo "$MY_ENV"
 echo
 
+# FB gets a pass on regressions on their branch.
+if [ $GERRIT_BRANCH = "release-3.8-fb" ]; then
+    echo "Skipping regression run for ${GERRIT_BRANCH}"
+    RET=0
+    VERDICT="Skipped for ${GERRIT_BRANCH}"
+    V="+1"
+    ssh build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression="$V"  $GIT_COMMIT
+    exit $RET
+fi
 
 # Remove any gluster daemon leftovers from aborted runs
 sudo -E bash /opt/qa/cleanup.sh

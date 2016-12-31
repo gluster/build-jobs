@@ -32,6 +32,13 @@
         recipients: nigelb@redhat.com
         aborted: true
         failure: false
+    - post-tasks:
+        - matches:
+            # "Building remotely" should always be in the build console output
+            #- log-text: Build timed out (after 300 minutes)
+            - log-text: Build was aborted
+          script: |
+              su -l root -c "reboot -n"
 
     parameters:
     - string:

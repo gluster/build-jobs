@@ -3,6 +3,7 @@
     node: netbsd_build
     description: GlusterFS pre-commit smoke test on NetBSD
     project-type: freestyle
+    concurrent: true
 
     scm:
     - glusterfs

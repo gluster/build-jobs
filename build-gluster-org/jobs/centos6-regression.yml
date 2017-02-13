@@ -34,6 +34,17 @@
               - branch-compare-type: 'ANT'
                 branch-pattern: '**'
 
+    publishers:
+    - email-ext:
+        recipients: nigelb@redhat.com
+        aborted: true
+        failure: false
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
+
     parameters:
     - string:
         default: refs/heads/master
@@ -50,6 +61,6 @@
     wrappers:
     - timestamps
     - timeout:
-        timeout: 300
+        timeout: 360
         abort: true
         type: absolute

@@ -3,8 +3,10 @@
     buildversion:
       - fedora:
           build_flag: fedora-25-x86_64
-      - el6:
-          build_flag: epel-6-x86_64
+      - el7:
+          build_flag: epel-7-x86_64
+      - rawhide:
+          build_flag: fedora-rawhide-x86_64
     jobs:
       - '{name}-{buildversion}'
 

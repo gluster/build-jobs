@@ -1,6 +1,6 @@
 - job:
     name: build-job
-    node: cage-test
+    node: smoke7
     description: Pre-commit tests for build-jobs
     project-type: freestyle
 

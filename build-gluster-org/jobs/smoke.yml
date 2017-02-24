@@ -1,6 +1,6 @@
 - job:
     name: smoke
-    node: smoke_tests
+    node: smoke7
     description: Pre-commit Smoke test
     project-type: freestyle
     concurrent: true

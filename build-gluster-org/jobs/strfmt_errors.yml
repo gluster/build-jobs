@@ -1,6 +1,6 @@
 - job:
     name: 'strfmt_errors'
-    node: glusterfs-devrpms
+    node: rpm7
     description: Check for strfmt errors in a 32-bit build run inside mock
     project-type: freestyle
     concurrent: true

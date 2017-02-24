@@ -12,7 +12,7 @@
 
 - job-template:
     name: '{name}-{buildversion}'
-    node: glusterfs-devrpms
+    node: rpm7
     description: Creates RPMs for developers and those who need to verify the patch
     project-type: freestyle
     concurrent: true

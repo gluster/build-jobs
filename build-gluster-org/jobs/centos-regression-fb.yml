@@ -18,6 +18,13 @@
     triggers:
     - timed: "H 0-23/4 * * *"
 
+    publishers:
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
+
     builders:
     - shell: !include-raw: ../scripts/regression-test-burn-in.sh
 

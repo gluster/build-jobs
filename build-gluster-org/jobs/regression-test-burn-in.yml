@@ -22,6 +22,11 @@
     - email:
         recipients: maintainers@gluster.org
         send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
 
     builders:
     - shell: !include-raw: ../scripts/regression-test-burn-in.sh

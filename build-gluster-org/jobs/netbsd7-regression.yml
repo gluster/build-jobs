@@ -28,10 +28,6 @@
                 branch-pattern: '**'
 
     publishers:
-    - email-ext:
-        recipients: nigelb@redhat.com
-        aborted: true
-        failure: false
     - post-tasks:
         - matches:
             - log-text: Build was aborted

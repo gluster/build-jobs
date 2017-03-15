@@ -13,7 +13,11 @@
 
     triggers:
     - gerrit:
-        server-name: review.gluster.org
+        server-name: review.gluster.org_for-smoke-jobs
+        override-votes: 1
+        gerrit-build-successful-verified-value: 0
+        gerrit-build-failed-verified-value: 0
+        gerrit-build-unstable-verified-value: 0
         trigger-on:
           - comment-added-contains-event:
               comment-contains-value: "recheck netbsd"

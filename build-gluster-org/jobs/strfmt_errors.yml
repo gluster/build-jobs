@@ -43,12 +43,6 @@
 
     publishers:
     - strfmt-build-log
-    - post-tasks:
-        - matches:
-            # "Building remotely" should always be in the build console output
-            - log-text: Building remotely
-          script: |
-              sudo chown -R jenkins:jenkins ${WORKSPACE}/RPMS
 
     builders:
     - shell: !include-raw: ../scripts/strfmt_errors.sh

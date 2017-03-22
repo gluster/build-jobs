@@ -55,12 +55,6 @@
 
     publishers:
     - rpm
-    - post-tasks:
-        - matches:
-            # "Building remotely" should always be in the build console output
-            - log-text: Building remotely
-          script: |
-              sudo chown -R jenkins:jenkins ${{WORKSPACE}}/RPMS
 
     builders:
     - shell: !include-raw: ../scripts/glusterfs-devrpms.sh

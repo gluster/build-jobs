@@ -1,6 +1,6 @@
 - job:
     name: compare-bug-version-and-git-branch
-    node: master
+    node: bugzilla
     description: Each change is filed against a git branch, the branch must match
         the version that is set in the bugreport.
     project-type: freestyle
@@ -37,7 +37,7 @@
         name: GERRIT_BRANCH
 
     builders:
-    - shell: /opt/qa/jenkins/scripts/compare-bug-version-and-git-branch.sh
+    - shell: /opt/qa/compare-bug-version-and-git-branch.sh
 
     wrappers:
     - timestamps

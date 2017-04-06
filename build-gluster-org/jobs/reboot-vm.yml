@@ -1,6 +1,6 @@
 - job:
     name: reboot-vm
-    node: master
+    node: bugzilla
     description: "Reboot a VM in the Rackspace Cloud."
     project-type: freestyle
 
@@ -16,12 +16,10 @@
         - nbslave79.cloud.gluster.org
         - nbslave7c.cloud.gluster.org
         - nbslave7g.cloud.gluster.org
-        - nbslave7h.cloud.gluster.org
         - nbslave7i.cloud.gluster.org
         - nbslave7j.cloud.gluster.org
         - netbsd0.cloud.gluster.org
-        - netbsd7.cloud.gluster.org
-        - slave0.cloud.gluster.org
+        - netbsd1.cloud.gluster.org
         - slave1.cloud.gluster.org
         - slave20.cloud.gluster.org
         - slave21.cloud.gluster.org
@@ -35,11 +33,8 @@
         - slave29.cloud.gluster.org
         - slave32.cloud.gluster.org
         - slave33.cloud.gluster.org
-        - slave34.cloud.gluster.org
-        - slave46.cloud.gluster.org
-        - slave47.cloud.gluster.org
         description: The machine to restart
         name: VM
 
     builders:
-    - shell: sudo /usr/local/bin/reboot-vm.py ${VM}
+    - shell: /opt/qa/reboot-vm.py -n ${VM}

@@ -1,0 +1,39 @@
+- job:
+    name: regression-test-with-multiplex
+    node: rackspace_regression_2gb
+    description: Regression test run every 8h with brick multiplex
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - origin/master
+        url: git://review.gluster.org/glusterfs.git
+        wipe-workspace: false
+
+    properties:
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 4,12,20 * * *"
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
+
+    builders:
+    - shell: !include-raw: ../scripts/regression-test-with-multiplex.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 500
+        abort: true
+        type: absolute

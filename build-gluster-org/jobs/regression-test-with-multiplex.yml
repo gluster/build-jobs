@@ -34,6 +34,6 @@
     wrappers:
     - timestamps
     - timeout:
-        timeout: 500
+        timeout: 330
         abort: true
         type: absolute

@@ -59,7 +59,7 @@ echo
 echo "Run the regression test"
 echo "***********************"
 echo
-sudo -E bash /opt/qa/regression.sh
+sudo -E bash /opt/qa/regression.sh -c
 
 RET=$?
 

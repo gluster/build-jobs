@@ -1,0 +1,45 @@
+- job:
+    name: netbsd-periodic
+    node: netbsd7_regression
+    description: Kick off NetBSD jobs on all branches we care about
+    project-type: freestyle
+    concurrent: true
+
+    properties:
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 0,8,16 * * *"
+
+    builders:
+    - trigger-builds:
+        - project: netbsd7-regression
+          block: false
+          predefined-parameters:
+            GERRIT_BRANCH=master
+
+            GERRIT_REFSPEC=refs/heads/master
+
+    - trigger-builds:
+        - project: netbsd7-regression
+          block: false
+          predefined-parameters:
+            GERRIT_BRANCH=release-3.8
+
+            GERRIT_REFSPEC=refs/heads/release-3.8
+
+    - trigger-builds:
+        - project: netbsd7-regression
+          block: false
+          predefined-parameters:
+            GERRIT_BRANCH=release-3.10
+
+            GERRIT_REFSPEC=refs/heads/release-3.10
+
+    - trigger-builds:
+        - project: netbsd7-regression
+          block: false
+          predefined-parameters:
+            GERRIT_BRANCH=release-3.11
+
+            GERRIT_REFSPEC=refs/heads/release-3.11

@@ -1,5 +1,5 @@
 #!/bin/bash
-MY_ENV=`env | sort`
+MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
 # Display all environment variables in the debugging log
@@ -15,7 +15,8 @@ echo
 # Exit early with success if the change is on release-3.{5,6}
 # NetBSD regression doesn't run successfully on release-3.{5,6}
 # FB gets a pass on regressions on their branch.
-if [ $GERRIT_BRANCH = "release-3.5" -o $GERRIT_BRANCH = "release-3.6" -o $GERRIT_BRANCH = "release-3.8-fb" ]; then
+# Experimental also gets a pass
+if [ "$GERRIT_BRANCH" = "release-3.5" ] || [ "$GERRIT_BRANCH" = "release-3.6" ] || [ "$GERRIT_BRANCH" = "release-3.8-fb" ] || [ "$GERRIT_BRANCH" = "experimental" ]; then
     echo "Skipping regression run for ${GERRIT_BRANCH}"
     RET=0
     VERDICT="Skipped for ${GERRIT_BRANCH}"
@@ -35,7 +36,7 @@ su -l root -c "chown -R jenkins /usr/pkg/lib/python2.7/site-packages/gluster"
 # Clean up the git repo
 su -l root -c "rm -rf $WORKSPACE/.gitignore $WORKSPACE/*"
 su -l root -c "chown -R jenkins $WORKSPACE"
-cd $WORKSPACE
+cd $WORKSPACE || exit 1
 git reset --hard HEAD
 
 # Clean up other Gluster dirs
@@ -49,7 +50,7 @@ su -l root -c "rm -rf /var/log/glusterfs/* /var/log/glusterfs/.cmd_log_history"
 
 # Skip tests for certain folders
 SKIP=true
-for file in `git diff-tree --no-commit-id --name-only -r HEAD`; do
+for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
     if [[ $file != doc/* ]] && [[ $file != build-aux/* ]] && [[ $file != tests/distaf/* ]]; then
         SKIP=false
         break
@@ -96,11 +97,9 @@ su -l root -c "cd $WORKSPACE && /opt/qa/regression.sh"
 RET=$?
 if [ $RET = 0 ]; then
     V="+1"
-    R="0"
     VERDICT="SUCCESS"
 else
     V="-1"
-    R="0"
     VERDICT="FAILED"
 fi
 

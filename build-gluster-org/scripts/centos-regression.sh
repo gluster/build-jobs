@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MY_ENV=`env | sort`
+MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
 # Display all environment variables in the debugging log
@@ -12,8 +12,8 @@ echo
 echo "$MY_ENV"
 echo
 
-# FB gets a pass on regressions on their branch.
-if [ $GERRIT_BRANCH = "release-3.8-fb" ]; then
+# FB and experimental branch gets a pass
+if [ "$GERRIT_BRANCH" = "release-3.8-fb" ] ||  [ "$GERRIT_BRANCH" = 'experimental' ]; then
     echo "Skipping regression run for ${GERRIT_BRANCH}"
     RET=0
     VERDICT="Skipped for ${GERRIT_BRANCH}"
@@ -28,7 +28,7 @@ sudo -E bash /opt/qa/cleanup.sh
 # Clean up the git repo
 sudo rm -rf $WORKSPACE/.gitignore $WORKSPACE/*
 sudo chown -R jenkins:jenkins $WORKSPACE
-cd $WORKSPACE
+cd $WORKSPACE || exit 1
 git reset --hard HEAD
 
 # Clean up other Gluster dirs
@@ -47,7 +47,7 @@ chmod 755 $JDIRS
 
 # Skip tests for certain folders
 SKIP=true
-for file in `git diff-tree --no-commit-id --name-only -r HEAD`; do
+for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
     if [[ $file != doc/* ]] && [[ $file != build-aux/* ]] && [[ $file != tests/distaf/* ]]; then
         SKIP=false
         break
@@ -85,7 +85,12 @@ echo
 echo "Run the regression test"
 echo "***********************"
 echo
-sudo -E bash /opt/qa/regression.sh
+if [ "$GERRIT_BRANCH" = "master" ]; then
+    sudo -E bash /opt/qa/regression.sh tests/basic
+else
+    sudo -E bash /opt/qa/regression.sh
+fi
+
 RET=$?
 if [ $RET = 0 ]; then
     V="+1"

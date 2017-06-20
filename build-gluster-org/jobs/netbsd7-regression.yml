@@ -9,6 +9,8 @@
     - glusterfs
 
     properties:
+    - discard-after-x:
+        x: 90
     - one-build-per-node
 
     triggers:

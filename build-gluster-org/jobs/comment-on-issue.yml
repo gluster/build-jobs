@@ -8,6 +8,11 @@
     scm:
     - glusterfs
 
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
     triggers:
     - gerrit:
         trigger-on:

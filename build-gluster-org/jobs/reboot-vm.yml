@@ -4,6 +4,10 @@
     description: "Reboot a VM in the Rackspace Cloud."
     project-type: freestyle
 
+    properties:
+    - discard-after-x:
+        x: 30
+
     parameters:
     - choice:
         choices:

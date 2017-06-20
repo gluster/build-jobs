@@ -19,7 +19,7 @@
 
     properties:
     - discard-after-x:
-        x: 10
+        x: 30
     - one-build-per-node
 
     scm:

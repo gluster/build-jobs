@@ -5,6 +5,11 @@
         the version that is set in the bugreport.
     project-type: freestyle
 
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
     scm:
     - glusterfs
 

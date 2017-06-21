@@ -48,15 +48,17 @@ chmod 755 $JDIRS
 # Skip tests for certain folders
 SKIP=true
 for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
-    if [[ $file != doc/* ]] && [[ $file != build-aux/* ]] && [[ $file != tests/distaf/* ]]; then
+    /opt/qa/is-ignored-file.py file
+    matched=$?
+    if [ $matched -eq 1 ]; then
         SKIP=false
         break
     fi
 done
 if [[ "$SKIP" == true ]]; then
-    echo "Patch only modifies doc/*, build-aux/* or tests/distaf/*. Skipping further tests"
+    echo "Patch only modifies ignored files. Skipping further tests"
     RET=0
-    VERDICT="Skipped tests for doc/*, build-aux/* or tests/distaf/* only change"
+    VERDICT="Skipped tests for change that only modifies ignored files"
     V="+1"
     ssh build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression=$V $GIT_COMMIT
     exit $RET

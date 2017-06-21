@@ -85,11 +85,7 @@ echo
 echo "Run the regression test"
 echo "***********************"
 echo
-if [ "$GERRIT_BRANCH" = "master" ]; then
-    sudo -E bash /opt/qa/regression.sh tests/basic
-else
-    sudo -E bash /opt/qa/regression.sh
-fi
+sudo -E bash /opt/qa/regression.sh
 
 RET=$?
 if [ $RET = 0 ]; then

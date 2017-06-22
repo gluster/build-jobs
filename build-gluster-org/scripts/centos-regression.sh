@@ -48,7 +48,7 @@ chmod 755 $JDIRS
 # Skip tests for certain folders
 SKIP=true
 for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
-    /opt/qa/is-ignored-file.py file
+    /opt/qa/is-ignored-file.py $file
     matched=$?
     if [ $matched -eq 1 ]; then
         SKIP=false

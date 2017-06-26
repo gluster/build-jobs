@@ -38,7 +38,7 @@
     publishers:
     - archive:
         allow-empty: false
-        artifacts: RPMS/el6/i686/build.log
+        artifacts: RPMS/el6/i686/*.log
         default-excludes: true
         fingerprint: false
         only-if-success: false

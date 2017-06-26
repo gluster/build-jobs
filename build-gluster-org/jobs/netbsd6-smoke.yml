@@ -1,6 +1,6 @@
 - job:
-    name: netbsd6-smoke
-    node: netbsd_build
+    name: netbsd7-smoke
+    node: netbsd7_regression
     description: GlusterFS pre-commit smoke test on NetBSD
     project-type: freestyle
     concurrent: true

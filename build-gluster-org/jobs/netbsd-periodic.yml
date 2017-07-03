@@ -1,45 +1,42 @@
 - job:
     name: netbsd-periodic
     node: netbsd7_regression
-    description: Kick off NetBSD jobs on all branches we care about
+    description: Trigger a nightly NetBSD run on master
     project-type: freestyle
     concurrent: true
 
+    scm:
+    - git:
+        branches:
+        - origin/master
+        url: git://review.gluster.org/glusterfs.git
+        wipe-workspace: false
+
     properties:
+    - discard-after-x:
+        x: 90
     - one-build-per-node
+
 
     triggers:
     - timed: "H 0,8,16 * * *"
 
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
+
     builders:
-    - trigger-builds:
-        - project: netbsd7-regression
-          block: false
-          predefined-parameters:
-            GERRIT_BRANCH=master
+    - shell: !include-raw: ../scripts/netbsd7-regression.sh
 
-            GERRIT_REFSPEC=refs/heads/master
-
-    - trigger-builds:
-        - project: netbsd7-regression
-          block: false
-          predefined-parameters:
-            GERRIT_BRANCH=release-3.8
-
-            GERRIT_REFSPEC=refs/heads/release-3.8
-
-    - trigger-builds:
-        - project: netbsd7-regression
-          block: false
-          predefined-parameters:
-            GERRIT_BRANCH=release-3.10
-
-            GERRIT_REFSPEC=refs/heads/release-3.10
-
-    - trigger-builds:
-        - project: netbsd7-regression
-          block: false
-          predefined-parameters:
-            GERRIT_BRANCH=release-3.11
-
-            GERRIT_REFSPEC=refs/heads/release-3.11
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 330
+        abort: true
+        type: absolute

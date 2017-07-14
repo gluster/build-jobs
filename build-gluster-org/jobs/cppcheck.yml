@@ -1,0 +1,47 @@
+- job:
+    name: cppcheck
+    node: smoke7
+    description: Run cppcheck analysis on gluster code
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - $GERRIT_BRANCH
+        refspec: $GERRIT_REFSPEC
+        choosing-strategy: gerrit
+        url: https://github.com/gluster/glusterfs
+
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 0 * * *"
+
+    builders:
+    - shell: !include-raw: ../scripts/cppcheck.sh
+
+    publishers:
+    - cppcheck:
+        pattern: "**/cppcheck.xml"
+        display:
+          - sum: true
+          - error: true
+          - warning: true
+          - information: true
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
+    wrappers:
+     - timestamps

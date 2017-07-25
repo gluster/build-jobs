@@ -1,0 +1,50 @@
+- project:
+    name: 'glusto'
+    glustoversion:
+      - stable:
+          gerrit_ref: stable
+      #- master:
+          #gerrit_ref: master
+    jobs:
+      - '{name}-{glustoversion}'
+
+- job-template:
+    name: '{name}-{glustoversion}'
+    node: glusto
+    description: Run the Glusto job on ci.centos.org
+    project-type: freestyle
+    concurrent: true
+
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+    - string:
+        default: gluster_glusto
+        description: 'Name of the remote Jenkins Job'
+        name: REMOTE_JENKINS_JOB
+
+    builders:
+    - shell: !include-raw: ../scripts/glusto.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 300
+        abort: true
+        type: absolute
+    - credentials-binding:
+      - username-password-separated:
+          credential-id: centos-ci-creds
+          username: REMOTE_JENKINS_USER
+          password: REMOTE_JENKINS_PASS

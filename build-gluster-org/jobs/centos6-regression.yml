@@ -40,8 +40,7 @@
     - post-tasks:
         - matches:
             - log-text: Build was aborted
-          script: |
-              sudo reboot
+          script: !include-raw: ../scripts/regression-abort.sh
 
     parameters:
     - string:

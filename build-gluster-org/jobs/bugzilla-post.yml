@@ -1,0 +1,48 @@
+- job:
+    name: bugzilla-post
+    node: bugzilla
+    description: Reporting the status of bugs on Bugzilla
+    project-type: freestyle
+
+    scm:
+    - glusterfs
+
+    triggers:
+    - gerrit:
+        trigger-on:
+          - patchset-created-event:
+              exclude-drafts: false
+              exclude-trivial-rebase: false
+              exclude-no-code-change: false
+          - change-merged-event
+        server-name: review.gluster.org_for-smoke-jobs
+        override-votes: 1
+        gerrit-build-failed-verified-value: 0
+        gerrit-build-unstable-verified-value: 0
+        gerrit-build-notbuilt-verified-value: 0
+        projects:
+          - project-compare-type: 'PLAIN'
+            project-pattern: 'glusterfs'
+            branches:
+              - branch-compare-type: 'ANT'
+                branch-pattern: '**'
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+    - string:
+        default: 'true'
+        description: 'A parameter named DRY_RUN, defaults to true'
+        name: DRY_RUN
+
+    builders:
+    - shell: !include-raw: ../scripts/bugzilla-post.sh
+
+    wrappers:
+    - timestamps

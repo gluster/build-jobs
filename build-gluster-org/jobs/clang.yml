@@ -27,7 +27,13 @@
     publishers:
     - scan-build:
         mark-unstable: true
-        threshold: 899
+        threshold: 955
+    - post-tasks:
+        - matches:
+            - log-text: Building remotely
+          script: |
+              sudo mock -r fedora-26-x86_64 --clean
+              sudo chown -R jenkins:jenkins clangScanBuildReports
 
     parameters:
     - string:

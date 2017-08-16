@@ -31,6 +31,11 @@
         files: "index.html"
         keep-all: true
         link-to-last-build: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: |
+              sudo reboot
 
     parameters:
     - string:
@@ -44,3 +49,7 @@
 
     wrappers:
      - timestamps
+     - timeout:
+        timeout: 360
+        abort: true
+        type: absolute

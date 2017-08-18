@@ -1,0 +1,51 @@
+- job:
+    name: jenkins-update
+    node: smoke7
+    description: Updating the jenkins server on patch merged
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - $GERRIT_BRANCH
+        refspec: $GERRIT_REFSPEC
+        choosing-strategy: gerrit
+        url: git://review.gluster.org/build-jobs.git
+        wipe-workspace: true
+
+    properties:
+    - discard-after-x:
+        x: 90
+    - one-build-per-node
+
+    triggers:
+    - gerrit:
+        trigger-on:
+          - change-merged-event
+        projects:
+          - project-compare-type: 'PLAIN'
+            project-pattern: 'build-jobs'
+            branches:
+              - branch-compare-type: 'ANT'
+                branch-pattern: '**'
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
+    builders:
+    - shell: !include-raw: ../scripts/jenkins-update.sh
+
+    wrappers:
+     - timestamps
+     - credentials-binding:
+         - file:
+            credential-id: jenkins_jobs.ini
+            variable: JJB_CONFIG

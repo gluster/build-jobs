@@ -36,6 +36,11 @@
             - log-text: Build was aborted
           script: |
               sudo reboot
+    - post-tasks:
+        - matches:
+            - log-text: Building remotely
+          script: |
+              sudo chown -R jenkins:jenkins $WORKSPACE
 
     parameters:
     - string:

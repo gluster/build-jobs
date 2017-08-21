@@ -3,10 +3,10 @@
 function commit_message_edited()
 {
     if [ "$GERRIT_PATCHSET_NUMBER" != "1" ]; then
-        OLD_PATCHSET_NUM=$GERRIT_PATCHSET_NUMBER-1
-        old_bugid=$(curl -X GET https://review.gluster.org/changes/${GERRIT_PROJECT}~${GERRIT_BRANCH}~${GERRIT_CHANGE_ID}/revisions/$OLD_PATCHSET_NUM/commit |  grep subject | awk -F'"' '{print $4}' | sed 's/\\n/\'$'\n''/g' | grep -i '^bug: ' | awk '{print $2}')
+        OLD_PATCHSET_NUM="$(($GERRIT_PATCHSET_NUMBER-1))"
+        old_bugid=$(curl -X GET https://review.gluster.org/changes/${GERRIT_PROJECT}~${GERRIT_BRANCH}~${GERRIT_CHANGE_ID}/revisions/$OLD_PATCHSET_NUM/commit |  grep message | awk -F'"' '{print $4}' | sed 's/\\n/\'$'\n''/g' | grep -i '^bug: ' | awk '{print $2}')
         if [ "$bugid" == "$old_bugid" ]; then
-            return;
+            exit 0
         fi
     fi
 }

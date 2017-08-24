@@ -21,6 +21,7 @@
 
     triggers:
     - gerrit:
+        server-name: review.gluster.org
         trigger-on:
           - change-merged-event
         projects:

@@ -17,13 +17,10 @@
         x: 90
     - one-build-per-node
 
-    triggers:
-    - timed: "0 14 * * *"
-
     publishers:
     - email:
         recipients: maintainers@gluster.org
-        send-to-individuals: true
+        send-to-individuals: false
     - post-tasks:
         - matches:
             - log-text: Build was aborted

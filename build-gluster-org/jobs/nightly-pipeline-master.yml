@@ -1,0 +1,19 @@
+- job:
+    name: nightly-master
+    description: Run the pipeline for master branch
+    project-type: pipeline
+    dsl: !include-raw: ../scripts/nightly-master.dsl
+
+
+    triggers:
+    - timed: "H 14 * * *"
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH

@@ -31,7 +31,7 @@ function update_bugzilla()
             run bugzilla modify  $bugid --comment="REVISION POSTED: $GERRIT_CHANGE_URL ($GERRIT_CHANGE_SUBJECT) posted (#$GERRIT_PATCHSET_NUMBER) for review on $GERRIT_BRANCH by $GERRIT_PATCHSET_UPLOADER_NAME";
         fi
     else
-        run bugzilla modify $bugid  --comment="COMMIT: $GERRIT_CHANGE_URL committed in $GERRIT_BRANCH by $GERRIT_SUBMITTER `echo; echo -------------; echo;` $GERRIT_CHANGE_COMMIT_MESSAGE";
+        run bugzilla modify $bugid  --comment="COMMIT: $GERRIT_CHANGE_URL committed in $GERRIT_BRANCH by $GERRIT_SUBMITTER $(echo; echo -------------; echo;) $(echo $GERRIT_CHANGE_COMMIT_MESSAGE | base64 -d)";
     fi
 }
 

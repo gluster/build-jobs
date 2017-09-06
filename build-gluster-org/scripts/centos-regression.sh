@@ -81,13 +81,30 @@ if [ $RET != 0 ]; then
 fi
 echo
 
+TEST_ONLY=true
+declare -a TEST_FILES
+TEST_COUNT=0
+for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
+    if [[ $file =~ tests/.*\.t$ ]] ;then
+        TEST_FILES[$TEST_COUNT]="$file"
+        TEST_COUNT=$(( $TEST_COUNT + 1 ))
+    else
+        TEST_ONLY=false
+    fi
+done
+
 # Run the regression test
 echo "Start time $(date)"
 echo
 echo "Run the regression test"
 echo "***********************"
 echo
-sudo -E bash /opt/qa/regression.sh
+if [[ "$TEST_ONLY" == true ]]; then
+    echo "This review only changes tests, running only the changed tests"
+    sudo -E bash /opt/qa/regression.sh ${TEST_FILES[*]}
+else
+    sudo -E bash /opt/qa/regression.sh
+fi
 
 RET=$?
 if [ $RET = 0 ]; then

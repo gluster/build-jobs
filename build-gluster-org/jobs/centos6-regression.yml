@@ -58,6 +58,6 @@
     wrappers:
     - timestamps
     - timeout:
-        timeout: 360
+        timeout: 15
         abort: true
-        type: absolute
+        type: no-activity

@@ -53,3 +53,8 @@
         timeout: 30
         abort: true
         type: absolute
+    - credentials-binding:
+        - file:
+           credential-id: http_int_credential
+           variable: LOG_KEY
+

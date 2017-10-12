@@ -36,6 +36,10 @@
         default: master
         description: 'Name of the branch you want to build from. We usually build from master'
         name: GERRIT_BRANCH
+    - string:
+        default: 'true'
+        description: 'A parameter named DRY_RUN, defaults to true'
+        name: DRY_RUN
 
     builders:
     - shell: !include-raw: ../scripts/bugzilla-post.sh

@@ -1,0 +1,30 @@
+- job:
+    name: close_old_reviews
+    node: smoke7
+    description: Closing the oldest reviews
+    project-type: freestyle
+    concurrent: true
+
+    triggers:
+    - timed: "H 0 * * *"
+
+    parameters:
+    - string:
+        default: '90'
+        description: Reviews which are 90 days or more older on Gerrit
+        name: DAYS
+    - string:
+        default: '25'
+        description: Number of oldest reviews to be abandoned on Gerrit
+        name: REV_COUNT
+
+    builders:
+    - shell: !include-raw: ../scripts/close_old_reviews.py
+
+    wrappers:
+     - timestamps
+     - credentials-binding:
+         - username-password-separated:
+             credential-id: 7e0c919e-4568-42ac-b28a-660a148609fe
+             username: HTTP_USERNAME
+             password: HTTP_PASSWORD

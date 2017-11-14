@@ -44,7 +44,7 @@
         subject: "glusterfs-${RELEASE_VERSION} released"
         body: |
             SRC: ${BUILD_URL}artifact/glusterfs-${ENV,var="RELEASE_VERSION"}.tar.gz
-            HASH: ${BUILD_URL}artifact/glusterfs-${ENV,var="RELEASE_VERSION"}.sha256sum
+            HASH: ${BUILD_URL}artifact/glusterfs-${ENV,var="RELEASE_VERSION"}.sha512sum
 
             This release is made off jenkins-release-${BUILD_ID}
         save-output: true

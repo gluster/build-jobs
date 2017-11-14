@@ -32,13 +32,13 @@
         artifacts: "*.tar.gz"
         default-excludes: true
         fingerprint: false
-        only-if-success: false
+        only-if-success: true
     - archive:
         allow-empty: false
-        artifacts: "*.sha256sum"
+        artifacts: "*.sha512sum"
         default-excludes: true
         fingerprint: false
-        only-if-success: false
+        only-if-success: true
     - email-ext:
         recipients: $ANNOUNCE_EMAIL
         subject: "glusterfs-${RELEASE_VERSION} released"

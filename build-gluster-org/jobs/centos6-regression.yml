@@ -41,6 +41,7 @@
         - matches:
             - log-text: Build was aborted
           script: !include-raw: ../scripts/regression-abort.sh
+    - gluster-logs
 
     parameters:
     - string:

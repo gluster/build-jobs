@@ -28,6 +28,7 @@
         - matches:
             - log-text: Build was aborted
           script: !include-raw: ../scripts/regression-abort.sh
+    - gluster-logs
 
     builders:
     - shell: !include-raw: ../scripts/regression-test-with-multiplex.sh

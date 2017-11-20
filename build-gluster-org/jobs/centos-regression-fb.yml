@@ -26,6 +26,7 @@
             - log-text: Build was aborted
           script: |
               sudo reboot
+    - gluster-logs
 
     builders:
     - shell: !include-raw: ../scripts/regression-test-burn-in.sh

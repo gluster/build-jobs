@@ -41,6 +41,9 @@
         description: 'Name of the branch you want to build from. We usually build from master'
         name: GERRIT_BRANCH
 
+    publishers:
+    - gluster-logs
+
     builders:
     - shell: !include-raw: ../scripts/smoke.sh
 

@@ -42,3 +42,13 @@
         default-excludes: true
         fingerprint: false
         only-if-success: false
+
+- publisher:
+    name: gluster-logs
+    publishers:
+    - archive:
+        allow-empty: false
+        artifacts: "glusterfs-logs.tgz"
+        default-excludes: true
+        fingerprint: false
+        only-if-success: false

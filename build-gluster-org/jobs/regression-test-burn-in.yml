@@ -18,7 +18,7 @@
     - one-build-per-node
 
     triggers:
-    - timed: "H 0,8,16 * * *"
+    - timed: "0 14 * * *"
 
     publishers:
     - email:

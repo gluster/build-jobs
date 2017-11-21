@@ -47,7 +47,7 @@
     name: gluster-logs
     publishers:
     - archive:
-        allow-empty: false
+        allow-empty: true
         artifacts: "glusterfs-logs.tgz"
         default-excludes: true
         fingerprint: false

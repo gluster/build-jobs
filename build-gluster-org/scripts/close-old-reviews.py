@@ -23,17 +23,17 @@ def get_unique_id(days=90, count=25):
 def close_reviews(oldest_id):
     for uid in oldest_id:
         try:
-            url = https://review.gluster.org/a/changes/glusterfs~master~{}/abandon.format(uid)
+            url = 'https://review.gluster.org/a/changes/glusterfs~master~{}/abandon'.format(uid)
             data = {"message" : "This change has not had activity in 90 days."
                     "We're automatically closing this change.\n"
                     "Please re-open and get in touch with the component owners"
                     " if you are interested in merging this patch."}
             username = os.environ.get('HTTP_USERNAME')
             password = os.environ.get('HTTP_PASSWORD')
-            respone = requests.post(url, auth('username', 'password'), json=data)
+            response = requests.post(url, auth('username', 'password'), json=data)
             response.raise_for_status()
         except Exception:
-            print("Authentication error.Username or password is incorrect")
+            print("Authentication error. Username or password is incorrect")
 
 
 def main():

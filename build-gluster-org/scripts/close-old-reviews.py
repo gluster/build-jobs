@@ -6,7 +6,7 @@ import os
 
 
 def get_unique_id(days=90, count=25):
-    r = requests.get('https://review.gluster.org/changes/
+    r = requests.get('https://review.gluster.org/changes/'
                      '?q=status:open+age:{}days+project:glusterfs'.
                      format(days))
     output = r.text

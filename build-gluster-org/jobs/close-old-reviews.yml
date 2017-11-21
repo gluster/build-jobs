@@ -1,12 +1,12 @@
 - job:
-    name: close_old_reviews
+    name: close-old-reviews
     node: smoke7
     description: Closing the oldest reviews
     project-type: freestyle
     concurrent: true
 
     triggers:
-    - timed: "H 0 * * *"
+    - timed: "30 19 * * *"
 
     parameters:
     - string:
@@ -19,7 +19,7 @@
         name: REV_COUNT
 
     builders:
-    - shell: !include-raw: ../scripts/close_old_reviews.py
+    - shell: !include-raw: ../scripts/close-old-reviews.py
 
     wrappers:
      - timestamps

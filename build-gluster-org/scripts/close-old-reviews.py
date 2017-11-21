@@ -14,7 +14,7 @@ def get_unique_id(days=90, count=25):
     parsed_output = json.loads(cleaned_output)
     unique_id = []
     for item in parsed_output:
-        unique_id.append(item['changed_id'])
+        unique_id.append(item['change_id'])
     n = -(int(count))
     oldest_reviews = unique_id[n:]
     return oldest_reviews

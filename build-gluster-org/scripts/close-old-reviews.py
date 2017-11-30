@@ -15,25 +15,22 @@ def get_change_ids(days=90, count=25):
     Get all the change IDs to close
     '''
     r = requests.get('https://review.gluster.org/changes/'
-                     '?q=status:open+age:{}days+project:glusterfs'.
-                     format(days))
+                     '?q=status:open+age:{}days+project:glusterfs'
+                     '&n={}'.format(days, count)
+    )
     output = r.text
     cleaned_output = '\n'.join(output.split('\n')[1:])
     parsed_output = json.loads(cleaned_output)
-    unique_id = []
-    for item in parsed_output:
-        unique_id.append(item['change_id'])
-    oldest_reviews = unique_id[-int(count):]
-    return oldest_reviews
+    return parsed_output
 
 
 def close_reviews(change_ids):
     '''
     Close the list of given change_ids
     '''
-    for uid in change_ids:
-        url = ('https://review.gluster.org/a/changes/glusterfs~master~{}'
-               '/abandon'.format(uid))
+    for change in change_ids:
+        url = ('https://review.gluster.org/a/changes/{}'
+               '/abandon'.format(change['id']))
         data = {
             "message": "This change has not had activity in 90 days. "
                        "We're automatically closing this change.\n"
@@ -42,7 +39,7 @@ def close_reviews(change_ids):
         }
         username = os.environ.get('HTTP_USERNAME')
         password = os.environ.get('HTTP_PASSWORD')
-        print("Attempting to close review: ", uid)
+        print("Attempting to close review: ", change['_number'])
         response = requests.post(url, auth=(username, password), json=data)
         try:
             response.raise_for_status()
@@ -63,9 +60,5 @@ def main():
     # abandoning those reviews with a message
     close_reviews(change_ids)
 
-    # printing the list of abandoned reviews
-    print("The list of following reviews are abandoned:\n")
-    for change in change_ids:
-        print('https://review.gluster.org/#/q/', str(change))
 
 main()

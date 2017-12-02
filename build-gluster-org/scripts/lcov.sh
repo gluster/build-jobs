@@ -36,6 +36,9 @@ lcov -d . --zerocounters
 lcov -i -c -d . -o coverage/glusterfs-lcov.info
 set +e
 
+echo "Running the smoke tests"
+sudo -E bash /opt/qa/smoke.sh -c
+
 echo "Running the regression test"
 sudo -E bash /opt/qa/regression.sh -c
 

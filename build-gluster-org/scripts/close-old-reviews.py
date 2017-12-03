@@ -16,8 +16,7 @@ def get_change_ids(days=90, count=25):
     '''
     r = requests.get('https://review.gluster.org/changes/'
                      '?q=status:open+age:{}days+project:glusterfs'
-                     '&n={}'.format(days, count)
-    )
+                     '&n={}'.format(days, count))
     output = r.text
     cleaned_output = '\n'.join(output.split('\n')[1:])
     parsed_output = json.loads(cleaned_output)
@@ -39,7 +38,10 @@ def close_reviews(change_ids):
         }
         username = os.environ.get('HTTP_USERNAME')
         password = os.environ.get('HTTP_PASSWORD')
-        print("Attempting to close review: ", change['_number'])
+        print("Attempting to close review: ", "https://review.gluster.org/",
+              change['_number'],
+              "  -- Title: ",
+              change['subject'])
         response = requests.post(url, auth=(username, password), json=data)
         try:
             response.raise_for_status()

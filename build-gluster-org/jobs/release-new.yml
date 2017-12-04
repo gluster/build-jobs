@@ -25,6 +25,10 @@
         default: packaging@gluster.org,maintainers@gluster.org
         description: Mail addresses to send the announcement of the tarball too.
         name: ANNOUNCE_EMAIL
+    - bool:
+        default: true
+        name: PUBLISH_ARCHIVES
+        description: Publish archives to bits.gluster.org
 
     publishers:
     - archive:
@@ -56,3 +60,7 @@
 
     wrappers:
     - timestamps
+    - credentials-binding:
+      - file:
+          credential-id: 0b53bb70-545a-445f-9664-228d9cc0e6e3
+          variable: BITS_KEY

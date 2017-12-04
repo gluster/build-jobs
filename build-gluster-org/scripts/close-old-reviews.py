@@ -15,11 +15,11 @@ def get_change_ids(days=90, count=25):
     Get all the change IDs to close
     '''
     r = requests.get('https://review.gluster.org/changes/'
-                     '?q=status:open+age:{}days+project:glusterfs'
-                     '&n={}'.format(days, count))
+                     '?q=status:open+age:{}days+'
+                     'project:glusterfs'.format(days))
     output = r.text
     cleaned_output = '\n'.join(output.split('\n')[1:])
-    parsed_output = json.loads(cleaned_output)
+    parsed_output = json.loads(cleaned_output)[-int(count):]
     return parsed_output
 
 

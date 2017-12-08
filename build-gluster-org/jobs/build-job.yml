@@ -54,3 +54,7 @@
 
     wrappers:
     - timestamps
+    - credentials-binding:
+      - file:
+          credential-id: jenkins_jobs.ini
+          variable: JJB_CONFIG

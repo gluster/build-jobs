@@ -1,1 +1,1 @@
-jenkins-job-builder
+-e git+git://git.openstack.org/openstack-infra/jenkins-job-builder#egg=jenkins_jobs

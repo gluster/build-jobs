@@ -38,8 +38,8 @@ def close_reviews(change_ids):
         }
         username = os.environ.get('HTTP_USERNAME')
         password = os.environ.get('HTTP_PASSWORD')
-        print("Attempting to close review: ", "https://review.gluster.org/",
-              change['_number'],
+        print("Attempting to close review: ", "https://review.gluster.org/"
+              + format(change['_number']),
               "  -- Title: ",
               change['subject'])
         response = requests.post(url, auth=(username, password), json=data)

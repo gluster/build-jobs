@@ -4,6 +4,7 @@
     description: Regression test every 4h on fb branch
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     scm:
     - git:

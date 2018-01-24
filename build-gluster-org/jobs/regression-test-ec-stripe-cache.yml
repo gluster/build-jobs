@@ -1,0 +1,41 @@
+- job:
+    name: regression-test-ec-stripe-cache
+    node: rackspace_regression_2gb
+    description: Regression test run every 8h with EC stripe cache enabled
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - origin/master
+        url: git://review.gluster.org/glusterfs.git
+        wipe-workspace: false
+
+    properties:
+    - discard-after-x:
+        x: 90
+    - one-build-per-node
+
+    triggers:
+    - timed: "0 14 * * *"
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: !include-raw: ../scripts/regression-abort.sh
+    - gluster-logs
+
+    builders:
+    - shell: !include-raw: ../scripts/regression-test-ec-stripe-cache.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 200
+        abort: true
+        type: absolute

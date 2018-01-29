@@ -32,7 +32,8 @@ function update_bugzilla()
             bugzilla modify  $bugid --comment="REVIEW: $GERRIT_CHANGE_URL ($GERRIT_CHANGE_SUBJECT) posted (#$GERRIT_PATCHSET_NUMBER) for review on $GERRIT_BRANCH by $GERRIT_PATCHSET_UPLOADER_NAME";
         fi
     else
-      bugzilla modify $bugid  --comment="COMMIT: $GERRIT_CHANGE_URL committed in $GERRIT_BRANCH by $GERRIT_CHANGE_OWNER with a commit message-$(echo; echo;) $(echo $GERRIT_CHANGE_COMMIT_MESSAGE | base64 -d)";
+      MERGER=$(echo "$GERRIT_PATCHSET_UPLOADER" | sed 's/\\//g')
+      bugzilla modify $bugid  --comment="COMMIT: $GERRIT_CHANGE_URL committed in $GERRIT_BRANCH by $MERGER with a commit message-$(echo; echo;) $(echo $GERRIT_CHANGE_COMMIT_MESSAGE | base64 -d)";
     fi
 }
 

@@ -94,14 +94,3 @@ echo "Run the regression test"
 echo "***********************"
 echo
 su -l root -c "cd $WORKSPACE && /opt/qa/regression.sh"
-RET=$?
-if [ $RET = 0 ]; then
-    V="+1"
-    VERDICT="SUCCESS"
-else
-    V="-1"
-    VERDICT="FAILED"
-fi
-
-ssh nb7build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --code-review=0 --label NetBSD-regression=$V $GIT_COMMIT
-exit $RET

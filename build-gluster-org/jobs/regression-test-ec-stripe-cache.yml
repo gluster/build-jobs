@@ -1,6 +1,6 @@
 - job:
     name: regression-test-ec-stripe-cache
-    node: rackspace_regression_2gb
+    node: centos7
     description: Regression test run every 8h with EC stripe cache enabled
     project-type: freestyle
     concurrent: true

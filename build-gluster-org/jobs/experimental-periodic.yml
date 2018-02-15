@@ -1,6 +1,6 @@
 - job:
     name: experimental-periodic
-    node: rackspace_regression_2gb
+    node: centos7
     description: Regression test run nightly
     project-type: freestyle
     concurrent: true

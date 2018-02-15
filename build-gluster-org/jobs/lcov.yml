@@ -1,6 +1,6 @@
 - job:
     name: line-coverage
-    node: lcov
+    node: centos7
     description: Checks line coverage by the regression test in gluster
     project-type: freestyle
     concurrent: true

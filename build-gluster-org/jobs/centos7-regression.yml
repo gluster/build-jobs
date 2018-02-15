@@ -1,6 +1,6 @@
 - job:
-    name: centos6-regression
-    node: rackspace_regression_2gb
+    name: centos7-regression
+    node: centos7
     description: Our production regression test.  Triggerered for each Gerrit CR revision.
     project-type: freestyle
     concurrent: true

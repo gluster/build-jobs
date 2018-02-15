@@ -36,11 +36,13 @@ lcov -d . --zerocounters
 lcov -i -c -d . -o coverage/glusterfs-lcov.info
 set +e
 
-echo "Running the smoke tests"
-sudo -E bash /opt/qa/smoke.sh -c
-
 echo "Running the regression test"
 sudo -E bash /opt/qa/regression.sh -c
+REGRESSION_STATUS=$?
+
+echo "Running the smoke tests"
+sudo -E bash /opt/qa/smoke.sh -c
+SMOKE_STATUS=$?
 
 echo "Capturing the line coverage in the .info file"
 lcov -c -d . -o coverage/glusterfs-lcov.info
@@ -49,3 +51,9 @@ sed -i.bak '/stdout/d' coverage/glusterfs-lcov.info
 #Generating the html page for code coverage details using genhtml
 genhtml -o coverage/ coverage/glusterfs-lcov.info
 echo "The HTML report is generated as index.html file"
+
+if [ $REGRESSION_STATUS -ne 0 ] || [ $SMOKE_STATUS -ne 0 ];
+    then
+    echo "Smoke test or regression tests failed"
+    exit 1
+fi

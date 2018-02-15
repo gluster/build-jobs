@@ -1,6 +1,6 @@
 - job:
     name: regression-test-burn-in
-    node: rackspace_regression_2gb
+    node: centos7
     description: Regression test run nightly
     project-type: freestyle
     concurrent: true

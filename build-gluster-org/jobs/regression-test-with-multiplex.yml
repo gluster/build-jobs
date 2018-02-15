@@ -1,6 +1,6 @@
 - job:
     name: regression-test-with-multiplex
-    node: rackspace_regression_2gb
+    node: centos7
     description: Regression test run every 8h with brick multiplex
     project-type: freestyle
     concurrent: true

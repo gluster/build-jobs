@@ -2,7 +2,7 @@
     name: 'rpm'
     buildversion:
       - fedora:
-          build_flag: fedora-25-x86_64
+          build_flag: fedora-27-x86_64
       - el7:
           build_flag: epel-7-x86_64
       - rawhide:

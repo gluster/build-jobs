@@ -29,7 +29,7 @@
         - matches:
             - log-text: Building remotely
           script: |
-              sudo mock -r fedora-26-x86_64 --clean
+              sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --clean
               sudo chown -R jenkins:jenkins clangScanBuildReports
 
     parameters:

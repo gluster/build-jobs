@@ -32,6 +32,7 @@
         gerrit-build-successful-verified-value: 1
         gerrit-build-failed-verified-value: -1
         server-name: review.gluster.org
+        failure-message: This patch needs to be rebased to master and any pylint issues need to be fixed
         projects:
           - project-compare-type: 'PLAIN'
             project-pattern: 'glusto-tests'

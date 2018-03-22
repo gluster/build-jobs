@@ -27,17 +27,16 @@ function update_bugzilla()
         fixes=0
     fi
 
-    if [ -z "$bugid" ] ; then
+    if [[ -z "$bugid" ]] ; then
         # Needed for backward compatibility
         bugid=$(echo $GERRIT_CHANGE_COMMIT_MESSAGE | base64 -d | grep -i '^bug: ' | awk '{print $2}');
     fi
 
-    # Gluster project moved to redhat around 2011 October, the bugzilla number then was 742000
-    # Assumption is, anything below this number can be github issue.
-    if [ $bugid -lt 742000 ]; then
-        echo "Looks like a github issue ($bugid), treat it as not a bug"
+    if [[ -z "$bugid" ]] ; then
+        # This is commit only has a github issue
         return;
     fi
+
     product=$(bugzilla query -b $bugid --outputformat='%{product}');
     if [ "$product" != "GlusterFS" ]; then
         echo "Wrong product: $product" >&2;

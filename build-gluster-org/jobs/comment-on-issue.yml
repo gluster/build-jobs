@@ -46,7 +46,7 @@
         name: GERRIT_BRANCH
 
     builders:
-    - shell: /opt/qa/update-issue.py
+    - shell: /opt/qa/github/handle_github.py
 
     wrappers:
     - timestamps

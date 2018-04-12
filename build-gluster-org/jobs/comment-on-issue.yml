@@ -46,7 +46,7 @@
         name: GERRIT_BRANCH
 
     builders:
-    - shell: /opt/qa/github/handle_github.py
+    - shell: /opt/qa/github/handle_github.py --repo glusterfs
 
     wrappers:
     - timestamps

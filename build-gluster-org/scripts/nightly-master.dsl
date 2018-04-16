@@ -23,12 +23,6 @@ pipeline {
                         echo 'Running centos7 regression with multiplex'
                     }
                 }
-                stage('regression-ec-stripe-cache') {
-                    steps {
-                        build job: 'regression-test-ec-stripe-cache', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running centos7 regression with EC stripe cache'
-                    }
-                }
                 stage('clang-scan') {
                     steps {
                         build job: 'clang-scan', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true

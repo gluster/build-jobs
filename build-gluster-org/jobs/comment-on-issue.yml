@@ -24,10 +24,7 @@
           - comment-added-contains-event:
               comment-contains-value: "recheck smoke"
         server-name: review.gluster.org_for-smoke-jobs
-        override-votes: 1
-        gerrit-build-failed-verified-value: 0
-        gerrit-build-unstable-verified-value: 0
-        gerrit-build-notbuilt-verified-value: 0
+        failure-message-file: gerrit_comment
         projects:
           - project-compare-type: 'PLAIN'
             project-pattern: 'glusterfs'
@@ -46,7 +43,7 @@
         name: GERRIT_BRANCH
 
     builders:
-    - shell: /opt/qa/github/handle_github.py --repo glusterfs
+    - shell: /opt/qa/github/handle_github.py --repo glusterfs -c
 
     wrappers:
     - timestamps

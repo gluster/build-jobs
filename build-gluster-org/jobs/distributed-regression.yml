@@ -36,9 +36,7 @@
           name: MACHINES_COUNT
 
     builders:
-      - shell: |
-          ssh-keygen -f ${WORKSPACE}/key -t rsa -b 4096
-          /opt/qa/distributed-tests/rackspace-server-manager.py create -n ${MACHINES_COUNT}
+      - shell: !include-raw: ../scripts/distributed-node-create.sh
       - ansible-playbook:
           playbook: '/opt/qa/distributed-tests/distributed-server.yml'
           inventory-type: 'path'

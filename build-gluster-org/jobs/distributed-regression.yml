@@ -40,6 +40,7 @@
       - ansible-playbook:
           playbook: '/opt/qa/distributed-tests/distributed-server.yml'
           inventory-type: 'path'
+          host-key-checking: false
           inventory:
             path: ${WORKSPACE}/hosts
       - conditional-step:

@@ -18,9 +18,6 @@
           x: 30
       - one-build-per-node
 
-    triggers:
-      - timed: "0 */4 * * *"
-
     parameters:
       - string:
           default: refs/heads/master

@@ -1,4 +1,6 @@
 #!/bin/sh
+
+MAX_ATTEMPTS = 3
 set -e
 
 # create and activate virtual env
@@ -12,5 +14,12 @@ ssh-keygen -f ${WORKSPACE}/key -t rsa -b 4096
 pip install pyrax
 /opt/qa/distributed-tests/rackspace-server-manager.py create -n ${MACHINES_COUNT}
 
-#create ansible.cfg to set the private SSH key file path
-echo -e "[defaults]\nprivate_key_file = key" > ansible.cfg
+for retry in `seq 1 $MAX_ATTEMPTS`
+do
+  ansible-playbook -i hosts -e 'host_key_checking=False' --private-key=key /opt/qa/distributed-tests/distributed-server.yml
+  ret=$?
+  if [ $ret -eq 0 ]; then
+    break
+  fi
+  echo 'Attempting to run again...'
+done

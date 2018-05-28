@@ -34,12 +34,6 @@
 
     builders:
       - shell: !include-raw: ../scripts/distributed-node-create.sh
-      - ansible-playbook:
-          playbook: '/opt/qa/distributed-tests/distributed-server.yml'
-          inventory-type: 'path'
-          host-key-checking: false
-          inventory:
-            path: ${WORKSPACE}/hosts
       - conditional-step:
           condition-kind: shell
           condition-command: !include-raw: ../scripts/distributed-regression.py

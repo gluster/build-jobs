@@ -16,7 +16,7 @@ pip install pyrax
 
 for retry in `seq 1 $MAX_ATTEMPTS`
 do
-  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key=key /opt/qa/distributed-tests/distributed-server.yml
+  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key=key /opt/qa/distributed-tests/distributed-server.yml -u root
   ret=$?
   if [ $ret -eq 0 ]; then
     break

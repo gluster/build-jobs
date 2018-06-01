@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MAX_ATTEMPTS = 3
+MAX_ATTEMPTS=3
 set -e
 
 # create and activate virtual env

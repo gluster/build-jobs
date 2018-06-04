@@ -19,7 +19,7 @@ def get_ansible_host_ip():
 def main():
     ip = get_ansible_host_ip()
     subprocess.call('/extras/distributed-testing/distributed-test.sh '
-                    '--hosts {0} --id_rsa {1}'.format(ip, ${WORKSPACE}/key))
+                    '--hosts {0} --id_rsa {1}'.format(ip, key))
 
 
 main()

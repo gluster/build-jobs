@@ -13,8 +13,8 @@ def get_ansible_host_ip():
    hostnames = []
    for host in inventory.get_hosts():
        hostnames.append(variable_manager.get_vars(host=host))
-   ip='\t'.join([str(i['ansible_host']) for i in hostnames])
-   return ip
+   ip = ' '.join([str(i['ansible_host']) for i in hostnames])
+   return str(ip)
 
 
 def main():

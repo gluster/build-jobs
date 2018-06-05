@@ -38,6 +38,7 @@
           condition-kind: shell
           condition-command: !include-raw: ../scripts/distributed-regression.py
           steps:
+            - shell: source env/bin/activate
             - shell: /opt/qa/distributed-tests/rackspace-server-manager.py delete
 
     wrappers:

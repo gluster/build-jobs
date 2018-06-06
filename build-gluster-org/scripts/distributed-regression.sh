@@ -23,3 +23,14 @@ do
   fi
   echo 'Attempting to run again...'
 done
+
+# run the script of distributed-test
+../scripts/run-distributed-test.py
+ret=$?
+if [ $ret -eq 0 ]; then
+  # Create tar file from all the failed test log files generated in /tmp
+  tar -czf $WORKSPACE/failed-test-logs.tgz /tmp/*.log
+
+  # if test runs are successful, delete all the machines
+  /opt/qa/distributed-tests/rackspace-server-manager.py delete
+fi

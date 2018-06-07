@@ -48,3 +48,6 @@
                credential-id: e423d7f9-edaf-45ea-aa8f-9c3f8e6563f1
                username: USERNAME
                password: PASSWORD
+           - file:
+               credential-id: http_int_credential
+               variable: LOG_KEY

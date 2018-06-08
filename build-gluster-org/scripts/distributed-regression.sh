@@ -24,7 +24,7 @@ do
 done
 
 # run the script of distributed-test
-../scripts/run-distributed-test.py
+/opt/qa/distributed-tests/run-distributed-test.py
 ret=$?
 if [ $ret -eq 0 ]; then
   # Create tar file from all the failed test log files generated in /tmp

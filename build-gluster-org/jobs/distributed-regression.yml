@@ -38,7 +38,7 @@
     publishers:
       - archive:
           allow-empty: true
-          artifacts: "failed-test-logs.tgz"
+          artifacts: "failed-tests-logs.tgz"
           only-if-success: true
 
     wrappers:

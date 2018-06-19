@@ -34,4 +34,7 @@ if [ $ret -eq 0 ]; then
 
   # if test runs are successful, delete all the machines
   /opt/qa/distributed-tests/rackspace-server-manager.py delete
+  exit 0
+else
+  exit $ret
 fi

@@ -1,16 +1,21 @@
 - project:
-    name: 'devrpm'
-    version:
-      - el6:
-          build_flag: epel-6-x86_64
+    name: 'rpm'
+    buildversion:
       - el7:
           build_flag: epel-7-x86_64
+          node_name: rpm7
+      - fedora:
+          build_flag: fedora-28-x86_64
+          node_name: fedora
+      - rawhide:
+          build_flag: fedora-rawhide-x86_64
+          node_name: fedora
     jobs:
-      - '{name}-{version}'
+      - '{name}-{buildversion}'
 
 - job-template:
-    name: '{name}-{version}'
-    node: rpm7
+    name: '{name}-{buildversion}'
+    node: '{node_name}'
     description: Creates RPMs for developers and those who need to verify the patch
     project-type: freestyle
     concurrent: true
@@ -26,14 +31,7 @@
     triggers:
     - gerrit:
         trigger-on:
-          - patchset-created-event:
-              exclude-drafts: false
-              exclude-trivial-rebase: false
-              exclude-no-code-change: false
-          - draft-published-event
-          - comment-added-contains-event:
-              comment-contains-value: "recheck smoke"
-        server-name: review.gluster.org_for-smoke-jobs
+          - change-merged-event
         projects:
           - project-compare-type: 'PLAIN'
             project-pattern: 'glusterfs'
@@ -55,7 +53,7 @@
     - rpm
 
     builders:
-    - shell: !include-raw: ../scripts/glusterfs-devrpms.sh
+        - shell: !include-raw: ../scripts/glusterfs-rpms.sh
 
     wrappers:
     - timestamps

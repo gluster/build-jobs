@@ -26,7 +26,7 @@ do
 done
 
 # run the script of distributed-test
-/opt/qa/distributed-tests/run-distributed-test.py
+/opt/qa/distributed-tests/run-distributed-test.py --n "${MACHINES_COUNT}"
 ret=$?
 
 #delete the server machines

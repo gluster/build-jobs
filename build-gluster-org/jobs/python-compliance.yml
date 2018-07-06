@@ -1,0 +1,35 @@
+- job:
+    name: python-compliance
+    node: smoke7
+    description: Check for python3 compliance
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - glusterfs
+
+    properties:
+    - discard-after-x:
+        x: 10
+    - one-build-per-node
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
+    builders:
+    - shell: !include-raw: ../scripts/python-compliance.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
+

@@ -2,6 +2,9 @@
 
 MAX_ATTEMPTS=3
 
+# cleaning the previous logs
+sudo rm -rf /tmp/failed-tests /tmp/*log /tmp/*patch.tar.gz >/dev/null 2>&1
+
 # create and activate virtual env
 virtualenv env
 . env/bin/activate

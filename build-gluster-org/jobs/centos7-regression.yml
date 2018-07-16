@@ -28,6 +28,7 @@
           - comment-added-event:
               approval-category: Verified
               approval-value: 1
+        failure-message-file: /tmp/gluster_regression.txt
 
         projects:
           - project-compare-type: 'PLAIN'

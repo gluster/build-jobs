@@ -25,6 +25,7 @@
         trigger-on:
           - comment-added-contains-event:
               comment-contains-value: "run brick-mux regression"
+        failure-message-file: /tmp/gluster_regression.txt
 
         projects:
           - project-compare-type: 'PLAIN'

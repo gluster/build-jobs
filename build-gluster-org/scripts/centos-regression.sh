@@ -114,7 +114,7 @@ else
     V="-1"
     VERDICT="FAILED"
 fi
-
+mv /tmp/regression_output.txt $WORKSPACE || true
 # Update Gerrit with the success/failure status
 ssh build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression="$V"  $GIT_COMMIT
 exit $RET

@@ -59,5 +59,5 @@ echo
 sudo -E bash /opt/qa/regression.sh -c
 
 RET=$?
-
+mv /tmp/regression_output.txt $WORKSPACE || true
 exit $RET

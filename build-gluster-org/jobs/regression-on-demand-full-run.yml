@@ -25,7 +25,7 @@
         trigger-on:
           - comment-added-contains-event:
               comment-contains-value: "run full regression"
-        failure-message-file: /tmp/gluster_regression.txt
+        failure-message-file: gluster_regression.txt
 
         projects:
           - project-compare-type: 'PLAIN'

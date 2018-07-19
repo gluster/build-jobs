@@ -1,0 +1,36 @@
+- job:
+    name: coverity-nightly
+    node: coverity
+    description: Trigger a coverity run once a week
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - origin/master
+        url: git://review.gluster.org/glusterfs.git
+        wipe-workspace: true
+
+    properties:
+    - discard-after-x:
+        x: 90
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 14 * * *"
+
+    builders:
+    - shell: !include-raw: ../scripts/coverity.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
+    - credentials-binding:
+           - username-password-separated:
+               credential-id: ce387678-f75f-49c7-a64e-b69bddc9b4ee
+               username: COVERITY_EMAIL
+               password: COVERITY_TOKEN

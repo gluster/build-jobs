@@ -33,6 +33,12 @@
             - log-text: Building remotely
           script: |
               sudo chown -R jenkins:jenkins $WORKSPACE
+    - archive:
+        allow-empty: true
+        artifacts: "*-glusterfs-logs.tgz"
+        default-excludes: true
+        fingerprint: false
+        only-if-success: false
 
     parameters:
     - string:

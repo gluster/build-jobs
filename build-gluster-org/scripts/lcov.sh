@@ -37,7 +37,7 @@ lcov -i -c -d . -o coverage/glusterfs-lcov.info
 set +e
 
 echo "Running the regression test"
-sudo -E bash /opt/qa/regression.sh -ci
+sudo -E bash /opt/qa/regression.sh -c -t 300
 mv glusterfs-logs.tgz regression-glusterfs-logs.tgz
 REGRESSION_STATUS=$?
 

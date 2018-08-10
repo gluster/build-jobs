@@ -4,7 +4,7 @@ sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --install langpack
 sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --copyin $WORKSPACE /src
 sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --chroot "cd /src && ./autogen.sh"
 sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --chroot "cd /src && ./configure CC=clang --enable-gnfs --enable-debug"
-sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --chroot "cd /src && scan-build -o /src/clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang make"
+sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --chroot "cd /src && scan-build -o /src/clangScanBuildReports -disable-checker deadcode.DeadStores -v -v --use-cc clang --use-analyzer=/usr/bin/clang make"
 sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --copyout /src/clangScanBuildReports $WORKSPACE/clangScanBuildReports
 sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --clean
 sudo chown -R jenkins:jenkins clangScanBuildReports

@@ -38,13 +38,13 @@ set +e
 
 echo "Running the regression test"
 sudo -E bash /opt/qa/regression.sh -c -t 300
-mv glusterfs-logs.tgz regression-glusterfs-logs.tgz
 REGRESSION_STATUS=$?
+mv glusterfs-logs.tgz regression-glusterfs-logs.tgz
 
 echo "Running the smoke tests"
 sudo -E bash /opt/qa/smoke.sh -c
-mv glusterfs-logs.tgz smoke-glusterfs-logs.tgz
 SMOKE_STATUS=$?
+mv glusterfs-logs.tgz smoke-glusterfs-logs.tgz
 
 echo "Capturing the line coverage in the .info file"
 lcov -c -d . -o coverage/glusterfs-lcov.info

@@ -3,6 +3,7 @@
     node: fedora
     description: Compile the code with GCC8
     project-type: freestyle
+    concurrent: true
 
     scm:
     - glusterfs

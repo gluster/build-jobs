@@ -3,6 +3,7 @@
     node: smoke7
     description: GD2 smoke test on glusterFS patch
     project-type: freestyle
+    concurrent: true
 
     scm:
     - glusterfs

@@ -13,5 +13,5 @@ cd $P/scratch;
 rm -rf $P/install;
 $SRC/configure --prefix=$P/install --with-mountutildir=$P/install/sbin \
                --with-initdir=$P/install/etc --localstatedir=/var \
-               --enable-bd-xlator=yes --enable-debug --enable-gnfs --silent
+               --disable-bd-xlator --enable-debug --enable-gnfs --silent
 make CFLAGS="-Wall -Werror -Wno-cpp" -j ${nproc};

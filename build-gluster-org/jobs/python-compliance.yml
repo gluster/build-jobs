@@ -1,6 +1,6 @@
 - job:
     name: python-compliance
-    node: smoke7
+    node: fedora
     description: Check for python3 compliance
     project-type: freestyle
     concurrent: true

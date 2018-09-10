@@ -23,7 +23,7 @@ cd $WORKSPACE
 git reset --hard HEAD
 
 # Apply with brick multiplex patch
-git pull --no-edit https://review.gluster.org/glusterfs refs/changes/45/17145/5
+git pull --no-edit https://review.gluster.org/glusterfs refs/changes/26/21126/1
 
 # Clean up other Gluster dirs
 sudo rm -rf /var/lib/glusterd/* /build/install /build/scratch >/dev/null 2>&1

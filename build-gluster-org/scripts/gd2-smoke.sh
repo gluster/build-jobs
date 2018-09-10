@@ -2,9 +2,9 @@
 
 set -e
 
-JDIRS="/var/log/glusterfs /var/lib/glusterd /var/lib/glusterd/groups/virt /var/run/gluster /home/jenkins/root /build/*"
+JDIRS="/var/log/glusterfs /var/lib/glusterd /var/run/gluster /build"
 sudo rm -rf $JDIRS
-sudo mkdir -p $JDIRS
+sudo mkdir -p $JDIRS || true
 echo Return code = $?
 sudo chown -RH jenkins:jenkins $JDIRS
 echo Return code = $?

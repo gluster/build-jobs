@@ -31,6 +31,11 @@
           default: '8'
           description: Number of machines to launch
           name: MACHINES_COUNT
+      - string:
+          default: 'ORD'
+          description: Rackspace region to launch instances
+          name: RAX_REGION
+
 
     builders:
       - shell: !include-raw: ../scripts/distributed-regression.sh
@@ -49,8 +54,8 @@
     - credentials-binding:
            - username-password-separated:
                credential-id: e423d7f9-edaf-45ea-aa8f-9c3f8e6563f1
-               username: USERNAME
-               password: PASSWORD
+               username: RAX_USERNAME
+               password: RAX_API_KEY
            - file:
                credential-id: http_int_credential
                variable: LOG_KEY

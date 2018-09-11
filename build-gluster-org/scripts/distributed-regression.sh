@@ -9,18 +9,15 @@ sudo rm -rf /tmp/failed-tests /tmp/*log /tmp/*patch.tar.gz >/dev/null 2>&1
 virtualenv env
 . env/bin/activate
 
-# create SSH key pair of 4096 bits to use it for instances at Rackspace
-ssh-keygen -f "${WORKSPACE}"/key -t rsa -b 4096
-
 # Install dependencies
 pip install pyrax ansible
 
-#create the server maachines
-/opt/qa/distributed-tests/rackspace-server-manager.py create -n "${MACHINES_COUNT}"
+#create the server machines
+ansible-playbook /opt/qa/distributed-tests/create-vm.yml -e COUNT=${MACHINES_COUNT} -e  NAME=${JOB_NAME}-${BUILD_ID}
 
 for retry in $(seq 1 $MAX_ATTEMPTS)
 do
-  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key=key /opt/qa/distributed-tests/distributed-server.yml -u root --skip-tags 'copy_logs'
+  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --skip-tags 'copy_logs'
   ret=$?
   if [ $ret -eq 0 ]; then
     break
@@ -36,7 +33,7 @@ ret=$?
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts --private-key=key /opt/qa/distributed-tests/distributed-server.yml -u root --tags 'copy_logs'
 
 #delete the server machines
-/opt/qa/distributed-tests/rackspace-server-manager.py delete
+ansible-playbook -i hosts /opt/qa/distributed-tests/delete-vm.yml
 if [ $ret -ne 0 ]; then
   # Create tar file from all the failed test log files generated in /tmp
   tar -czf "$WORKSPACE"/failed-tests-logs.tgz /tmp/*.log /tmp/failed-tests

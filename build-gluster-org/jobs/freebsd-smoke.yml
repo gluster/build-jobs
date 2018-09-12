@@ -3,6 +3,7 @@
     node: freebsd_build
     description: GlusterFS pre-commit smoke test on FreeBSD
     project-type: freestyle
+    disabled: true
 
     scm:
     - glusterfs

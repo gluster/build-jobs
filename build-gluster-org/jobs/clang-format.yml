@@ -23,9 +23,6 @@
           - draft-published-event
           - comment-added-contains-event:
               comment-contains-value: "recheck smoke"
-        gerrit-build-failed-verified-value: 0
-        gerrit-build-successful-verified-value: 0
-        override-votes: true
         server-name: review.gluster.org_for-smoke-jobs
         projects:
           - project-compare-type: 'PLAIN'

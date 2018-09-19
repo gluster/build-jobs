@@ -29,7 +29,7 @@
             project-pattern: 'glusterfs'
             branches:
               - branch-compare-type: 'PLAIN'
-                branch-pattern: 'release'
+                branch-pattern: 'master'
               - branch-compare-type: 'PLAIN'
                 branch-pattern: 'release-5'
 

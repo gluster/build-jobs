@@ -10,10 +10,10 @@
 
     parameters:
     - string:
-        default: refs/heads/master
+        default: refs/heads/release-5
         description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
         name: GERRIT_REFSPEC
     - string:
-        default: master
+        default: release-5
         description: 'Name of the branch you want to build from. We usually build from master'
         name: GERRIT_BRANCH

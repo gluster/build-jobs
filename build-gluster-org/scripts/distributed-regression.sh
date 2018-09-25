@@ -33,7 +33,7 @@ done
 ret=$?
 
 #copy the logs from machines before deleting
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --tags 'copy_logs'
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --tags 'copy_logs' --private-key key
 
 #delete the server machines
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/delete-vm.yml

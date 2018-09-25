@@ -36,7 +36,16 @@ ret=$?
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --tags 'copy_logs' --private-key key
 
 #delete the server machines
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/delete-vm.yml
+for retry in $(seq 1 $MAX_ATTEMPTS)
+do
+  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/delete-vm.yml
+  exit_code=$?
+  if [ $exit_code -eq 0 ]; then
+    break
+  fi
+  echo 'Attempting to run again...'
+done
+
 if [ $ret -ne 0 ]; then
   # Create tar file from all the failed test log files generated in /tmp
   tar -czf "$WORKSPACE"/failed-tests-logs.tgz /tmp/*.log /tmp/failed-tests

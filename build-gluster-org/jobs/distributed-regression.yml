@@ -36,12 +36,8 @@
           description: Rackspace region to launch instances
           name: RAX_REGION
 
-
     builders:
       - shell: !include-raw: ../scripts/distributed-regression.sh
-
-    triggers:
-      - timed: '0 */12 * * *'
 
     publishers:
       - archive:

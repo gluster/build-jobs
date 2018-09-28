@@ -29,4 +29,5 @@ $SRC/configure --prefix=$P/install --with-mountutildir=$P/install/sbin \
                --enable-debug --enable-gnfs --silent --enable-asan
 make install -j ${nproc}
 cd $SRC;
-sudo -E bash /opt/qa/regression.sh
+export ASAN_OPTIONS=log_path=/var/log/glusterfs/asan-output.log
+sudo -E bash /opt/qa/regression.sh -c

@@ -9,6 +9,8 @@ rm -f warnings.txt
 grep -E ".*: warning: format '%.*' expects( argument of)? type '.*', but argument .* has type 'ssize_t" ${WORKSPACE}/RPMS/el6/i686/build.log | tee -a warnings.txt
 grep -E ".+: warning: format '%.+' expects( argument of)? type '.+', but argument .+ has type 'size_t" ${WORKSPACE}/RPMS/el6/i686/build.log | tee -a warnings.txt
 
+cat warnings.txt
+
 WARNINGS=$(wc -l < warnings.txt)
 if [ "$WARNINGS" -gt "0" ];
 then

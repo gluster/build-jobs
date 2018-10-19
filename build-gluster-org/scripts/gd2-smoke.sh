@@ -2,6 +2,14 @@
 
 set -e
 
+function cleanup() {
+    killall glusterfs etcd make glusterd2
+    sleep 5
+    killall -9 glusterfs etcd make glusterd2
+}
+
+trap cleanup ERR
+
 JDIRS="/var/log/glusterfs /var/lib/glusterd /var/run/gluster /build"
 sudo rm -rf $JDIRS
 sudo mkdir -p $JDIRS || true

@@ -38,7 +38,7 @@
         name: GERRIT_BRANCH
 
     builders:
-    - shell: !include-raw: ../scripts/bugzilla-post.sh
+    - shell: /opt/qa/github/handle_bugzilla.py
 
     wrappers:
     - timestamps

@@ -19,6 +19,10 @@
           - comment-added-contains-event:
               comment-contains-value: "recheck smoke"
         server-name: review.gluster.org_for-smoke-jobs
+        skip-vote:
+          failed: true
+          unstable: true
+          notbuilt: true
         projects:
           - project-compare-type: 'PLAIN'
             project-pattern: 'glusterfs'

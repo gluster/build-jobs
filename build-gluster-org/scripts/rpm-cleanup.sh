@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkill mock || true
+sudo pkill mock || true
 SLEEP=0
 while [ $SLEEP -lt 30 ]
 do
@@ -14,4 +14,4 @@ do
     SLEEP=$((SLEEP+1))
 done
 echo "Force-killing mock"
-pkill -9 mock
+sudo pkill -9 mock

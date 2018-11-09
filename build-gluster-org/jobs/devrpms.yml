@@ -58,6 +58,10 @@
 
     publishers:
     - rpm
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: !include-raw: ../scripts/rpm-cleanup.sh
 
     builders:
     - shell: !include-raw: ../scripts/glusterfs-devrpms.sh

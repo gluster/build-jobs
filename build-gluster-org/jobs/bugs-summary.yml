@@ -1,0 +1,30 @@
+- job:
+    name: bugs-summary
+    node: fedora
+    description: Generate bugs.gluster.org report 
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        url: https://github.com/gluster/gluster-bugs-webui.git
+        branches:
+        - master
+
+    properties:
+    - discard-after-x:
+        x: 5
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 14 * * *"
+
+    builders:
+    - shell: !include-raw: ../scripts/bugs-summary.sh
+
+    wrappers:
+    - timestamps
+    - credentials-binding:
+        - file:
+           credential-id: http_int_credential
+           variable: LOG_KEY

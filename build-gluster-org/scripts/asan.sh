@@ -30,4 +30,4 @@ $SRC/configure --prefix=$P/install --with-mountutildir=$P/install/sbin \
 make install -j ${nproc}
 cd $SRC;
 export ASAN_OPTIONS=log_path=/var/log/glusterfs/asan-output.log
-sudo -E bash /opt/qa/regression.sh -c
+sudo -E bash /opt/qa/regression.sh

@@ -6,6 +6,13 @@ mkdir $RESULT
 ./autogen.sh
 ./configure --disable-bd-xlator --enable-debug --enable-gnfs --silent
 
+# create and activate virtual env
+virtualenv --system-site-packages env
+. env/bin/activate
+
+#install flake8 and pylint
+pip install -I flake8 pylint
+
 # run flake8
 flake8 . >"$RESULT/flake8-check.txt"
 FLAKE_COUNT="$(wc -l < '$RESULT/flake8-check.txt')"

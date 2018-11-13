@@ -1,6 +1,6 @@
 - job:
     name: python-lint
-    node: smoke7
+    node: fedora
     description: python validation of code using pylint and flake8
     project-type: freestyle
     concurrent: true

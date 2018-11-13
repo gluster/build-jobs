@@ -7,7 +7,7 @@ mkdir $RESULT
 ./configure --disable-bd-xlator --enable-debug --enable-gnfs --silent
 
 # create and activate virtual env
-virtualenv --system-site-packages env
+python3 -m venv env
 . env/bin/activate
 
 #install flake8 and pylint

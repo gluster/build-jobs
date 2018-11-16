@@ -51,7 +51,7 @@
     publishers:
     - archive:
         allow-empty: true
-        artifacts: "./python-lint/*"
+        artifacts: "python-lint/*"
         default-excludes: true
         fingerprint: false
         only-if-success: false

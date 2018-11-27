@@ -55,3 +55,7 @@
            - file:
                credential-id: http_int_credential
                variable: LOG_KEY
+    - timeout:
+        timeout: 120
+        abort: true
+        type: absolute

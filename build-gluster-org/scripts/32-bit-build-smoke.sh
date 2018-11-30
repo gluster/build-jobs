@@ -7,4 +7,6 @@ sudo mock -r fedora-28-i386 --config-opts=dnf_warning=False --copyin $WORKSPACE 
 sudo mock -r fedora-28-i386 --config-opts=dnf_warning=False --chroot "cd /src && ./autogen.sh"
 sudo mock -r fedora-28-i386 --config-opts=dnf_warning=False --chroot "cd /src && ./configure --enable-gnfs --enable-debug"
 sudo mock -r fedora-28-i386 --config-opts=dnf_warning=False --chroot "cd src && make install CFLAGS='-Wall -Werror' -j ${nproc}"
+ret=$?
 sudo mock -r fedora-28-i386 --config-opts=dnf_warning=False --clean
+exit $ret

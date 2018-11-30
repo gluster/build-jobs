@@ -1,0 +1,52 @@
+- job:
+    name: 32-bit-build-smoke
+    node: smoke7
+    description: smoke job for 32 bit build
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - glusterfs
+
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
+    triggers:
+    - gerrit:
+        trigger-on:
+          - patchset-created-event:
+              exclude-drafts: false
+              exclude-trivial-rebase: false
+              exclude-no-code-change: false
+          - draft-published-event
+          - comment-added-contains-event:
+              comment-contains-value: "recheck smoke"
+        server-name: review.gluster.org_for-smoke-jobs
+        skip-vote:
+          failed: true
+          unstable: true
+          notbuilt: true
+        projects:
+          - project-compare-type: 'PLAIN'
+            project-pattern: 'glusterfs'
+            branches:
+              - branch-compare-type: 'ANT'
+                branch-pattern: '**'
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
+    builders:
+    - shell: !include-raw: ../scripts/32-bit-build-smoke.sh
+
+    wrappers:
+    - timestamps

@@ -4,6 +4,7 @@
     description: Threaded data corruption detector job for glusterfs
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     scm:
     - glusterfs

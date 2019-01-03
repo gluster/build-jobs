@@ -4,7 +4,6 @@
     description: Trigger a coverity run once a week
     project-type: freestyle
     concurrent: true
-    disabled: true
 
     scm:
     - git:

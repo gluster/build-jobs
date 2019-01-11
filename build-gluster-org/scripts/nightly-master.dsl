@@ -11,12 +11,6 @@ pipeline {
         }
         stage('Tests') {
             parallel {
-                stage('distributed-regression') {
-                    steps {
-                        build job: 'distributed-regression', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running distributed centos7 regression'
-                    }
-                }
                 stage('regression') {
                     steps {
                         build job: 'regression-test-burn-in', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true

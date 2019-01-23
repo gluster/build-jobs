@@ -26,5 +26,5 @@
     - timestamps
     - credentials-binding:
         - file:
-           credential-id: http_int_credential
+           credential-id: 0b53bb70-545a-445f-9664-228d9cc0e6e3
            variable: LOG_KEY

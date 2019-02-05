@@ -46,8 +46,12 @@
     - shell: !include-raw: ../scripts/jenkins-update.sh
 
     wrappers:
-     - timestamps
-     - credentials-binding:
-         - file:
+    - timestamps
+    - credentials-binding:
+        - file:
             credential-id: jenkins_jobs.ini
             variable: JJB_CONFIG
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute

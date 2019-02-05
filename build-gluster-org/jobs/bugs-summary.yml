@@ -1,7 +1,7 @@
 - job:
     name: bugs-summary
     node: fedora
-    description: Generate bugs.gluster.org report 
+    description: Generate bugs.gluster.org report
     project-type: freestyle
     concurrent: true
 
@@ -28,3 +28,7 @@
         - file:
            credential-id: 0b53bb70-545a-445f-9664-228d9cc0e6e3
            variable: LOG_KEY
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute

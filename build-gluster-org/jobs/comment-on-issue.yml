@@ -46,4 +46,8 @@
     - shell: /opt/qa/github/handle_github.py --repo glusterfs -c
 
     wrappers:
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - timestamps

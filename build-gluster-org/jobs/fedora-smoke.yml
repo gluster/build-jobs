@@ -40,4 +40,8 @@
     - shell: !include-raw: ../scripts/fedora-smoke.sh
 
     wrappers:
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - timestamps

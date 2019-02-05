@@ -54,6 +54,10 @@
 
     wrappers:
     - timestamps
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - credentials-binding:
       - file:
           credential-id: jenkins_jobs.ini

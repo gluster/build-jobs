@@ -59,6 +59,10 @@
     - shell: !include-raw: ../scripts/release.sh
 
     wrappers:
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - timestamps
     - credentials-binding:
       - file:

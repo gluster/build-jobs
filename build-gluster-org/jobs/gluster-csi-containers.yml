@@ -30,8 +30,12 @@
         name: PUSH_TO_HUB
 
     wrappers:
-     - timestamps
-     - credentials-binding:
-         - file:
-            credential-id: aa47a72d-743b-4958-a14a-cb597bb22d92
-            variable: AUTH_JSON
+    - timestamps
+    - credentials-binding:
+      - file:
+          credential-id: aa47a72d-743b-4958-a14a-cb597bb22d92
+          variable: AUTH_JSON
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute

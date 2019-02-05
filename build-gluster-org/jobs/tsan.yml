@@ -38,5 +38,9 @@
         name: GERRIT_BRANCH
 
     wrappers:
-     - timestamps
+    - timeout:
+        timeout: 450
+        abort: true
+        type: absolute
+    - timestamps
 

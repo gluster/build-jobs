@@ -46,4 +46,8 @@
     - shell: /opt/qa/compare-bug-version-and-git-branch.sh
 
     wrappers:
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - timestamps

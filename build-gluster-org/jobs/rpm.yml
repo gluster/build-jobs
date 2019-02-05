@@ -60,4 +60,8 @@
         - shell: !include-raw: ../scripts/glusterfs-rpms.sh
 
     wrappers:
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
     - timestamps

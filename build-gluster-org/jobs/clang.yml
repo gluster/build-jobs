@@ -24,7 +24,7 @@
         - matches:
             - log-text: Building remotely
           script: |
-              sudo mock -r fedora-27-x86_64 --config-opts=dnf_warning=False --clean
+              sudo mock -r $MOCK_CHROOT --config-opts=dnf_warning=False --clean
               sudo chown -R jenkins:jenkins clangScanBuildReports
 
     parameters:
@@ -36,6 +36,10 @@
         default: master
         description: 'Name of the branch you want to build from. We usually build from master'
         name: GERRIT_BRANCH
+    - string:
+        default: fedora-27-x86_64
+        description: 'Name of the mock chroot used to build'
+        name: MOCK_CHROOT
 
     wrappers:
     - timestamps

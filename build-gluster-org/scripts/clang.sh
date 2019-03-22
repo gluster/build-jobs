@@ -1,5 +1,4 @@
 #!/bin/bash
-MOCK_CHROOT=fedora-27-x86_64
 MOCK="sudo mock -r $MOCK_CHROOT --config-opts=dnf_warning=False"
 
 $MOCK --init

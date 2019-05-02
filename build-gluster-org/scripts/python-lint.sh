@@ -4,7 +4,7 @@ RESULT="$WORKSPACE/python-lint"
 mkdir $RESULT
 
 ./autogen.sh
-./configure --disable-bd-xlator --enable-debug --enable-gnfs --silent
+./configure --enable-debug --enable-gnfs --silent
 
 # create and activate virtual env
 python3 -m venv env

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ./autogen.sh
-./configure --disable-bd-xlator --enable-debug --enable-gnfs --silent
+./configure --enable-debug --enable-gnfs --silent
 
 find . -path ./.git -prune -o -path ./tests -prune -o -exec file {} \; \
   | grep "shell script" \

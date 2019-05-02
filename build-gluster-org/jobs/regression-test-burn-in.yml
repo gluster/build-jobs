@@ -10,6 +10,7 @@
         branches:
         - origin/master
         url: git://review.gluster.org/glusterfs.git
+        depth: 1
         wipe-workspace: false
 
     properties:

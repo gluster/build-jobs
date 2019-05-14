@@ -27,7 +27,7 @@ chmod 755 $JDIRS
 set -e
 ./autogen.sh || exit 1
 P=/build
-./configure {,GF_FUSE_,GF_GLUSTERFS_,GF_}CFLAGS="-g3 -O0 -lgcov --coverage -fprofile-arcs -ftest-coverage" --prefix=$P/install --with-mountutildir=$P/install/sbin --with-initdir=$P/install/etc --localstatedir=/var  --enable-debug --enable-gnfs --silent  || exit 1
+./configure {,GF_FUSE_,GF_GLUSTERFS_,GF_}CFLAGS="-g3 -O0 -lgcov --coverage -fprofile-arcs -ftest-coverage" --prefix=$P/install --with-mountutildir=$P/install/sbin --with-initdir=$P/install/etc --localstatedir=/var  --enable-debug --disable-ibverbs --enable-gnfs --silent  || exit 1
 make install
 
 echo "Initializing the line coverage"

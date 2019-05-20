@@ -13,32 +13,22 @@ virtualenv --system-site-packages env
 ssh-keygen -f "${WORKSPACE}"/key -t rsa -b 4096
 
 # Install dependencies
-pip install -I pyrax ansible
+pip install -I boto boto3 ansible
 
 #create the server machines
-ansible-playbook /opt/qa/distributed-tests/create-vm.yml -e COUNT=${MACHINES_COUNT} -e  NAME=${JOB_NAME}-${BUILD_ID} -e PATH=${WORKSPACE}
-
-for retry in $(seq 1 $MAX_ATTEMPTS)
-do
-  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --skip-tags 'copy_logs' -e PATH=${WORKSPACE}
-  ret=$?
-  if [ $ret -eq 0 ]; then
-    break
-  fi
-  echo 'Attempting to run again...'
-done
+ansible-playbook /opt/qa/distributed-tests/distributed-setup.yml -e COUNT=${MACHINES_COUNT} -e  NAME=${JOB_NAME}-${BUILD_ID} -e PATH=${WORKSPACE} -u centos --skip-tags 'copy_logs,terminate'
 
 # run the script of distributed-test
 /opt/qa/distributed-tests/run-distributed-test.py --n "${MACHINES_COUNT}"
 ret=$?
 
 #copy the logs from machines before deleting
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/setup.yml -u root --tags 'copy_logs' --private-key key
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/distributed-setup.yml -u centos --tags 'copy_logs' --private-key key
 
 #delete the server machines
 for retry in $(seq 1 $MAX_ATTEMPTS)
 do
-  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/delete-vm.yml
+  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts /opt/qa/distributed-tests/distributed-setup.yml -u centos --tags 'terminate'
   exit_code=$?
   if [ $exit_code -eq 0 ]; then
     break

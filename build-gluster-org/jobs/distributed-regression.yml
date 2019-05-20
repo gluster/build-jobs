@@ -33,9 +33,9 @@
           description: Number of machines to launch
           name: MACHINES_COUNT
       - string:
-          default: 'ORD'
+          default: 'us-east-2'
           description: Rackspace region to launch instances
-          name: RAX_REGION
+          name: AWS_REGION
 
     builders:
       - shell: !include-raw: ../scripts/distributed-regression.sh
@@ -49,10 +49,10 @@
     wrappers:
     - timestamps
     - credentials-binding:
-           - username-password-separated:
-               credential-id: e423d7f9-edaf-45ea-aa8f-9c3f8e6563f1
-               username: RAX_USERNAME
-               password: RAX_API_KEY
+           - amazon-web-services:
+               credential-id: bb013fcf-cda4-41b6-9c4a-e82c45681157
+               access-key: AWS_ACCESS_KEY
+               secret-key: AWS_SECRET_KEY
            - file:
                credential-id: http_int_credential
                variable: LOG_KEY

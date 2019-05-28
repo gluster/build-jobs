@@ -16,7 +16,7 @@ ssh-keygen -f "${WORKSPACE}"/key -t rsa -b 4096
 pip install -I boto boto3 ansible
 
 #create the server machines
-ansible-playbook /opt/qa/distributed-tests/distributed-setup.yml -e COUNT=${MACHINES_COUNT} -e  NAME=${JOB_NAME}-${BUILD_ID} -e PATH=${WORKSPACE} -u centos --skip-tags 'copy_logs,terminate'
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook /opt/qa/distributed-tests/distributed-setup.yml -e COUNT=${MACHINES_COUNT} -e  NAME=${JOB_NAME}-${BUILD_ID} -e PATH=${WORKSPACE} -u centos --skip-tags 'copy_logs,terminate' --private-key key
 
 # run the script of distributed-test
 /opt/qa/distributed-tests/run-distributed-test.py --n "${MACHINES_COUNT}"

@@ -34,7 +34,7 @@
           name: MACHINES_COUNT
       - string:
           default: 'us-east-2'
-          description: Rackspace region to launch instances
+          description: AWS region to launch instances
           name: AWS_REGION
 
     builders:

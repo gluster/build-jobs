@@ -6,7 +6,7 @@ $MOCK --install rpcgen libtirpc-devel langpacks-en glibc-langpack-en automake au
 $MOCK --copyin $WORKSPACE /src
 $MOCK --chroot "cd /src && ./autogen.sh"
 $MOCK --chroot "cd /src && ./configure CC=clang --enable-gnfs --enable-debug"
-$MOCK --chroot "cd /src && scan-build -o /src/clangScanBuildReports -disable-checker deadcode.DeadStores -v -v --use-cc clang --use-analyzer=/usr/bin/clang make"
+$MOCK --chroot "cd /src && scan-build -o /src/clangScanBuildReports -disable-checker deadcode.DeadStores -v -v -analyze-headers --use-cc clang --use-analyzer=/usr/bin/clang make"
 $MOCK --copyout /src/clangScanBuildReports $WORKSPACE/clangScanBuildReports
 $MOCK --clean
 sudo chown -R jenkins:jenkins clangScanBuildReports

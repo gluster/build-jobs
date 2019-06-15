@@ -19,7 +19,7 @@
     publishers:
     - scan-build:
         mark-unstable: true
-        threshold: 140
+        threshold: 65
     - post-tasks:
         - matches:
             - log-text: Building remotely

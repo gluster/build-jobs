@@ -37,3 +37,7 @@
         timeout: 450
         abort: true
         type: absolute
+    - credentials-binding:
+        - file:
+           credential-id: 4db32c5c-890f-4f06-a1d8-7c9a128884e8
+           variable: LOG_KEY    

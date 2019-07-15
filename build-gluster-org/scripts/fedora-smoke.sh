@@ -7,10 +7,10 @@ nproc=$(getconf _NPROCESSORS_ONLN)
 
 ./autogen.sh;
 P=/build;
-rm -rf $P/scratch;
-mkdir -p $P/scratch;
+sudo rm -rf $P/scratch;
+sudo mkdir -p $P/scratch;
 cd $P/scratch;
-rm -rf $P/install;
+sudo rm -rf $P/install;
 $SRC/configure --prefix=$P/install --with-mountutildir=$P/install/sbin \
                --with-initdir=$P/install/etc --localstatedir=/var \
                --enable-debug --enable-gnfs --silent

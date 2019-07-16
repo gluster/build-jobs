@@ -37,7 +37,7 @@ lcov -i -c -d . -o coverage/glusterfs-lcov.info
 set +e
 
 echo "Running the regression test"
-sudo -E bash /opt/qa/regression.sh -c -t 300
+sudo -E bash /opt/qa/regression.sh -c -b -k -t 300
 REGRESSION_STATUS=$?
 mv glusterfs-logs.tgz regression-glusterfs-logs.tgz
 
@@ -54,8 +54,11 @@ sed -i.bak '/stdout/d' coverage/glusterfs-lcov.info
 genhtml -o coverage/ coverage/glusterfs-lcov.info
 echo "The HTML report is generated as index.html file"
 
-if [ $REGRESSION_STATUS -ne 0 ] || [ $SMOKE_STATUS -ne 0 ];
-    then
-    echo "Smoke test or regression tests failed"
+if [ $REGRESSION_STATUS -ne 0 ] ; then
+    echo "Regression tests failed (Skip failure)"
+fi
+
+if [ $SMOKE_STATUS -ne 0 ]; then
+    echo "Smoke test failed"
     exit 1
 fi

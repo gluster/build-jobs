@@ -1,0 +1,19 @@
+- job:
+    name: nightly-release-7
+    description: Run the pipeline for release-7 branch
+    project-type: pipeline
+    dsl: !include-raw: ../scripts/nightly-release.dsl
+
+
+    triggers:
+    - timed: "H 18 * * *"
+
+    parameters:
+    - string:
+        default: refs/heads/release-7
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: release-7
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH

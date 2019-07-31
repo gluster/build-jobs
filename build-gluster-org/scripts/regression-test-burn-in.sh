@@ -12,6 +12,8 @@ echo
 echo "$MY_ENV"
 echo
 
+# use "7 and not "7" since RHEL use 7.6 while Centos use 7
+grep -q 'VERSION_ID="7' /etc/os-release && export PYTHON=/usr/bin/python2.7
 
 # Remove any gluster daemon leftovers from aborted runs
 sudo -E bash /opt/qa/cleanup.sh

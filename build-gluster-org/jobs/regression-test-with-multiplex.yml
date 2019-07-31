@@ -8,7 +8,8 @@
     scm:
     - git:
         branches:
-        - origin/master
+        - $GERRIT_BRANCH
+        refspec: $GERRIT_REFSPEC
         url: git://review.gluster.org/glusterfs.git
         depth: 1
         wipe-workspace: false
@@ -31,6 +32,16 @@
     builders:
     - shell: !include-raw: ../scripts/regression-test-with-multiplex.sh
 
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
     wrappers:
     - timestamps
     - timeout:
@@ -40,4 +51,4 @@
     - credentials-binding:
         - file:
            credential-id: 4db32c5c-890f-4f06-a1d8-7c9a128884e8
-           variable: LOG_KEY    
+           variable: LOG_KEY

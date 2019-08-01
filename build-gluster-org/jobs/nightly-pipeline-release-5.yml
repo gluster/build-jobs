@@ -1,5 +1,6 @@
 - job:
     name: nightly-release-5
+    disabled: true
     description: Run the pipeline for release-5 branch
     project-type: pipeline
     dsl: !include-raw: ../scripts/nightly-release-5.dsl

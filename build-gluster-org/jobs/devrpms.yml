@@ -3,7 +3,7 @@
     version:
       - fedora:
           build_flag: fedora-28-x86_64
-          node_name: fedora
+          node_name: fedora30
       - el6:
           build_flag: epel-6-x86_64
           node_name: rpm7

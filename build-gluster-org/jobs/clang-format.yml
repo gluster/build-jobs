@@ -1,6 +1,6 @@
 - job:
     name: clang-format
-    node: fedora
+    node: fedora30
     description: Pre-commit clang-format check
     project-type: freestyle
     concurrent: true

@@ -6,10 +6,10 @@
           node_name: rpm7
       - fedora:
           build_flag: fedora-28-x86_64
-          node_name: fedora
+          node_name: fedora30
       - rawhide:
           build_flag: fedora-rawhide-x86_64
-          node_name: fedora
+          node_name: fedora30
     jobs:
       - '{name}-{buildversion}'
 

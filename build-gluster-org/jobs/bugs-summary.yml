@@ -1,6 +1,6 @@
 - job:
     name: bugs-summary
-    node: fedora
+    node: fedora30
     description: Generate bugs.gluster.org report
     project-type: freestyle
     concurrent: true

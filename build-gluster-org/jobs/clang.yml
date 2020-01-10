@@ -1,6 +1,6 @@
 - job:
     name: clang-scan
-    node: fedora
+    node: fedora30
     description: Run the clang scan-build on gluster code
     project-type: freestyle
     concurrent: true

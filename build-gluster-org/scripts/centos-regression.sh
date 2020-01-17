@@ -117,6 +117,7 @@ else
     V="-1"
     VERDICT="FAILED"
 fi
+echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
 # Update Gerrit with the success/failure status
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true

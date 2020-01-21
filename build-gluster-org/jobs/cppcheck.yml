@@ -1,6 +1,6 @@
 - job:
     name: cppcheck
-    node: smoke7
+    node: smoke8
     description: Run cppcheck analysis on gluster code
     project-type: freestyle
     concurrent: true

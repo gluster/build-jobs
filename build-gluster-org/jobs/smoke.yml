@@ -1,6 +1,16 @@
-- job:
-    name: smoke
-    node: smoke7
+- project:
+    name: 'smoke'
+    nodeversion:
+      - centos7:
+          node_name: centos7
+      - centos8:
+          node_name: centos8
+    jobs:
+      - '{name}-{nodeversion}'
+
+- job-template:
+    name: '{name}-{nodeversion}'
+    node: '{node_name}'
     description: Pre-commit Smoke test
     project-type: freestyle
     concurrent: true
@@ -57,4 +67,3 @@
         - file:
            credential-id: http_int_credential
            variable: LOG_KEY
-

@@ -1,6 +1,6 @@
 - job:
     name: shellcheck
-    node: smoke7
+    node: fedora30
     description: shell script validation using ShellCheck tool
     project-type: freestyle
     concurrent: true

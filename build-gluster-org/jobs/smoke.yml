@@ -4,7 +4,7 @@
       - centos7:
           node_name: centos7
       - centos8:
-          node_name: centos8
+          node_name: smoke8
     jobs:
       - '{name}-{nodeversion}'
 

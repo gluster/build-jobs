@@ -8,7 +8,7 @@ nproc=$(getconf _NPROCESSORS_ONLN)
 ./autogen.sh;
 P=/build;
 sudo rm -rf $P/scratch;
-sudo mkdir -p $P/scratch;
+mkdir -p $P/scratch;
 cd $P/scratch;
 sudo rm -rf $P/install;
 $SRC/configure --prefix=$P/install --with-mountutildir=$P/install/sbin \

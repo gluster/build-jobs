@@ -2,7 +2,7 @@
     name: 'smoke'
     nodeversion:
       - centos7:
-          node_name: centos7
+          node_name: smoke7
       - centos8:
           node_name: smoke8
     jobs:

@@ -13,4 +13,6 @@ $MOCK --copyout /src/build/ $WORKSPACE/build
 $MOCK --clean
 
 sudo chown -R jenkins:jenkins build
-scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "$LOG_KEY" -r build/. _bits-gluster@http.int.rht.gluster.org:/var/www/glusterfs-planet
+if [ "$GIT_BRANCH" == 'origin/master' ]; then
+    scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i "$LOG_KEY" -r build/. _bits-gluster@http.int.rht.gluster.org:/var/www/glusterfs-planet
+fi

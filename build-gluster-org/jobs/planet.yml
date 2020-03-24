@@ -18,6 +18,7 @@
 
     triggers:
     - timed: "H 14 * * *"
+    - github
 
     builders:
     - shell: !include-raw: ../scripts/planet.sh

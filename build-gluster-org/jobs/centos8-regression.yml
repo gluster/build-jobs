@@ -1,0 +1,58 @@
+- job:
+    name: centos8-regression
+    node: centos8-testing
+    description: Our production regression test on centos8.  Triggerered for once a week.
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        branches:
+        - $GERRIT_BRANCH
+        refspec: $GERRIT_REFSPEC
+        choosing-strategy: gerrit
+        url: git://review.gluster.org/glusterfs.git
+        wipe-workspace: false
+
+    properties:
+    - discard-after-x:
+        x: 90
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 14 * * 0"
+
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: !include-raw: ../scripts/regression-abort.sh
+    - gluster-logs
+
+    parameters:
+    - string:
+        default: refs/heads/master
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: master
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH
+
+    builders:
+    - shell: !include-raw: ../scripts/regression-test-burn-in.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 450
+        abort: true
+        type: absolute
+    - credentials-binding:
+        - file:
+           credential-id: 4db32c5c-890f-4f06-a1d8-7c9a128884e8
+           variable: LOG_KEY

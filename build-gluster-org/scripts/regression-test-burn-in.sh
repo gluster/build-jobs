@@ -61,6 +61,8 @@ echo
 sudo -E bash /opt/qa/regression.sh -c
 
 RET=$?
+echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
+ssh -o "StrictHostKeyChecking=no" build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression="$V"  $GIT_COMMIT
 exit $RET

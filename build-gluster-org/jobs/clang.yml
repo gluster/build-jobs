@@ -37,7 +37,7 @@
         description: 'Name of the branch you want to build from. We usually build from master'
         name: GERRIT_BRANCH
     - string:
-        default: fedora-29-x86_64
+        default: fedora-30-x86_64
         description: 'Name of the mock chroot used to build'
         name: MOCK_CHROOT
 

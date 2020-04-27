@@ -20,7 +20,7 @@
     - one-build-per-node
 
     triggers:
-    - timed: "H 14 */2 * 0"
+    - timed: "H 14 */2 * *"
 
 
     publishers:

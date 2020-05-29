@@ -1,53 +1,43 @@
 - job:
-    name: build-job
+    name: test-build-job
     node: smoke8
     description: Pre-commit tests for build-jobs
     project-type: freestyle
 
     scm:
     - git:
+        url: https://github.com/gluster/build-jobs.git
         branches:
-        - $GERRIT_BRANCH
-        refspec: $GERRIT_REFSPEC
-        choosing-strategy: gerrit
-        url: git://review.gluster.org/build-jobs.git
+            - ${sha1}
+        refspec: +refs/pull/*:refs/remotes/origin/pr/*
         wipe-workspace: true
 
-    properties:
-    - discard-after-x:
-        x: 30
-    - one-build-per-node
+
+     properties:
+     - discard-after-x:
+         x: 30
+     - one-build-per-node
 
     triggers:
-    - gerrit:
-        trigger-on:
-          - patchset-created-event:
-              exclude-drafts: false
-              exclude-trivial-rebase: false
-              exclude-no-code-change: false
-          - draft-published-event
-          - comment-added-contains-event:
-              comment-contains-value: "recheck"
-        override-votes: true
-        gerrit-build-successful-verified-value: 1
-        gerrit-build-failed-verified-value: -1
-        server-name: review.gluster.org
-        projects:
-          - project-compare-type: 'PLAIN'
-            project-pattern: 'build-jobs'
-            branches:
-              - branch-compare-type: 'ANT'
-                branch-pattern: '**'
+    - github-pull-request:
+        admin-list:
+          - deepshikhaaa
+          - mscherer
+        org-list:
+          - gluster
+        github-hooks: true
+        trigger-phrase: 'recheck'
+        skip-build-phrase: 'no tests'
+        permit-all: true
+        status-context: "Testing: for jenkins jobs definitions"
+        started-status: "Running: tox"
+        success-status: "OK - nice work"
+        failure-status: "FAIL - please fix for merge"
 
     parameters:
     - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
-    - string:
-        default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+        name: sha1
+        description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
     - shell: !include-raw: ../scripts/build-jobs.sh

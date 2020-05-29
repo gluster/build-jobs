@@ -17,6 +17,8 @@
      - discard-after-x:
          x: 30
      - one-build-per-node
+     - github:
+          url: https://github.com/gluster/build-jobs
 
     triggers:
     - github-pull-request:

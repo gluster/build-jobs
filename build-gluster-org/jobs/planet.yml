@@ -15,10 +15,26 @@
     - discard-after-x:
         x: 5
     - one-build-per-node
+    - github:
+        url: https://github.com/gluster/planet-gluster
 
     triggers:
     - timed: "H 14 * * *"
     - github
+    - github-pull-request:
+        admin-list:
+          - deepshikhaaa
+          - mscherer
+        org-list:
+          - gluster
+        github-hooks: true
+        trigger-phrase: 'recheck'
+        skip-build-phrase: 'no tests'
+        permit-all: true
+        status-context: "Testing the PR"
+        started-status: "Building the planet.gluster.org"
+        success-status: "OK - nice work"
+        failure-status: "FAIL - please fix for merge"
 
     builders:
     - shell: !include-raw: ../scripts/planet.sh

@@ -8,17 +8,17 @@
     - git:
         url: https://github.com/gluster/build-jobs.git
         branches:
-            - ${sha1}
+          - ${sha1}
         refspec: +refs/pull/*:refs/remotes/origin/pr/*
         wipe-workspace: true
 
 
-     properties:
-     - discard-after-x:
-         x: 30
-     - one-build-per-node
-     - github:
-         url: https://github.com/gluster/build-jobs
+    properties:
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+    - github:
+        url: https://github.com/gluster/build-jobs
 
     triggers:
     - github-pull-request:
@@ -51,6 +51,6 @@
         abort: true
         type: absolute
     - credentials-binding:
-      - file:
-          credential-id: jenkins_jobs.ini
-          variable: JJB_CONFIG
+        - file:
+           credential-id: jenkins_jobs.ini
+           variable: JJB_CONFIG

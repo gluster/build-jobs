@@ -1,1 +1,1 @@
--e git+https://opendev.org/jjb/jenkins-job-builder.git@775499547496777752fb606ac7121b44c6b1f2d9#egg=jenkins_jobs
+-e git+https://opendev.org/jjb/jenkins-job-builder.git#egg=jenkins_jobs

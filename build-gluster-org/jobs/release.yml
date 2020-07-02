@@ -5,7 +5,7 @@
     project-type: freestyle
 
     scm:
-    - glusterfs
+    - glusterfs-default
 
     parameters:
     - string:

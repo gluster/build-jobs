@@ -6,7 +6,7 @@
     concurrent: true
 
     scm:
-    - glusterfs
+    - glusterfs-default
 
     properties:
     - discard-after-x:

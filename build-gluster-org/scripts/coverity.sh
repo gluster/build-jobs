@@ -22,7 +22,7 @@ cat <<EOF >> site.h
     #endif
 #endif
 EOF
-/opt/cov-analysis-linux64-2019.03/bin/cov-build --dir cov-int make -j ${nproc};
+/opt/coverity/bin/cov-build --dir cov-int make -j ${nproc};
 tar czvf glusterfs.tgz cov-int
 BUILD_DATE=$(date "+%Y-%m-%d")
 BUILD_VERSION=$(git log -n1 --pretty='%h')

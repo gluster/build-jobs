@@ -28,6 +28,9 @@ fi
 # Remove any gluster daemon leftovers from aborted runs
 sudo -E bash /opt/qa/cleanup.sh
 
+# protection for testing the script
+[ -z $WORKSPACE ] && echo '$WORKSPACE not set, aborting' && exit 1
+
 # Clean up the git repo
 sudo rm -rf $WORKSPACE/.gitignore $WORKSPACE/*
 sudo chown -R jenkins:jenkins $WORKSPACE

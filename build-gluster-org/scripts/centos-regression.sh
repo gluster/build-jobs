@@ -7,7 +7,7 @@ BURL=${BUILD_URL}consoleFull
 function vote_gerrit() {
     VOTE="$1"
     VERDICT="$2"
-    ssh -o "StrictHostKeyChecking=no" build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression="$V"  $GIT_COMMIT
+    ssh -o "StrictHostKeyChecking=no" -i "$GERRIT_BUILD_SSH_KEY" build@review.gluster.org gerrit review --message "'$BURL : $VERDICT'" --project=glusterfs --label CentOS-regression="$V"  $GIT_COMMIT
 }
 
 # Display all environment variables in the debugging log

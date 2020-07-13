@@ -5,7 +5,7 @@
         branches:
         - ${sha1}
         refspec: +refs/pull/*:refs/remotes/origin/pr/*
-        url: git://github.com:gluster/glusterfs.git
+        url: https://github.com:gluster/glusterfs.git
         depth: 1
         wipe-workspace: true
 
@@ -17,7 +17,7 @@
         branches:
         - $GERRIT_BRANCH
         refspec: $GERRIT_REFSPEC
-        url: git://github.com:gluster/glusterfs.git
+        url: https://github.com:gluster/glusterfs.git
         wipe-workspace: true       
 
 - property:

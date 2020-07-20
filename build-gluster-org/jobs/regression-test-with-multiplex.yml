@@ -19,9 +19,6 @@
     - one-build-per-node
 
     publishers:
-    - email:
-        recipients: maintainers@gluster.org
-        send-to-individuals: true
     - post-tasks:
         - matches:
             - log-text: Build was aborted

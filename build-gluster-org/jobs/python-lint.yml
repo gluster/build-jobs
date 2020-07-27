@@ -1,9 +1,10 @@
 - job:
     name: python-lint
-    node: fedora30
+    node: fedora32
     description: python validation of code using pylint and flake8
     project-type: freestyle
     concurrent: true
+    wipe-workspace: True
 
     scm:
     - glusterfs

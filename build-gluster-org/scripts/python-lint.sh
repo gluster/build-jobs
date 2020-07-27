@@ -6,19 +6,12 @@ mkdir $RESULT
 ./autogen.sh
 ./configure --enable-debug --enable-gnfs --silent
 
-# create and activate virtual env
-python3 -m venv env
-. env/bin/activate
-
-#install flake8 and pylint
-pip install -I flake8 pylint
-
 # run flake8
-find . -path './env' -prune -o -name '*.py' -print | xargs flake8 > "$RESULT/flake8-check.txt"
+find . -name '*.py' -print | xargs flake8 > "$RESULT/flake8-check.txt"
 FLAKE_COUNT="$(wc -l < $RESULT/flake8-check.txt)"
 
 #run pylint
-find . -path './env' -print -o -name '*.py' | xargs pylint --output-format=text > "$RESULT/pylint-check.txt"
+find . -name '*.py' -print | xargs pylint-3 --output-format=text > "$RESULT/pylint-check.txt"
 PYLINT_COUNT="$(egrep -wc 'R:|C:|W:|E:|F:' $RESULT/pylint-check.txt)"
 
 #fail build if there's any pylint and flake8 related issues

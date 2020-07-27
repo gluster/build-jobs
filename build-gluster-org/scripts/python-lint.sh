@@ -15,7 +15,7 @@ find . -name '*.py' -print | xargs pylint-3 --output-format=text > "$RESULT/pyli
 PYLINT_COUNT="$(egrep -wc 'R:|C:|W:|E:|F:' $RESULT/pylint-check.txt)"
 
 #fail build if there's any pylint and flake8 related issues
-if [[ "$FLAKE_COUNT" -gt 0  && "$PYLINT_COUNT" -gt 0 ]]; then
+if [[ "$FLAKE_COUNT" -gt 0  || "$PYLINT_COUNT" -gt 0 ]]; then
   echo ""
   echo "========================================================="
   echo "              Result of python linter"

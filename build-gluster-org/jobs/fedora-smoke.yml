@@ -1,7 +1,7 @@
 - job:
     name: fedora-smoke
-    node: fedora30
-    description: Compile the code with GCC8
+    node: fedora32
+    description: Compile the code with GCC10
     project-type: freestyle
     concurrent: true
 

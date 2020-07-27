@@ -12,7 +12,7 @@ FLAKE_COUNT="$(wc -l < $RESULT/flake8-check.txt)"
 
 #run pylint
 find . -name '*.py' -print | xargs pylint-3 --output-format=text > "$RESULT/pylint-check.txt"
-PYLINT_COUNT="$(egrep -wc 'R:|C:|W:|E:|F:' $RESULT/pylint-check.txt)"
+PYLINT_COUNT="$(egrep -wc '(R|C|W|E|F)[[:xdigit:]]+:' $RESULT/pylint-check.txt)"
 
 #fail build if there's any pylint and flake8 related issues
 if [[ "$FLAKE_COUNT" -gt 0  || "$PYLINT_COUNT" -gt 0 ]]; then

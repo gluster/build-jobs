@@ -1,6 +1,6 @@
 - job:
     name: 32-bit-build-smoke
-    node: fedora30
+    node: fedora32
     description: smoke job for 32 bit build
     project-type: freestyle
     concurrent: true

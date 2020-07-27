@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess
 
 
 changed_files = subprocess.check_output(
     ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"]
-).split("\n")
+).decode('UTF-8').split("\n")
 list_of_files = []
 for file in changed_files:
     if file.startswith("contrib/"):

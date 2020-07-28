@@ -9,7 +9,9 @@
     - git:
         url: https://github.com/gluster/planet-gluster
         branches:
-        - master
+        - ${sha1}
+        refspec: +refs/pull/*:refs/remotes/origin/pr/*
+        wipe-workspace: true
 
     properties:
     - discard-after-x:
@@ -35,6 +37,12 @@
         started-status: "Building the planet.gluster.org"
         success-status: "OK - nice work"
         failure-status: "FAIL - please fix for merge"
+
+    parameters:
+    - string:
+        name: sha1
+        description: "A pull request ID, like 'origin/pr/72/head'. Default: refs/heads/master"
+        default: refs/heads/master
 
     builders:
     - shell: !include-raw: ../scripts/planet.sh

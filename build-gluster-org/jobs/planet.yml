@@ -1,6 +1,6 @@
 - job:
     name: planet
-    node: fedora30
+    node: fedora32
     description: Generate planet.gluster.org
     project-type: freestyle
     concurrent: true

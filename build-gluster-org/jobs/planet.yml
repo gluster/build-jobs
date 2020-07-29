@@ -1,6 +1,7 @@
 - job:
     name: planet
-    node: fedora32
+    # node need to be in the cage lan
+    node: fedora30
     description: Generate planet.gluster.org
     project-type: freestyle
     concurrent: true

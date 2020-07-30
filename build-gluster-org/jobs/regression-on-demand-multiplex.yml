@@ -6,34 +6,64 @@
     concurrent: true
 
     scm:
-    - git:
-        branches:
-        - $GERRIT_BRANCH
-        refspec: $GERRIT_REFSPEC
-        choosing-strategy: gerrit
-        url: git://review.gluster.org/glusterfs.git
-        depth: 1
-        wipe-workspace: false
+    - glusterfs
 
     properties:
+    - github:
+        url: https://github.com/gluster/glusterfs
     - discard-after-x:
         x: 30
     - one-build-per-node
 
     triggers:
-    - gerrit:
-        server-name: review.gluster.org
-        trigger-on:
-          - comment-added-contains-event:
-              comment-contains-value: "run brick-mux regression"
-        failure-message-file: gluster_regression.txt
+    - github-pull-request:
+        cancel-builds-on-update: true
+        allow-whitelist-orgs-as-admins: true
+        admin-list:
+          - deepshikhaaa
+          - mscherer
+          - csabahenk
+          - jdarcy
+          - itisravi
+          - aravindavk
+          - kalebskeithley
+          - nigelbabu
+          - nixpanic
+          - prashanthpai
+          - pranithk
+          - raghavendrabhat
+          - vbellur
+          - amarts
+          - raghavendrahg
+          - raghavendra-talur
+          - KritikaDhananjay
+          - thotz
+          - rafikc30
+          - humblec
+          - poornimag
+          - ShyamsundarR
+          - anoopcs9
+          - soumyakoduri
+          - spalai
+          - atinmu
+          - kotreshhr
+          - mchangir
+          - nbalacha
+          - mohit84
+          - sunnyku
+          - sanjurakonde
+        org-list:
+          - gluster
+        github-hooks: true
+        only-trigger-phrase: true
+        trigger-phrase: 'run brick-mux regression'
+        skip-build-phrase: 'no tests'
+        permit-all: true
+        status-context: "Testing: brick mux regression"
+        started-status: "Running: brick mux regression"
+        success-status: "OK - brick mux regression"
+        failure-status: "FAIL - please fix for merge"
 
-        projects:
-          - project-compare-type: 'PLAIN'
-            project-pattern: 'glusterfs'
-            branches:
-              - branch-compare-type: 'ANT'
-                branch-pattern: '**'
 
     publishers:
     - post-tasks:
@@ -44,13 +74,8 @@
 
     parameters:
     - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
-    - string:
-        default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+        name: sha1
+        description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
     - shell: !include-raw: ../scripts/regression-test-with-multiplex.sh

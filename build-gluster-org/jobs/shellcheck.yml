@@ -35,7 +35,7 @@
         failure-status: "FAIL - please fix for merge"
 
     parameters:
-     string:
+    - string:
         name: sha1
         description: "A pull request ID, like 'origin/pr/72/head'"
 

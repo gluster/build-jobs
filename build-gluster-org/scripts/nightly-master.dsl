@@ -1,3 +1,12 @@
+/*
+Variable to capture the result of each stage.
+NOTE: In case of addition of new stage(s) the changes has to be made to append the STATUS of those stage to STATUSDICT.
+*/
+
+def STATUSDICT = [:]
+def FAILED_STAGES = []
+def JOB_STATUS = ""
+
 pipeline {
     agent { label 'smoke7' }
 
@@ -13,32 +22,67 @@ pipeline {
             parallel {
                 stage('regression') {
                     steps {
-                        build job: 'regression-test-burn-in', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running centos7 regression'
+                        script {
+                            try{
+                                def buildReg = build job: 'regression-test-burn-in', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: false
+                                echo 'Running centos7 regression'
+                                STATUSDICT.put("${env.STAGE_NAME}", buildReg.getResult())
+                            } catch(err) {
+                                "Caught exception ignore: ${err}"
+                            }
+                        }
                     }
                 }
                 stage('regression-with-multiplex') {
                     steps {
-                        build job: 'regression-test-with-multiplex', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running centos7 regression with multiplex'
+                        script {
+                            try{
+                                def regWithMul = build job: 'regression-test-with-multiplex', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: false
+                                echo 'Running centos7 regression with multiplex'
+                                STATUSDICT.put("${env.STAGE_NAME}", regWithMul.getResult())
+                            } catch(err) {
+                                "Caught exception ignore: ${err}"
+                            }
+                        }
                     }
                 }
                 stage('clang-scan') {
                     steps {
-                        build job: 'clang-scan', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running clang scan'
+                        script {
+                            try{
+                                def clangScan = build job: 'clang-scan', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: false
+                                echo 'Running clang scan'
+                                STATUSDICT.put("${env.STAGE_NAME}", clangScan.getResult())
+                            } catch(err) {
+                                "Caught exception ignore: ${err}"
+                            }
+                        }
                     }
                 }
                 stage('cppcheck') {
                     steps {
-                        build job: 'cppcheck', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running cppcheck'
+                        script {
+                            try{
+                                def cppCheck = build job: 'cppcheck', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: false
+                                echo 'Running cppcheck'
+                                STATUSDICT.put("${env.STAGE_NAME}", cppCheck.getResult())
+                            } catch(err) {
+                                "Caught exception ignore: ${err}"
+                            }
+                        }
                     }
                 }
                 stage('line-coverage') {
                     steps {
-                        build job: 'line-coverage', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: true
-                        echo 'Running line coverage'
+                        script {
+                            try{
+                                def lineCov = build job: 'line-coverage', parameters: [string(name: 'GERRIT_REFSPEC', value: 'refs/heads/master'), string(name: 'GERRIT_BRANCH', value: 'master')], propagate: false
+                                echo 'Running line coverage'
+                                STATUSDICT.put("${env.STAGE_NAME}", lineCov.getResult())
+                            } catch(err) {
+                                "Caught exception ignore: ${err}"
+                            }
+                        }
                     }
                 }
             }
@@ -47,6 +91,34 @@ pipeline {
  post {
         always {
             deleteDir() /* clean up our workspace */
+        }
+
+        success {
+            //All the stages will pass as there's a try and catch block.
+            script {
+                STATUSDICT.each { key, val ->
+                    println "STAGE: $key = STATUS $val"
+                    if ("${val}" == "FAILURE") {
+                        FAILED_STAGES.add("${key}")
+                        JOB_STATUS="FAILED"
+                    }
+                }
+            }
+            script {
+                if ("${JOB_STATUS}" == "FAILED") {
+                    emailext (
+                        mimeType: 'text/html',
+                        subject: "The Job: '${env.JOB_NAME} - [${env.BUILD_NUMBER}] has failed at a stage(s)!'",
+                        to: "maintainers@gluster.org",
+                        body: """<p>FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed at the below Stages:</p><br><p>${FAILED_STAGES}</p><br>
+                        <p>Check console output at : <a href='${env.BUILD_URL}console'>${env.BUILD_URL}console</a></p>""",
+                        recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+                    )
+                    currentBuild.result = 'FAILURE'
+                } else {
+                    currentBuild.result = 'SUCCESS'
+                }
+            }
         }
     }
 }

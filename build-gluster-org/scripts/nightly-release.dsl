@@ -30,5 +30,23 @@ pipeline {
         always {
             deleteDir() /* clean up our workspace */
         }
+        success {
+            emailext (
+                mimeType: 'text/html',
+                subject: "The Job: '${env.JOB_NAME} - [${env.BUILD_NUMBER}] has passed!'",
+                to: "maintainers@gluster.org",
+                body: """<p>SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has passed.</p><br><p>Check console output at : <a href='${env.BUILD_URL}console'>${env.BUILD_URL}console</a></p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+            )
+        }
+        failure {
+            emailext (
+                mimeType: 'text/html',
+                subject: "The Job: '${env.JOB_NAME} - [${env.BUILD_NUMBER}] has failed!'",
+                to: "maintainers@gluster.org",
+                body: """<p>FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed.</p><br><p>Check console output at : <a href='${env.BUILD_URL}console'>${env.BUILD_URL}console</a></p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+            )
+        }
     }
 }

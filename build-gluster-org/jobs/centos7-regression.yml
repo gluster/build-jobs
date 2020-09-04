@@ -1,5 +1,5 @@
 - job:
-    name: centos7-regression
+    name: gh_centos7-regression
     node: centos7
     description: Our production regression test.  Triggerered for each Gerrit CR revision.
     project-type: freestyle
@@ -20,6 +20,8 @@
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
         admin-list:
+        # This list is extracted from the Github's gluster.org team "gluster-maintainers".
+        # There's no automation of syncing the list with github's team. We need to manually add the person.
           - deepshikhaaa
           - mscherer
           - csabahenk
@@ -52,17 +54,20 @@
           - mohit84
           - sunnyku
           - sanjurakonde
+          - xhernandez
         org-list:
           - gluster
         github-hooks: true
         only-trigger-phrase: true
-        trigger-phrase: 'recheck centos'
+        trigger-phrase: '/run regression'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: regression test suite"
         started-status: "Running: regression test suite"
         success-status: "OK - No regression"
         failure-status: "FAIL - please fix for merge"
+        comment-file: gluster_regression.txt
+
 
     publishers:
     - post-tasks:
@@ -74,6 +79,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

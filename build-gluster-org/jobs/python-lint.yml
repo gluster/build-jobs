@@ -1,5 +1,5 @@
 - job:
-    name: python-lint
+    name: gh_python-lint
     node: fedora30
     description: python validation of code using pylint and flake8
     project-type: freestyle
@@ -26,7 +26,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: python lint"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

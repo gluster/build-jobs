@@ -14,7 +14,7 @@
       - '{name}-{version}'
 
 - job-template:
-    name: '{name}-{version}'
+    name: 'gh_{name}-{version}'
     node: '{node_name}'
     description: Creates RPMs for developers and those who need to verify the patch
     project-type: freestyle
@@ -41,7 +41,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: devrpm-{version}"
@@ -52,6 +52,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     publishers:

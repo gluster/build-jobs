@@ -1,5 +1,5 @@
 - job:
-    name: 32-bit-build-smoke
+    name: gh-32-bit-build-smoke
     node: fedora30
     description: smoke job for 32 bit build
     project-type: freestyle
@@ -26,7 +26,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: 32-bit-build"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

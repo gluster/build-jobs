@@ -1,5 +1,5 @@
 - job:
-    name: comment-on-issue
+    name: gh_comment-on-issue
     node: bugzilla
     description: If a Github issue number is mentioned in a commit, comment on
       the issue
@@ -26,7 +26,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: comment on issue job"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

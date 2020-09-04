@@ -6,12 +6,7 @@
     concurrent: true
 
     scm:
-    - git:
-        branches:
-        - origin/master
-        url: git://review.gluster.org/glusterfs.git
-        depth: 1
-        wipe-workspace: true
+    - glusterfs
 
     properties:
     - discard-after-x:
@@ -23,6 +18,12 @@
 
     builders:
     - shell: !include-raw: ../scripts/coverity.sh
+
+    parameters:
+    - string:
+        name: sha1
+        default: master
+        description: "A pull request ID, like 'origin/pr/72/head'"
 
     wrappers:
     - timestamps

@@ -3,14 +3,6 @@
 MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
-
-function vote_gerrit() {
-    VOTE="$1"
-    VERDICT="$2"
-    OUTPUT=$(echo ; cat $3)
-    ssh -o "StrictHostKeyChecking=no" -i "$GERRIT_BUILD_SSH_KEY" build@review.gluster.org gerrit review --message "'$BURL : $VERDICT \n$OUTPUT'" --project=glusterfs --label CentOS-regression="$VOTE"  $GIT_COMMIT
-}
-
 # Display all environment variables in the debugging log
 echo "Start time $(date)"
 echo
@@ -72,7 +64,7 @@ if [[ "$SKIP" == true ]]; then
     echo "Patch only modifies ignored files. Skipping further tests"
     RET=0
     VERDICT="Skipped tests for change that only modifies ignored files"
-    vote_gerrit "+1" "$VERDICT"
+    echo $VERDICT > gluster_regression.txt
     exit $RET
 fi
 
@@ -86,7 +78,6 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
-    vote_gerrit "-1" "FAILED"
     exit $RET
 fi
 echo
@@ -117,17 +108,9 @@ else
 fi
 
 RET=$?
-if [ $RET = 0 ]; then
-    V="+1"
-    VERDICT="SUCCESS"
-else
-    V="-1"
-    VERDICT="FAILED"
-fi
+
 echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
 
-# Update Gerrit with the success/failure status
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
-vote_gerrit "$V" "$VERDICT" gluster_regression.txt
 exit $RET

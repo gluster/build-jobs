@@ -1,5 +1,5 @@
 - job:
-    name: shellcheck
+    name: gh_shellcheck
     node: fedora30
     description: shell script validation using ShellCheck tool
     project-type: freestyle
@@ -26,7 +26,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: shellcheck"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

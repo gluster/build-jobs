@@ -1,5 +1,5 @@
 - job:
-    name: python-compliance
+    name: gh_python-compliance
     node: fedora30
     description: Check for python3 compliance
     project-type: freestyle
@@ -19,7 +19,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: python compliance"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

@@ -1,5 +1,5 @@
 - job:
-    name: 'strfmt_errors'
+    name: 'gh_strfmt_errors'
     node: rpm7
     description: Check for strfmt errors in a 32-bit build run inside mock
     project-type: freestyle
@@ -26,7 +26,7 @@
           - gluster
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: 'recheck smoke'
+        trigger-phrase: '/recheck smoke'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: strfmt errors in a 32 build"
@@ -37,6 +37,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     publishers:

@@ -6,13 +6,7 @@
     concurrent: true
 
     scm:
-    - git:
-        branches:
-        - $GERRIT_BRANCH
-        refspec: $GERRIT_REFSPEC
-        choosing-strategy: gerrit
-        url: git://review.gluster.org/glusterfs.git
-        wipe-workspace: false
+    - glusterfs
 
     properties:
     - discard-after-x:
@@ -35,13 +29,9 @@
 
     parameters:
     - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
-    - string:
+        name: sha1
         default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+        description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
     - shell: !include-raw: ../scripts/regression-test-burn-in.sh

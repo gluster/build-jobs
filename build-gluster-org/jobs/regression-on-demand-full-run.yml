@@ -23,7 +23,6 @@
         # This list is extracted from the Github's gluster.org team "gluster-maintainers".
         # There's no automation of syncing the list with github's team. We need to manually add the person.
           - deepshikhaaa
-          - cloudbehl
           - mscherer
           - csabahenk
           - jdarcy
@@ -56,13 +55,9 @@
           - sunnyku
           - sanjurakonde
           - xhernandez
-        org-list:
-          - gluster
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run full regression'
-        skip-build-phrase: 'no tests'
-        permit-all: true
         status-context: "Testing: full regression"
         started-status: "Running: full regression"
         success-status: "OK - full regression"

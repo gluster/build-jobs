@@ -6,7 +6,7 @@
       #- centos8:
        #   node_name: smoke8
     jobs:
-      - '{name}-{nodeversion}'
+      - 'gh_{name}-{nodeversion}'
 
 - job-template:
     name: 'gh_{name}-{nodeversion}'
@@ -29,15 +29,11 @@
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
-        admin-list:
-          - deepshikhaaa
-          - mscherer
         org-list:
           - gluster
         github-hooks: true
         only-trigger-phrase: false
         trigger-phrase: '/recheck smoke'
-        skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: smoke-{nodeversion}"
         started-status: "Running: smoke-{nodeversion}"

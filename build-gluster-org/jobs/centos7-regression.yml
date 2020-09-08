@@ -55,13 +55,9 @@
           - sunnyku
           - sanjurakonde
           - xhernandez
-        org-list:
-          - gluster
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run regression'
-        skip-build-phrase: 'no tests'
-        permit-all: true
         status-context: "Testing: regression test suite"
         started-status: "Running: regression test suite"
         success-status: "OK - No regression"

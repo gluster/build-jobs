@@ -53,13 +53,9 @@
           - sunnyku
           - sanjurakonde
           - xhernandez
-        org-list:
-          - gluster
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run brick-mux regression'
-        skip-build-phrase: 'no tests'
-        permit-all: true
         status-context: "Testing: brick mux regression"
         started-status: "Running: brick mux regression"
         success-status: "OK - brick mux regression"

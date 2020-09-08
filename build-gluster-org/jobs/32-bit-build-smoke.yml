@@ -1,5 +1,5 @@
 - job:
-    name: gh-32-bit-build-smoke
+    name: gh_32-bit-build-smoke
     node: fedora30
     description: smoke job for 32 bit build
     project-type: freestyle
@@ -19,15 +19,11 @@
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
-        admin-list:
-          - deepshikhaaa
-          - mscherer
         org-list:
           - gluster
         github-hooks: true
         only-trigger-phrase: false
         trigger-phrase: '/recheck smoke'
-        skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: 32-bit-build"
         started-status: "Running: 32-bit-build"

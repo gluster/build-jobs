@@ -18,15 +18,11 @@
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
-        admin-list:
-          - deepshikhaaa
-          - mscherer
         org-list:
           - gluster
         github-hooks: true
         only-trigger-phrase: false
         trigger-phrase: '/recheck smoke'
-        skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: freebsd smoke"
         started-status: "Running: freebsd smoke"

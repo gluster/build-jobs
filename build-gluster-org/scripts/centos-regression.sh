@@ -3,6 +3,13 @@
 MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
+function vote_gerrit() {
+    VOTE="$1"
+    VERDICT="$2"
+    OUTPUT=$(echo ; cat $3)
+    echo "$VOTE '$BURL : $VERDICT \n$OUTPUT'"
+}
+
 # Display all environment variables in the debugging log
 echo "Start time $(date)"
 echo
@@ -64,7 +71,7 @@ if [[ "$SKIP" == true ]]; then
     echo "Patch only modifies ignored files. Skipping further tests"
     RET=0
     VERDICT="Skipped tests for change that only modifies ignored files"
-    echo $VERDICT > gluster_regression.txt
+    vote_gerrit "+1" "$VERDICT"
     exit $RET
 fi
 
@@ -78,6 +85,7 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
+    vote_gerrit "-1" "FAILED"
     exit $RET
 fi
 echo
@@ -113,4 +121,5 @@ echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_
 
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
+vote_gerrit "$V" "$VERDICT" gluster_regression.txt
 exit $RET

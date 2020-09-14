@@ -79,7 +79,7 @@
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
-    - shell: !include-raw: ../scripts/centos-regression.sh
+    - shell: !include-raw: ../scripts/gh_centos-regression.sh
 
     wrappers:
     - timestamps

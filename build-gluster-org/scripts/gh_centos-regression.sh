@@ -3,12 +3,11 @@
 MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
-
 function vote_gerrit() {
     VOTE="$1"
     VERDICT="$2"
     OUTPUT=$(echo ; cat $3)
-    ssh -o "StrictHostKeyChecking=no" -i "$GERRIT_BUILD_SSH_KEY" build@review.gluster.org gerrit review --message "'$BURL : $VERDICT \n$OUTPUT'" --project=glusterfs --label CentOS-regression="$VOTE"  $GIT_COMMIT
+    echo "$VOTE '$BURL : $VERDICT \n$OUTPUT'"
 }
 
 # Display all environment variables in the debugging log
@@ -117,19 +116,11 @@ else
 fi
 
 RET=$?
-if [ $RET = 0 ]; then
-    V="+1"
-    VERDICT="SUCCESS"
-else
-    V="-1"
-    VERDICT="FAILED"
-fi
 
 if [ ${RET} -ne 0 ]; then
     echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${BUILD_ID}"
 fi
 
-# Update Gerrit with the success/failure status
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
 vote_gerrit "$V" "$VERDICT" gluster_regression.txt

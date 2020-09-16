@@ -12,8 +12,8 @@ r = requests.get('https://review.gluster.org/changes/'
                      'project:glusterfs')
 
 output = r.text
-    cleaned_output = '\n'.join(output.split('\n')[1:])
-    parsed_output = json.loads(cleaned_output)[1:]
+cleaned_output = '\n'.join(output.split('\n')[1:])
+parsed_output = json.loads(cleaned_output)[1:]
 
 
 for change in parsed_output:
@@ -21,7 +21,7 @@ for change in parsed_output:
                .format(change['id']))
         data = {
             "message": "This PR needs to be migrated to Github glusterfs repo"
-                       "More information about migration can be forund here:"
+                       "More information about migration can be found here:"
                        "https://docs.google.com/document/d/1SOPr56naVXXtkOmRu48xqKsefxM435UuN1Zoja2UhFE/edit#heading=h.z8c6k6xpfllw"
         }
         username = os.environ.get('HTTP_USERNAME')
@@ -35,5 +35,5 @@ for change in parsed_output:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
             print(response.text)
-            sys.exit(1)    
+            sys.exit(1)
 

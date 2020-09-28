@@ -22,15 +22,6 @@ echo
 # use "7 and not "7" since RHEL use 7.6 while Centos use 7
 grep -q 'VERSION_ID="7' /etc/os-release && export PYTHON=/usr/bin/python2.7
 
-# FB and experimental branch gets a pass
-if [ "$GERRIT_BRANCH" = "release-3.8-fb" ] ||  [ "$GERRIT_BRANCH" = 'experimental' ]; then
-    echo "Skipping regression run for ${GERRIT_BRANCH}"
-    RET=0
-    VERDICT="Skipped for ${GERRIT_BRANCH}"
-    vote_gerrit "+1" "$VERDICT"
-    exit $RET
-fi
-
 # Remove any gluster daemon leftovers from aborted runs
 sudo -E bash /opt/qa/cleanup.sh
 

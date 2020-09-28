@@ -1,0 +1,21 @@
+- job:
+    name: comment-on-open-PR
+    node: smoke7
+    description: Comment on open PR of glusterfs
+    project-type: freestyle
+    concurrent: true
+
+    builders:
+    - shell: !include-raw: ../scripts/comment-on-open-pr.py
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 30
+        abort: true
+        type: absolute
+    - credentials-binding:
+      - username-password-separated:
+          credential-id: 7e0c919e-4568-42ac-b28a-660a148609fe
+          username: HTTP_USERNAME
+          password: HTTP_PASSWORD

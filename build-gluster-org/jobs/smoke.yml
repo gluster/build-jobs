@@ -6,10 +6,10 @@
       #- centos8:
        #   node_name: smoke8
     jobs:
-      - 'gh_{name}-{nodeversion}'
+      - '{name}-{nodeversion}'
 
 - job-template:
-    name: 'gh_{name}-{nodeversion}'
+    name: '{name}-{nodeversion}'
     node: '{node_name}'
     description: Pre-commit Smoke test
     project-type: freestyle

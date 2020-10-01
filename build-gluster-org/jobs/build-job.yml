@@ -28,7 +28,7 @@
         org-list:
           - gluster
         github-hooks: true
-        trigger-phrase: 'recheck'
+        trigger-phrase: '/recheck'
         skip-build-phrase: 'no tests'
         permit-all: true
         status-context: "Testing: for jenkins jobs definitions"
@@ -39,6 +39,7 @@
     parameters:
     - string:
         name: sha1
+        default: master
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:

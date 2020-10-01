@@ -5,7 +5,7 @@
     project-type: freestyle
 
     scm:
-    - glusterfs
+    - glusterfs-default
 
     parameters:
     - string:
@@ -13,7 +13,7 @@
         description: Refspec to "git checkout" as the release code snapshot. Typically
           a git annotated tag like "v3.7.0". Specifying a branch name will use the
           current HEAD of that branch.
-        name: GERRIT_REFSPEC
+        name: GITHUB_REFSPEC
     - string:
         default: 3.10.0
         description: Version name to be assigned to the release.

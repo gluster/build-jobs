@@ -21,33 +21,20 @@
     concurrent: true
 
     properties:
+    - github:
+        url: https://github.com/gluster/glusterfs
     - discard-after-x:
         x: 30
     - one-build-per-node
 
     scm:
-    - glusterfs
+    - git:
+        url: https://github.com/gluster/glusterfs
+        branches:
+        - devel
 
     triggers:
-    - gerrit:
-        trigger-on:
-          - change-merged-event
-        projects:
-          - project-compare-type: 'PLAIN'
-            project-pattern: 'glusterfs'
-            branches:
-              - branch-compare-type: 'PLAIN'
-                branch-pattern: 'master'
-
-    parameters:
-    - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
-    - string:
-        default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+    - github
 
     publishers:
     - rpm

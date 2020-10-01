@@ -3,11 +3,22 @@
     scm:
     - git:
         branches:
-        - $GERRIT_BRANCH
-        refspec: $GERRIT_REFSPEC
-        choosing-strategy: gerrit
-        url: git://review.gluster.org/glusterfs.git
+        - ${sha1}
+        refspec: +refs/pull/*:refs/remotes/origin/pr/*
+        url: https://github.com/gluster/glusterfs.git
         depth: 1
+        wipe-workspace: true
+
+# keeping the variable names(GERRIT_BRANCH, GERRIT_REFSPEC) same for now
+- scm:
+    name: glusterfs-default
+    scm:
+    - git:
+        branches:
+        - $GITHUB_BRANCH
+        refspec: $GITHUB_REFSPEC
+        url: https://github.com/gluster/glusterfs.git
+        wipe-workspace: true       
 
 - property:
     name: discard-after-x

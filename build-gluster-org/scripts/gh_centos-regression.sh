@@ -1,7 +1,14 @@
 #!/bin/bash
 
-MY_ENV=`env | sort`
+MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
+
+function vote_gerrit() {
+    VOTE="$1"
+    VERDICT="$2"
+    OUTPUT=$(echo ; cat $3)
+    echo "$VOTE '$BURL : $VERDICT \n$OUTPUT'"
+}
 
 # Display all environment variables in the debugging log
 echo "Start time $(date)"
@@ -18,10 +25,13 @@ grep -q 'VERSION_ID="7' /etc/os-release && export PYTHON=/usr/bin/python2.7
 # Remove any gluster daemon leftovers from aborted runs
 sudo -E bash /opt/qa/cleanup.sh
 
+# protection for testing the script
+[ -z $WORKSPACE ] && echo '$WORKSPACE not set, aborting' && exit 1
+
 # Clean up the git repo
 sudo rm -rf $WORKSPACE/.gitignore $WORKSPACE/*
 sudo chown -R jenkins:jenkins $WORKSPACE
-cd $WORKSPACE
+cd $WORKSPACE || exit 1
 git reset --hard HEAD
 
 # Clean up other Gluster dirs
@@ -38,6 +48,24 @@ sudo mkdir -p $JDIRS
 sudo chown jenkins:jenkins $JDIRS
 chmod 755 $JDIRS
 
+# Skip tests for certain folders
+SKIP=true
+for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
+    /opt/qa/is-ignored-file.py $file
+    matched=$?
+    if [ $matched -eq 1 ]; then
+        SKIP=false
+        break
+    fi
+done
+if [[ "$SKIP" == true ]]; then
+    echo "Patch only modifies ignored files. Skipping further tests"
+    RET=0
+    VERDICT="Skipped tests for change that only modifies ignored files"
+    vote_gerrit "+1" "$VERDICT"
+    exit $RET
+fi
+
 # Build Gluster
 echo "Start time $(date)"
 echo
@@ -48,9 +76,22 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
+    vote_gerrit "-1" "FAILED"
     exit $RET
 fi
 echo
+
+TEST_ONLY=true
+declare -a TEST_FILES
+TEST_COUNT=0
+for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
+    if [[ $file =~ tests/.*\.t$ ]] ;then
+        TEST_FILES[$TEST_COUNT]="$file"
+        TEST_COUNT=$(( $TEST_COUNT + 1 ))
+    else
+        TEST_ONLY=false
+    fi
+done
 
 # Run the regression test
 echo "Start time $(date)"
@@ -58,10 +99,20 @@ echo
 echo "Run the regression test"
 echo "***********************"
 echo
-sudo -E bash /opt/qa/regression.sh -c
+if [[ "$TEST_ONLY" == true ]]; then
+    echo "This review only changes tests, running only the changed tests"
+    sudo -E bash /opt/qa/regression.sh ${TEST_FILES[*]}
+else
+    sudo -E bash /opt/qa/regression.sh
+fi
 
 RET=$?
-echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
+
+if [ ${RET} -ne 0 ]; then
+    echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${BUILD_ID}"
+fi
+
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
+vote_gerrit "$V" "$VERDICT" gluster_regression.txt
 exit $RET

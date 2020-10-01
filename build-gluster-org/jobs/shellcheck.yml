@@ -1,5 +1,5 @@
 - job:
-    name: shellcheck
+    name: gh_shellcheck
     node: fedora30
     description: shell script validation using ShellCheck tool
     project-type: freestyle
@@ -9,41 +9,32 @@
     - glusterfs
 
     properties:
+    - github:
+        url: https://github.com/gluster/glusterfs
     - discard-after-x:
         x: 30
     - one-build-per-node
 
     triggers:
-    - gerrit:
-        trigger-on:
-          - patchset-created-event:
-              exclude-drafts: false
-              exclude-trivial-rebase: false
-              exclude-no-code-change: false
-          - draft-published-event
-          - comment-added-contains-event:
-              comment-contains-value: "recheck smoke"
-        server-name: review.gluster.org_for-smoke-jobs
-        skip-vote:
-          failed: true
-          unstable: true
-          notbuilt: true
-        projects:
-          - project-compare-type: 'PLAIN'
-            project-pattern: 'glusterfs'
-            branches:
-              - branch-compare-type: 'ANT'
-                branch-pattern: '**'
+    - github-pull-request:
+        cancel-builds-on-update: true
+        allow-whitelist-orgs-as-admins: true
+        org-list:
+          - gluster
+        github-hooks: true
+        only-trigger-phrase: false
+        trigger-phrase: '/recheck smoke'
+        permit-all: true
+        status-context: "Testing: shellcheck"
+        started-status: "Running: shellcheck"
+        success-status: "OK - shellcheck"
+        failure-status: "FAIL - please fix for merge"
 
     parameters:
     - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
-    - string:
-        default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+        name: sha1
+        default: devel
+        description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
     - shell: !include-raw: ../scripts/shellcheck.sh

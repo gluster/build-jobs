@@ -124,7 +124,10 @@ else
     V="-1"
     VERDICT="FAILED"
 fi
-echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
+
+if [ ${RET} -ne 0 ]; then
+    echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${BUILD_ID}"
+fi
 
 # Update Gerrit with the success/failure status
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true

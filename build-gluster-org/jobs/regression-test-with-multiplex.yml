@@ -7,11 +7,9 @@
 
     scm:
     - git:
+        url: https://github.com/gluster/glusterfs
         branches:
-        - origin/master
-        url: git://review.gluster.org/glusterfs.git
-        depth: 1
-        wipe-workspace: false
+        - devel
 
     properties:
     - discard-after-x:

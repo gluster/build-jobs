@@ -15,8 +15,8 @@
     scm:
     - git:
         branches:
-        - $GERRIT_BRANCH
-        refspec: $GERRIT_REFSPEC
+        - $GITHUB_BRANCH
+        refspec: $GITHUB_REFSPEC
         url: https://github.com/gluster/glusterfs.git
         wipe-workspace: true       
 

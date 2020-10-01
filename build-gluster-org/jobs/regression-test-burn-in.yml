@@ -9,7 +9,7 @@
     - git:
         url: https://github.com/gluster/glusterfs
         branches:
-        - master
+        - devel
 
     properties:
     - discard-after-x:

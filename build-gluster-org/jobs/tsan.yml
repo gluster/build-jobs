@@ -7,7 +7,7 @@
     disabled: true
 
     scm:
-    - glusterfs
+    - glusterfs-default
 
     properties:
     - discard-after-x:
@@ -29,13 +29,13 @@
 
     parameters:
     - string:
-        default: refs/heads/master
-        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
-        name: GERRIT_REFSPEC
+        default: refs/heads/devel
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of devel'
+        name: GITHUB_REFSPEC
     - string:
-        default: master
-        description: 'Name of the branch you want to build from. We usually build from master'
-        name: GERRIT_BRANCH
+        default: devel
+        description: 'Name of the branch you want to build from. We usually build from devel'
+        name: GITHUB_BRANCH
 
     wrappers:
     - timeout:

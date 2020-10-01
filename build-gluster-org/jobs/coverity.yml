@@ -22,7 +22,7 @@
     parameters:
     - string:
         name: sha1
-        default: master
+        default: devel
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     wrappers:

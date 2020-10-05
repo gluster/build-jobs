@@ -1,5 +1,5 @@
 - job:
-    name: regression-test-with-multiplex
+    name: gh_regression-test-with-multiplex
     node: centos7
     description: Regression test run every 8h with brick multiplex
     project-type: freestyle
@@ -10,6 +10,7 @@
         url: https://github.com/gluster/glusterfs
         branches:
         - devel
+        wipe-workspace: true
 
     properties:
     - discard-after-x:

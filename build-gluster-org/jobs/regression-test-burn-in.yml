@@ -1,5 +1,5 @@
 - job:
-    name: regression-test-burn-in
+    name: gh_regression-test-burn-in
     node: centos7
     description: Regression test run nightly
     project-type: freestyle
@@ -10,6 +10,7 @@
         url: https://github.com/gluster/glusterfs
         branches:
         - devel
+        wipe-workspace: true
 
     properties:
     - discard-after-x:

@@ -8,6 +8,7 @@
         url: https://github.com/gluster/glusterfs.git
         depth: 1
         wipe-workspace: true
+        shallow-clone: true
 
 # keeping the variable names(GERRIT_BRANCH, GERRIT_REFSPEC) same for now
 - scm:
@@ -18,7 +19,8 @@
         - $GITHUB_BRANCH
         refspec: $GITHUB_REFSPEC
         url: https://github.com/gluster/glusterfs.git
-        wipe-workspace: true       
+        wipe-workspace: true
+        shallow-clone: true      
 
 - property:
     name: discard-after-x

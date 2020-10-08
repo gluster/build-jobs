@@ -50,7 +50,8 @@ chmod 755 $JDIRS
 
 # Skip tests for certain folders
 SKIP=true
-for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
+# find out diff between the default devel branch and HEAD
+for file in $(git diff devel..HEAD --name-only); do
     /opt/qa/is-ignored-file.py $file
     matched=$?
     if [ $matched -eq 1 ]; then

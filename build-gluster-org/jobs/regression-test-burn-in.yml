@@ -10,7 +10,6 @@
         url: https://github.com/gluster/glusterfs
         branches:
         - devel
-        wipe-workspace: true
 
     properties:
     - discard-after-x:

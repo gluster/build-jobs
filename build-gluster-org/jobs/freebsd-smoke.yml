@@ -28,6 +28,7 @@
         started-status: "Running: freebsd smoke"
         success-status: "OK - freebsd smoke"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

@@ -29,6 +29,7 @@
         started-status: "Running: clang format"
         success-status: "OK - clang format"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

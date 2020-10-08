@@ -29,6 +29,7 @@
         started-status: "Running: strfmt errors in a 32 build"
         success-status: "OK - no strfmt errors"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

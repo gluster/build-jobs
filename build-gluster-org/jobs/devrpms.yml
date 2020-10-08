@@ -44,6 +44,7 @@
         started-status: "Running: devrpm-{version}"
         success-status: "OK - devrpm-{version}"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

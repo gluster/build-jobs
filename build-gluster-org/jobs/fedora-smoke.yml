@@ -29,6 +29,7 @@
         started-status: "Running: fedora smoke"
         success-status: "OK - fedora smoke"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

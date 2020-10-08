@@ -51,7 +51,7 @@ chmod 755 $JDIRS
 # Skip tests for certain folders
 SKIP=true
 # find out diff between the default devel branch and HEAD
-for file in $(git diff devel..HEAD --name-only); do
+for file in $(git diff origin/devel..HEAD --name-only); do
     /opt/qa/is-ignored-file.py $file
     matched=$?
     if [ $matched -eq 1 ]; then
@@ -85,7 +85,7 @@ echo
 TEST_ONLY=true
 declare -a TEST_FILES
 TEST_COUNT=0
-for file in $(git diff devel..HEAD --name-only); do
+for file in $(git diff origin/devel..HEAD --name-only); do
     if [[ $file =~ tests/.*\.t$ ]] ;then
         TEST_FILES[$TEST_COUNT]="$file"
         TEST_COUNT=$(( $TEST_COUNT + 1 ))

@@ -85,7 +85,7 @@ echo
 TEST_ONLY=true
 declare -a TEST_FILES
 TEST_COUNT=0
-for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
+for file in $(git diff devel..HEAD --name-only); do
     if [[ $file =~ tests/.*\.t$ ]] ;then
         TEST_FILES[$TEST_COUNT]="$file"
         TEST_COUNT=$(( $TEST_COUNT + 1 ))

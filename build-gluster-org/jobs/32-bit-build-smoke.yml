@@ -29,6 +29,7 @@
         started-status: "Running: 32-bit-build"
         success-status: "OK - 32-bit-build"
         failure-status: "FAIL - please fix for merge"
+        black-list-target-branches: 'release-*'
 
     parameters:
     - string:

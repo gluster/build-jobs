@@ -3,6 +3,7 @@
     description: Run the pipeline for release-7 branch
     project-type: pipeline
     dsl: !include-raw: ../scripts/nightly-release.dsl
+    disabled: true
 
 
     triggers:

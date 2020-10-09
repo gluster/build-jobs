@@ -3,6 +3,7 @@
     description: Run the pipeline for master branch
     project-type: pipeline
     dsl: !include-raw: ../scripts/nightly-master.dsl
+    disabled: true
 
 
     triggers:

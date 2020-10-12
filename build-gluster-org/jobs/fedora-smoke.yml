@@ -30,7 +30,7 @@
         success-status: "OK - fedora smoke"
         failure-status: "FAIL - please fix for merge"
 # disable it for release-N as it fails for release-7. Issue has been raised for the same.        
-        black-list-target-branches: 'release-*'
+        black-list-target-branches: 'release-.*'
 
     parameters:
     - string:

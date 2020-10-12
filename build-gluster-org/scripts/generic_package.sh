@@ -27,13 +27,10 @@ latest_version=$7
 
 #Keys required in debian builds
 declare -a debuild_keys
-debuild_keys=("8B7C364430B66F0B084C0B0C55339A4C6A7BD8D4",
-              "55F839E173AC06F364120D46FA86EEACB306CEE1",
-              "32F8E2FDBE1460F94A62407E468C889BEEDF12A8",
-              "F9C958A3AEE0D2184FAD1CBD43607F0DC2F8238C")
+debuild_keys="F9C958A3AEE0D2184FAD1CBD43607F0DC2F8238C"
 
 declare -a pbuild_keys
-pbuild_keys=("7F6E5563", "EFCE7625", "4061252D", "BF11C87C")
+pbuild_keys="BF11C87C"
 
 # Check for OS(Ubuntu or Debian)
 if [ "$os" == "ubuntu" ]; then
@@ -41,31 +38,12 @@ if [ "$os" == "ubuntu" ]; then
 	debuild_key=4F5B5CA5
 elif [ "$os" == "debian" ]; then
         mirror="http://ftp.us.debian.org/debian/"
-	case ${series} in
-	  "3.12")
-    	    debuild_key=${debuild_keys[0]}
-    	    pbuild_key=${pbuild_keys[0]}
-    	    ;;
-  	  "4.0")
-            debuild_key=${debuild_keys[1]}
-            pbuild_key=${pbuild_keys[1]}
-            ;;
-          "4.1")
-            if [ "$flavor" == "stretch" ]; then
-                 debuild_key=${pbuild_keys[2]}
-            else
-                 debuild_key=${debuild_keys[2]}
-            fi
-            pbuild_key=${pbuild_keys[2]}
-            ;;
-          "5" | "6" | "7")
-            if [ "$flavor" == "stretch" ]; then
-                 debuild_key=${pbuild_keys[3]}
-            else
-                 debuild_key=${debuild_keys[3]}
-            fi
-            pbuild_key=${pbuild_keys[3]}
-        esac
+        if [ "$flavor" == "stretch" ]; then
+             debuild_key=${pbuild_keys}
+        else
+             debuild_key=${debuild_keys}
+        fi
+        pbuild_key=${pbuild_keys}
 else
 	echo "Exiting: OS should be debian or ubuntu. Please provide the right one"
 	exit
@@ -109,9 +87,9 @@ cd glusterfs-debian/
 git checkout -b ${flavor}-${series}-local origin/${flavor}-glusterfs-${series}
 
 if [ "$os" == "ubuntu" ]; then
-	sed -i "1i glusterfs (${version}-${os}1~${flavor}1) ${flavor}; urgency=medium\n\n * GlusterFS ${version} GA\n\n -- GlusterFS GlusterFS deb packages <deb.packages@gluster.org>  `date +"%a, %d %b %Y %T %z"`\n" debian/changelog
+        dch --distribution ${flavor} -u medium -v ${version}-${os}1~${flavor}1 "GlusterFS ${version} GA"
 elif [ "$os" == "debian" ]; then
-	sed -i "1i glusterfs (${version}-1) ${flavor}; urgency=low\n\n * GlusterFS ${version} GA\n\n -- Gluster Packager <glusterpackager@download.gluster.org>  `date +"%a, %d %b %Y %T %z"`\n" debian/changelog
+        dch --distribution ${flavor} -u low -v (${version}-1 ${flavor}) "GlusterFS ${version} GA"
 fi
 
 git commit -a -m "Glusterfs ${version} G.A (${flavor})"
@@ -178,14 +156,16 @@ cd /var/www/html/pub/gluster/glusterfs/$series/$version/$os/${flavor^}/amd64/apt
 sudo tar xpf /var/www/scratch/$flavor*$version.tar.gz
 
 #update latest inside the series you are building for
-ln -nf /var/www/html/pub/gluster/glusterfs/$series/$version/$os/$flavor/amd64/apt /var/www/html/pub/gluster/glusterfs/$series/LATEST
+ln -snf /var/www/html/pub/gluster/glusterfs/$series/$version/$os/$flavor/amd64/apt /var/www/html/pub/gluster/glusterfs/$series/LATEST
 
 #update latest inside the latest series
-ln -nf /var/www/html/pub/gluster/glusterfs/$latest_series/$latest_version /var/www/html/pub/gluster/glusterfs/LATEST
+ln -snf /var/www/html/pub/gluster/glusterfs/$latest_series/$latest_version /var/www/html/pub/gluster/glusterfs/LATEST
 
 #delete .tgz file from /var/www/scratch
 rm -rf /var/www/scratch/$flavor*$version.tgz
+exit
 
+cd ..
 function finish {
   # cleanup code
   echo "removing the chroot"

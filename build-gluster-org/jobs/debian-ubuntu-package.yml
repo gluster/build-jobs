@@ -1,0 +1,58 @@
+- job:
+    name: debian-package-builder
+    node: master
+    description: glusterfs package script to build both debian and ubuntu
+    project-type: freestyle
+
+    scm:
+    - glusterfs
+
+    parameters:
+    - string:
+        default: v7.0
+        description: Refspec to "git checkout" as the release code snapshot. Typically
+          a git annotated tag like "v6.0". Specifying a branch name will use the
+          current HEAD of that branch.
+        name: GERRIT_REFSPEC
+    - string:
+        default: 7
+        description: Series number for the package to be built against.
+        name: SERIES
+    - string:
+        default: 0
+        description: Version number for the package to be built against.
+        name: VERSION
+    - string:
+        default:
+        description: Release number for the package to be built against.
+          Leave it empty if you are building above series 5.
+        name: RELEASE
+    - string:
+        default: all
+        description: Use the default "all" or leave it empty to build
+          it for both Debian and Ubuntu. If a specific distribution is needed,
+          please name it as "debian" or "ubuntu".
+        name: OS
+    - string:
+        default:
+        description: Leave it empty to build it for both Debian and Ubuntu.
+          If a specific distribution is selected above, then mention the
+          specific flavor here. is needed. Flavors can be named as "xenial" or
+          numbered as "16.04" for ubuntu. For debian it can named as "bullseye"
+          or it can be numbered as "11".
+        name: FLAVOR
+    - string:
+        default:
+        description: The latest series with respect to all the existing series.
+        name: LATEST_SERIES
+    - string:
+        default:
+        Description: The latest version of latest series.
+        name: LATEST_VERSION
+    - string:
+        default: packaging@gluster.org,maintainers@gluster.org
+        description: Mail addresses to send the announcement of the packages too.
+        name: ANNOUNCE_EMAIL
+
+    builders:
+    - shell: /opt/qa/debian-ubuntu-package.sh

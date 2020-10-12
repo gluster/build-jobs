@@ -64,4 +64,6 @@ RET=$?
 echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${UNIQUE_ID}"
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
+# do clean up after a regression test suite is run
+sudo -E bash /opt/qa/cleanup.sh
 exit $RET

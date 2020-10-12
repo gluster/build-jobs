@@ -116,4 +116,6 @@ fi
 sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
 vote_gerrit "$V" "$VERDICT" gluster_regression.txt
+# do clean up after a regression test suite is run
+sudo -E bash /opt/qa/cleanup.sh
 exit $RET

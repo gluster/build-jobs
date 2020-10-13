@@ -1,6 +1,5 @@
 #!/bin/sh
 set -e
-source /opt/rh/python27/enable
 virtualenv --system-site-packages env
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1683650
 env/bin/pip install --upgrade pip

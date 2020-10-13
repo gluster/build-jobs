@@ -24,9 +24,6 @@ sudo chown -R jenkins:jenkins $WORKSPACE
 cd $WORKSPACE
 git reset --hard HEAD
 
-# Apply with brick multiplex patch
-git pull --no-edit https://review.gluster.org/glusterfs refs/changes/26/21126/2
-
 # Clean up other Gluster dirs
 sudo rm -rf /var/lib/glusterd/* /build/install /build/scratch >/dev/null 2>&1
 

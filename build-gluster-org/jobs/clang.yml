@@ -1,6 +1,6 @@
 - job:
     name: clang-scan
-    node: fedora30
+    node: fedora32
     description: Run the clang scan-build on gluster code
     project-type: freestyle
     concurrent: true
@@ -33,7 +33,7 @@
         default: devel
         description: "A pull request ID, like 'origin/pr/72/head'"
     - string:
-        default: fedora-30-x86_64
+        default: fedora-32-x86_64
         description: 'Name of the mock chroot used to build'
         name: MOCK_CHROOT
 

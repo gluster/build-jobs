@@ -1,5 +1,6 @@
 #!/bin/bash
-
+set -e
+set -o pipefail
 ./autogen.sh
 ./configure --enable-debug --enable-gnfs --silent
 

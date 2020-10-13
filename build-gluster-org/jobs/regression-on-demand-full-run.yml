@@ -55,6 +55,10 @@
           - sunnyku
           - sanjurakonde
           - xhernandez
+          - Sheetalpamecha
+          - tshacked
+          - BarakSason
+          - VHariharmath-rh
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run full regression'

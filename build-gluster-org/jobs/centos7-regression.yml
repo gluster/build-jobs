@@ -81,6 +81,10 @@
         name: sha1
         default: devel
         description: "A pull request ID, like 'origin/pr/72/head'"
+    - string:
+        name: ghprbTargetBranch
+        default: devel
+        description: "Target branch value used in script"    
 
     builders:
     - shell: !include-raw: ../scripts/gh_centos-regression.sh

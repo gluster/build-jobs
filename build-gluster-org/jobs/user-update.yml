@@ -1,0 +1,36 @@
+- job:
+    name: update-admin-list
+    node: 
+    description: This job updates the jenkins job's admin-list with the members of gluster-maintainers 
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        url: git@github.com:gluster/build-jobs.git
+        credentials-id: github-credentials
+        branches:
+        - remotes/origin/master
+        basedir: "build-jobs"
+
+    builders:
+    - shell: |
+        cat << EOF > requirements.txt
+        gitdb==4.0.5
+        GitPython==3.1.9
+        EOF
+        pip install -r requirements.txt
+    
+    - python: !include-raw: ../scripts/user-update.py  
+
+    parameters:
+    - string:
+        description: 'Enter the job names (space seperated)' 
+        name: JOB_DETAILS 
+
+    wrappers:
+    - credentials-binding:
+         - username-password-separated:
+            credential-id: github-credentials 
+            username: GITHUB_USERNAME
+            password: GITHUB_PASSWORD

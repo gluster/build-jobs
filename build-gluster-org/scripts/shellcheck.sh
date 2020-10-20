@@ -7,6 +7,19 @@ set -o pipefail
 find . -path ./.git -prune -o -path ./tests -prune -o -exec file {} \; \
   | grep "shell script" \
   | cut -d: -f 1 \
+  | grep -v '^./configure$' \
+  | grep -v '^./ltmain.sh$' \
+  | grep -v '^./libtool$' \
+  | grep -v '^./config.status$' \
+  | grep -v '^./config.guess$' \
+  | grep -v '^./install-sh$' \
+  | grep -v '^./depcomp$' \
+  | grep -v '^./compile$' \
+  | grep -v '^./config.sub$' \
+  | grep -v '^./test-driver$' \
+  | grep -v '^./build-aux/pkg-version$' \
+  | grep -v '^./autogen.sh$' \
+  | grep -v '^./missing$' \
   | xargs shellcheck \
   >shellcheck.txt
 

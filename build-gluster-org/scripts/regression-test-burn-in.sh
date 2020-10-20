@@ -66,5 +66,6 @@ sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
 sudo chown jenkins:jenkins gluster_regression.txt || true
 # do clean up after a regression test suite is run
 sudo -E bash /opt/qa/cleanup.sh
-sudo rm -rf $WORKSPACE
+# make sure that every file/diretory belongs to jenkins
+sudo chown -R jenkins:jenkins $WORKSPACE
 exit $RET

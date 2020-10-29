@@ -19,46 +19,8 @@
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
-        admin-list:
-        # This list is extracted from the Github's gluster.org team "gluster-maintainers".
-        # There's no automation of syncing the list with github's team. We need to manually add the person.
-          - deepshikhaaa
-          - mscherer
-          - csabahenk
-          - jdarcy
-          - itisravi
-          - aravindavk
-          - kalebskeithley
-          - nigelbabu
-          - nixpanic
-          - prashanthpai
-          - pranithk
-          - raghavendrabhat
-          - vbellur
-          - amarts
-          - raghavendrahg
-          - raghavendra-talur
-          - KritikaDhananjay
-          - thotz
-          - rafikc30
-          - humblec
-          - poornimag
-          - ShyamsundarR
-          - anoopcs9
-          - soumyakoduri
-          - spalai
-          - atinmu
-          - kotreshhr
-          - mchangir
-          - nbalacha
-          - mohit84
-          - sunnyku
-          - sanjurakonde
-          - xhernandez
-          - Sheetalpamecha
-          - tshacked
-          - BarakSason
-          - VHariharmath-rh
+        org-list:
+          - gluster
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run full regression'

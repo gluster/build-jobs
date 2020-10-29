@@ -19,44 +19,8 @@
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true
-        admin-list:
-          - deepshikhaaa
-          - mscherer
-          - csabahenk
-          - jdarcy
-          - itisravi
-          - aravindavk
-          - kalebskeithley
-          - nigelbabu
-          - nixpanic
-          - prashanthpai
-          - pranithk
-          - raghavendrabhat
-          - vbellur
-          - amarts
-          - raghavendrahg
-          - raghavendra-talur
-          - KritikaDhananjay
-          - thotz
-          - rafikc30
-          - humblec
-          - poornimag
-          - ShyamsundarR
-          - anoopcs9
-          - soumyakoduri
-          - spalai
-          - atinmu
-          - kotreshhr
-          - mchangir
-          - nbalacha
-          - mohit84
-          - sunnyku
-          - sanjurakonde
-          - xhernandez
-          - Sheetalpamecha
-          - tshacked
-          - BarakSason
-          - VHariharmath-rh
+        org-list:
+          - gluster
         github-hooks: true
         only-trigger-phrase: true
         trigger-phrase: '/run brick-mux regression'

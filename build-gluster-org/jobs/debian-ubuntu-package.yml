@@ -23,6 +23,11 @@
         description: Version number for the package to be built against.
         name: VERSION
     - string:
+        default:
+        description: Release number for the package to be built against.
+          Leave it empty if you are building above series 5.
+        name: RELEASE
+    - string:
         default: all
         description: Use the default "all" or leave it empty to build
           it for both Debian and Ubuntu. If a specific distribution is needed,

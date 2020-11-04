@@ -13,6 +13,9 @@
         x: 30
     - one-build-per-node
 
+     triggers:
+    - timed: "0 0 * * 0"
+
     builders:
     - shell: !include-raw: ../scripts/lcov.sh
 

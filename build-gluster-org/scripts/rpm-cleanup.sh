@@ -18,5 +18,5 @@ sudo pkill -9 mock
 mount | grep /var/lib/mount/
 if [$? -eq 1 ]
 then
-    umount /var/lib/mock/*
+    umount $(mount | grep /var/lib/mock/ | awk '{print $3}')
 fi    

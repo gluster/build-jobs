@@ -13,7 +13,7 @@
         x: 30
     - one-build-per-node
 
-     triggers:
+    triggers:
     - timed: "0 0 * * 0"
 
     builders:

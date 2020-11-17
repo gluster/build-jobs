@@ -161,7 +161,7 @@ function finish {
   sudo rm -rf /var/cache/pbuilder/base.tgz
 
   #removing folders created while packaging
-  rm -rf ${os}-${flavor}-Glusterfs-${version}
+  rm -rf ~/${os}-${flavor}-Glusterfs-${version}
 }
 trap finish EXIT
 trap finish SIGQUIT

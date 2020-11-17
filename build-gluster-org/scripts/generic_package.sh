@@ -121,7 +121,9 @@ echo "Building glusterfs-${version} for ${os} ${flavor} using the chroot and .ds
 sudo pbuilder build ~/${os}-${flavor}-Glusterfs-${version}/build/glusterfs_${version}-${release}.dsc | tee build.log
 
 #move the packages to packages directory.
-mv /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
+cp /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
+rm -rf /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb
+
 if [ "$flavor" != "stretch" ]; then
      mv /var/cache/pbuilder/result/libg*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
 fi
@@ -150,20 +152,7 @@ cd ~/${os}-${flavor}-Glusterfs-${version}
 #copy the tar.gz file produced by the build to download.rht.gluster.org:/var/www/scratch
 scp $flavor-apt-amd64-$version.tgz gluster_ant@download.rht.gluster.org:/var/www/scratch
 
-ssh gluster_ant@download.rht.gluster.org
-
-cd /var/www/html/pub/gluster/glusterfs/$series/$version/$os/${flavor^}/amd64/apt
-sudo tar xpf /var/www/scratch/$flavor*$version.tar.gz
-
-#update latest inside the series you are building for
-ln -snf /var/www/html/pub/gluster/glusterfs/$series/$version/$os/$flavor/amd64/apt /var/www/html/pub/gluster/glusterfs/$series/LATEST
-
-#update latest inside the latest series
-ln -snf /var/www/html/pub/gluster/glusterfs/$latest_series/$latest_version /var/www/html/pub/gluster/glusterfs/LATEST
-
-#delete .tgz file from /var/www/scratch
-rm -rf /var/www/scratch/$flavor*$version.tgz
-exit
+ssh gluster_ant@download.rht.gluster.org /var/www/html/pub/gluster/unpacking-script.sh series version os flavor latest_version latest_series
 
 cd ..
 function finish {

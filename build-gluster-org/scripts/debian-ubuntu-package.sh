@@ -5,7 +5,8 @@
 
 set -xe
 
-if [ $# -eq 5 ]; then
+while [ $# -eq 5 ]
+do
         echo "building everything"
         echo "packing debian distribution"
         ~/build-gluster-org/scripts/generic_package.sh debian stretch $SERIES $VERSION $RELEASE $LATEST_SERIES $LATEST_VERSION
@@ -17,8 +18,10 @@ if [ $# -eq 5 ]; then
         ~/build-gluster-org/scripts/generic_package.sh ubuntu disco $SERIES $VERSION $RELEASE
         ~/build-gluster-org/scripts/generic_package.sh ubuntu eoan $SERIES $VERSION $RELEASE
         ~/build-gluster-org/scripts/generic_package.sh ubuntu focal $SERIES $VERSION $RELEASE
-fi
-if [ $# -gt 5 ]; then
+done
+
+while [ $# -gt 5 ]
+do
     if [ "$OS" == "all" ]; then
         echo "packing all distribution"
         echo "packing debian distribution"
@@ -69,7 +72,7 @@ if [ $# -gt 5 ]; then
         fi
         if [ "$FLAVOR" == "hirsute" ] || [ "$FLAVOR" == "21.04" ] || [ "$FLAVOR" == "hirsute hippo"]; then
     fi
-fi
+done
 
 RET=$?
 

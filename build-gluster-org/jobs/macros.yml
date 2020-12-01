@@ -9,16 +9,14 @@
         depth: 1
         shallow-clone: true
 
-# keeping the variable names(GERRIT_BRANCH, GERRIT_REFSPEC) same for now
 - scm:
     name: glusterfs-default
     scm:
     - git:
         branches:
-        - $GITHUB_BRANCH
+        - $GITHUB_REFSPEC
         refspec: $GITHUB_REFSPEC
-        url: https://github.com/gluster/glusterfs.git
-        shallow-clone: true      
+        url: https://github.com/gluster/glusterfs.git   
 
 - property:
     name: discard-after-x

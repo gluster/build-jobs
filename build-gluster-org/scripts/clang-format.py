@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 import subprocess
+import os
 
+branch=os.environ.get('ghprbTargetBranch', 'devel')
 
 changed_files = subprocess.check_output(
-    ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"]
+    ["git", "diff", "--name-only",  "origin/{}..HEAD".format(branch)]
 ).decode('UTF-8').split("\n")
 list_of_files = []
 for file in changed_files:

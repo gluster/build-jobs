@@ -1,6 +1,6 @@
 - job:
     name: 'gh_strfmt_errors'
-    node: rpm7
+    node: fedora32
     description: Check for strfmt errors in a 32-bit build run inside mock
     project-type: freestyle
     concurrent: true

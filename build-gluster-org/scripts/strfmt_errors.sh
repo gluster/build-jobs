@@ -3,11 +3,13 @@
 ./configure --enable-fusermount || exit 1
 cd extras/LinuxRPM
 make prep srcrpm || exit 1
-sudo mock -r 'epel-6-i386' --resultdir=${WORKSPACE}/RPMS/"%(dist)s"/"%(target_arch)s"/ --cleanup-after --rebuild glusterfs*src.rpm || exit 1
+sudo mock -r 'fedora-33-i386' --resultdir=${WORKSPACE}/RPMS/"%(dist)s"/"%(target_arch)s"/ --cleanup-after --rebuild glusterfs*src.rpm || exit 1
+set -x
+sudo chown -R jenkins:jenkins $WORKSPACE
 
 rm -f warnings.txt
-grep -E ".*: warning: format '%.*' expects( argument of)? type '.*', but argument .* has type 'ssize_t" ${WORKSPACE}/RPMS/el6/i686/build.log | tee -a warnings.txt
-grep -E ".+: warning: format '%.+' expects( argument of)? type '.+', but argument .+ has type 'size_t" ${WORKSPACE}/RPMS/el6/i686/build.log | tee -a warnings.txt
+grep -E ".*: warning: format '%.*' expects( argument of)? type '.*', but argument .* has type 'ssize_t" ${WORKSPACE}/RPMS/fc33/i686/build.log | tee -a warnings.txt
+grep -E ".+: warning: format '%.+' expects( argument of)? type '.+', but argument .+ has type 'size_t" ${WORKSPACE}/RPMS/fc33/i686/build.log | tee -a warnings.txt
 
 cat warnings.txt
 

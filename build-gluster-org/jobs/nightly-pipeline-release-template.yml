@@ -1,0 +1,30 @@
+- project:
+    name: 'nightly-release'
+    relversion:
+      - release-9
+    jobs:
+      - 'nightly-{relversion}'
+
+- job-template:
+    name: 'nightly-{relversion}'
+    description: 'Run the pipeline for branch {relversion}'
+    project-type: pipeline
+    dsl: !include-raw-escape: ../scripts/nightly-release.dsl
+
+    triggers:
+    - timed: "H 18 * * *"
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: false
+
+    parameters:
+    - string:
+        default: 'refs/heads/{relversion}'
+        description: 'For review 12345 and patch set 6, this will be refs/changes/45/12345/6. Default: Tip of master'
+        name: GERRIT_REFSPEC
+    - string:
+        default: '{relversion}'
+        description: 'Name of the branch you want to build from. We usually build from master'
+        name: GERRIT_BRANCH

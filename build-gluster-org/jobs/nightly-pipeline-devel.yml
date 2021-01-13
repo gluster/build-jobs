@@ -1,0 +1,19 @@
+- job:
+    name: nightly-devel
+    description: Run the pipeline for devel branch
+    project-type: pipeline
+    dsl: !include-raw: ../scripts/nightly-devel.dsl
+
+    triggers:
+    - timed: "H 14 * * *"
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: false
+
+    parameters:
+    - string:
+        name: sha1
+        default: devel
+        description: "A pull request ID, like 'origin/pr/72/head'"

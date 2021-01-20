@@ -38,6 +38,11 @@
 
     publishers:
     - strfmt-build-log
+    - post-tasks:
+        - matches:
+            - log-text: Build step 'Execute shell' marked build as failure
+          script: |
+            sudo chown -R jenkins:jenkins $WORKSPACE
 
     builders:
     - shell: !include-raw: ../scripts/strfmt_errors.sh

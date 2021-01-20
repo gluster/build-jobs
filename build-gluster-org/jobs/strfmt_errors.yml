@@ -41,6 +41,8 @@
     - post-tasks:
         - matches:
             - log-text: Build step 'Execute shell' marked build as failure
+              operator: OR
+            - log-text: Build was aborted
           script: |
             sudo chown -R jenkins:jenkins $WORKSPACE
 

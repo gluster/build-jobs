@@ -24,7 +24,7 @@ pipeline {
                     steps {
                         script {
                             echo 'Running centos7 regression'
-                            def buildReg = build job: 'regression-test-burn-in', propagate: false
+                            def buildReg = build job: 'gh_regression-test-burn-in', propagate: false
                             STATUSDICT.put("${env.STAGE_NAME}", buildReg.getResult())
                         }
                     }
@@ -33,8 +33,8 @@ pipeline {
                     steps {
                         script {
                             echo 'Running centos7 regression with multiplex'
-                            def regWithMul = build job: 'regression-test-with-multiplex', propagate: false
-                            STATUSDICT.put("${env.STAGE_NAME}", regWithMul.getResult())
+                            def regWithMul = build job: 'gh_regression-test-with-multiplex', propagate: false
+                            STATUSDICT.put("${env.STAGE_NAME}", regWithMul.getResult()) # not having the parameterized job for branch
                         }
                     }
                 }

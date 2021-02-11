@@ -25,7 +25,6 @@
     - string:
         default:
         description: Release number for the package to be built against.
-          Leave it empty if you are building above series 5.
         name: RELEASE
     - string:
         default: all

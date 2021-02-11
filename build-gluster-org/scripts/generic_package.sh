@@ -2,8 +2,26 @@
 
 #immediately exit if any command has a non-zero exit status
 set -euxo pipefail
+
 #enable debugging
 set -x
+
+#cleanup
+trap finish EXIT
+trap finish SIGQUIT
+function finish {
+  # cleanup code
+  echo "removing the chroot"
+  sudo rm -rf /var/cache/pbuilder/base.tgz
+
+  #removing folders created while packaging
+  rm -rf ~/${os}-${flavor}-Glusterfs-${version}
+
+  #clean pool/* dists/* db/*
+  dpath='/var/www/repos/apt/debian/'
+  rm -rf ${dpath}/pool/* ${dpath}/dists/* ${dpath}/db/*
+
+}
 
 ################################################################################################
 #OS (e.g. Ubuntu/Debian)
@@ -121,17 +139,12 @@ echo "Building glusterfs-${version} for ${os} ${flavor} using the chroot and .ds
 sudo pbuilder build ~/${os}-${flavor}-Glusterfs-${version}/build/glusterfs_${version}-${release}.dsc | tee build.log
 
 #move the packages to packages directory.
-cp /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
-rm -rf /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb
+mv /var/cache/pbuilder/result/glusterfs*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
 
 if [ "$flavor" != "stretch" ]; then
      mv /var/cache/pbuilder/result/libg*${version}-${release}*.deb ~/${os}-${flavor}-Glusterfs-${version}/packages/
 fi
 /usr/share/debdelta/dpkg-sig -v -k ${pbuild_key} --sign builder ~/${os}-${flavor}-Glusterfs-${version}/packages/glusterfs-*${version}-${release}*.deb
-
-cd /var/www/repos/apt/debian/
-
-rm -rf pool/* dists/* db/*
 
 cp ~/conf.distributions/${series} conf/distributions
 
@@ -152,18 +165,5 @@ cd ~/${os}-${flavor}-Glusterfs-${version}
 #copy the tar.gz file produced by the build to download.rht.gluster.org:/var/www/scratch
 scp $flavor-apt-amd64-$version.tgz gluster_ant@download.rht.gluster.org:/var/www/scratch
 
-ssh gluster_ant@download.rht.gluster.org /var/www/html/pub/gluster/unpacking-script.sh series version os flavor latest_version latest_series
-
-cd ..
-function finish {
-  # cleanup code
-  echo "removing the chroot"
-  sudo rm -rf /var/cache/pbuilder/base.tgz
-
-  #removing folders created while packaging
-  rm -rf ~/${os}-${flavor}-Glusterfs-${version}
-}
-trap finish EXIT
-trap finish SIGQUIT
-
+ssh gluster_ant@download.rht.gluster.org /var/www/html/pub/gluster/unpacking-script.sh $series $version $os $flavor $latest_version $latest_series
 echo "Done."

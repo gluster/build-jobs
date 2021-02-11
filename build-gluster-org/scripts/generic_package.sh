@@ -98,7 +98,7 @@ tar xpf glusterfs-${version}.tar.gz
 # the repo has to be clone and updated properly so we can copy the changelogs so far.
 
 echo "Cloning the glusterfs-debian repo"
-git clone https://github.com/gluster/glusterfs-debian.git
+git clone ssh://github.com/gluster/glusterfs-debian.git
 
 cd glusterfs-debian/
 

@@ -10,7 +10,6 @@
         branches:
         - $GITHUB_BRANCH
         refspec: $GITHUB_REFSPEC
-        choosing-strategy: gerrit
         url: https://github.com/gluster/glusto-tests.git
         wipe-workspace: true
 

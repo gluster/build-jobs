@@ -1,7 +1,7 @@
 - job:
     name: gh_regression-on-demand-multiplex
     node: centos7
-    description: Run regression with brick multiplex on demand on a patch
+    description: Run regression with brick multiplex on demand on a patch - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/regression-test-with-multiplex.sh
     project-type: freestyle
     concurrent: true
 

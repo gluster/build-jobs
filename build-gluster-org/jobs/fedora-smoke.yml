@@ -1,7 +1,7 @@
 - job:
     name: gh_fedora-smoke
     node: fedora32
-    description: Compile the code with GCC 10
+    description: Compile the code with GCC 10 - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/fedora-smoke.sh
     project-type: freestyle
     concurrent: true
 

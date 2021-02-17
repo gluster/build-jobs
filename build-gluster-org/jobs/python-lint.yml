@@ -1,7 +1,7 @@
 - job:
     name: gh_python-lint
     node: fedora32
-    description: python validation of code using pylint and flake8
+    description: python validation of code using pylint and flake8 - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python-lint.sh
     project-type: freestyle
     concurrent: true
 

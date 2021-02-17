@@ -9,9 +9,8 @@
     - git:
         url: https://github.com/gluster/build-jobs.git
         branches:
-          - master
+          - main
         wipe-workspace: true
-    
 
     properties:
     - github:

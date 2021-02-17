@@ -1,7 +1,7 @@
 - job:
     name: gh_freebsd-smoke
     node: freebsd_build
-    description: GlusterFS pre-commit smoke test on FreeBSD
+    description: GlusterFS pre-commit smoke test on FreeBSD - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/freebsd-smoke.sh
     project-type: freestyle
 
     scm:

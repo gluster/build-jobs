@@ -1,7 +1,7 @@
 - job:
     name: gh_shellcheck
     node: fedora30
-    description: shell script validation using ShellCheck tool
+    description: shell script validation using ShellCheck tool - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/shellcheck.sh
     project-type: freestyle
     concurrent: true
 

@@ -1,7 +1,7 @@
 - job:
     name: gh_regression-test-with-multiplex
     node: centos7
-    description: Regression test run every 8h with brick multiplex
+    description: Regression test run every 8h with brick multiplex - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/regression-test-with-multiplex.sh
     project-type: freestyle
     concurrent: true
 

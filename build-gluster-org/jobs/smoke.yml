@@ -11,7 +11,7 @@
 - job-template:
     name: '{name}-{nodeversion}'
     node: '{node_name}'
-    description: Pre-commit Smoke test
+    description: Pre-commit Smoke test - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/smoke.sh
     project-type: freestyle
     concurrent: true
 

@@ -1,7 +1,7 @@
 - job:
     name: 'gh_strfmt_errors'
     node: rpm7
-    description: Check for strfmt errors in a 32-bit build run inside mock
+    description: Check for strfmt errors in a 32-bit build run inside mock - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/strfmt_errors.sh
     project-type: freestyle
     concurrent: true
 

@@ -16,7 +16,7 @@
 - job-template:
     name: 'gh_{name}-{version}'
     node: '{node_name}'
-    description: Creates RPMs for developers and those who need to verify the patch
+    description: Creates RPMs for developers and those who need to verify the patch - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/glusterfs-devrpms.sh
     project-type: freestyle
     concurrent: true
 

@@ -1,7 +1,7 @@
 - job:
     name: gh_python-compliance
     node: fedora30
-    description: Check for python3 compliance
+    description: Check for python3 compliance - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/python-compliance.sh
     project-type: freestyle
     concurrent: true
 

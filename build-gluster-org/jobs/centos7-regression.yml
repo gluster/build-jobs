@@ -1,7 +1,7 @@
 - job:
     name: gh_centos7-regression
     node: centos7
-    description: Our production regression test.  Triggerered for each Gerrit CR revision.
+    description: Our production regression test.  Triggerered for each Gerrit CR revision - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/gh_centos-regression.sh
     project-type: freestyle
     concurrent: true
 

@@ -1,7 +1,7 @@
 - job:
     name: gh_regression-on-demand-full-run
     node: centos7
-    description: Run regression with exit-on-failure set to no. ie., the full regression set even if there are failures.
+    description: Run regression with exit-on-failure set to no. ie., the full regression set even if there are failures - https://github.com/gluster/build-jobs/blob/master/build-gluster-org/scripts/regression-test-burn-in.sh
     project-type: freestyle
     concurrent: true
 

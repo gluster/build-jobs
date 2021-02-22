@@ -24,9 +24,18 @@
         allow-whitelist-orgs-as-admins: true
         org-list:
           - gluster
+        admin-list:
+          - kshithijiyer
+          - pranavprakash20
+          - aloganat
+          - leelavg
+          - msainiRedhat
+          - milindw96
+          - balakreddy
+          - sayaleeraut
         github-hooks: true
         only-trigger-phrase: false
-        trigger-phrase: '/recheck'
+        trigger-phrase: '/run check'
         permit-all: true
         status-context: "Testing: python lint"
         started-status: "Running: python lint"

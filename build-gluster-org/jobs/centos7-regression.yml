@@ -28,7 +28,7 @@
         started-status: "Running: regression test suite"
         success-status: "OK - No regression"
         failure-status: "FAIL - please fix for merge"
-        comment-file: gluster_regression.txt
+        comment-file: "gluster_regression.txt"
 
 
     publishers:

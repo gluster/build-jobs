@@ -6,7 +6,12 @@
     concurrent: true
 
     scm:
-    - glusto-tests
+    - git:
+        branches:
+        - sha1
+        refspec: +refs/pull/*:refs/remotes/origin/pr/*
+        url: https://github.com/gluster/glusto-tests.git
+        wipe-workspace: true
 
     properties:
     - github:

@@ -2,8 +2,8 @@
     name: 'devrpm'
     version:
       - fedora:
-          build_flag: fedora-30-x86_64
-          node_name: fedora30
+          build_flag: fedora-32-x86_64
+          node_name: fedora32
       - el7:
           build_flag: epel-7-x86_64
           node_name: rpm7

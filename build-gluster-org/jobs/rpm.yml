@@ -7,9 +7,15 @@
       - fedora:
           build_flag: fedora-30-x86_64
           node_name: fedora30
+      - fedora33:
+          build_flag: fedora-33-x86_64
+          node_name: fedora32
       - rawhide:
           build_flag: fedora-rawhide-x86_64
-          node_name: fedora30
+          node_name: fedora32
+      - el8:
+          build_flag: epel-8-x86_64
+          node_name: centos8
     jobs:
       - '{name}-{buildversion}'
 

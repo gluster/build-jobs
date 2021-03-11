@@ -4,9 +4,6 @@
       - el7:
           build_flag: epel-7-x86_64
           node_name: rpm7
-      - fedora:
-          build_flag: fedora-30-x86_64
-          node_name: fedora30
       - fedora33:
           build_flag: fedora-33-x86_64
           node_name: fedora32

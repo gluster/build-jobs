@@ -60,5 +60,4 @@ fi
 
 if [ $SMOKE_STATUS -ne 0 ]; then
     echo "Smoke test failed"
-    exit 1
 fi

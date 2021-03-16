@@ -54,6 +54,10 @@
         - matches:
             - log-text: Build was aborted
           script: !include-raw: ../scripts/rpm-cleanup.sh
+        - matches:
+            - log-text: Building remotely
+          script: |
+            sudo chown -R jenkins:jenkins $WORKSPACE    
 
     builders:
     - shell: !include-raw: ../scripts/glusterfs-devrpms.sh

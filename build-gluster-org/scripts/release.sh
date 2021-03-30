@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
 ./autogen.sh;
-./configure --enable-fusermount --enable-gnfs
+./configure --enable-fusermount --enable-gnfs --disable-linux-io_uring
 make dist
 sha512sum glusterfs-$RELEASE_VERSION.tar.gz > glusterfs-$RELEASE_VERSION.sha512sum
 if [[ "$PUBLISH_ARCHIVES" == "true" ]]; then

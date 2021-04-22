@@ -15,8 +15,8 @@ do
 done
 echo "Force-killing mock"
 sudo pkill -9 mock
-mount | grep /var/lib/mount/
-if [$? -eq 1 ]
+mount | grep /var/lib/mock/
+if [$? -eq 0 ]
 then
     # {{is doubled to be escaped for jjb
     umount $(mount | grep /var/lib/mock/ | awk '{{print $3}}')

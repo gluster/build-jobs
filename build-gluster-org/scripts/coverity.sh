@@ -1,7 +1,8 @@
 #!/bin/bash
 
+set -e
 ./autogen.sh
-./configure --enable-gnfs --enable-debug --silent
+./configure --enable-gnfs --enable-debug --silent --disable-linux-io_uring
 nproc=$(getconf _NPROCESSORS_ONLN)
 
 # This is a hack to get Coverity to work with GCC8, all of them may not be

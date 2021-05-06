@@ -25,6 +25,10 @@
         - matches:
             - log-text: Build was aborted
           script: !include-raw: ../scripts/regression-abort.sh
+        - matches:
+            - log-text: Building remotely
+          script: |
+            sudo chown -R jenkins:jenkins $WORKSPACE  
     - gluster-logs
 
     parameters:

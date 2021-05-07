@@ -34,7 +34,7 @@ pipeline {
                         script {
                             echo 'Running centos7 regression with multiplex'
                             def regWithMul = build job: 'gh_regression-test-with-multiplex', propagate: false
-                            STATUSDICT.put("${env.STAGE_NAME}", regWithMul.getResult()) # not having the parameterized job for branch
+                            STATUSDICT.put("${env.STAGE_NAME}", regWithMul.getResult())
                         }
                     }
                 }

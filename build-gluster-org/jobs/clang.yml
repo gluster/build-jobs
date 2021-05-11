@@ -16,6 +16,9 @@
     builders:
     - shell: !include-raw: ../scripts/clang.sh
 
+    triggers:
+    - timed: "H 14 * * *"
+
     publishers:
     - scan-build:
         mark-unstable: true

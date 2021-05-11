@@ -5,11 +5,11 @@
           build_flag: epel-7-x86_64
           node_name: rpm7
       - fedora:
-          build_flag: fedora-30-x86_64
-          node_name: fedora30
+          build_flag: fedora-32-x86_64
+          node_name: fedora32
       - rawhide:
           build_flag: fedora-rawhide-x86_64
-          node_name: fedora30
+          node_name: fedora32
     jobs:
       - '{name}-{buildversion}'
 

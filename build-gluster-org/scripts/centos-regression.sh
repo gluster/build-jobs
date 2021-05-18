@@ -108,6 +108,7 @@ if [ ${RET} -ne 0 ]; then
     # Update Gerrit with the success/failure status
     sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
     sudo chown jenkins:jenkins gluster_regression.txt || true
+    echo ${BUILD_URL} >> gluster_regression.txt || true
     echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${BUILD_ID}"
 else
     # leave result file empty if there is no failure, in context of `comment-file` in ghprb plugin

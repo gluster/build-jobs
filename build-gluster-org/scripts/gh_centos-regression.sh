@@ -110,12 +110,14 @@ fi
 RET=$?
 
 if [ ${RET} -ne 0 ]; then
+    sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
+    sudo chown jenkins:jenkins gluster_regression.txt || true
+    echo ${BUILD_URL} >> gluster_regression.txt || true
     echo "Logs are archived at Build artifacts: https://build.gluster.org/job/${JOB_NAME}/${BUILD_ID}"
+else
+    # leave result file empty if there is no failure, in context of `comment-file` in ghprb plugin
+    touch gluster_regression.txt
 fi
-
-sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
-sudo chown jenkins:jenkins gluster_regression.txt || true
-vote_gerrit "$V" "$VERDICT" gluster_regression.txt
 # do clean up after a regression test suite is run
 sudo -E bash /opt/qa/cleanup.sh
 # make sure that every file/diretory belongs to jenkins

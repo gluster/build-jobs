@@ -105,7 +105,7 @@ fi
 
 RET=$?
 if [ ${RET} -ne 0 ]; then
-    # Update Gerrit with the success/failure status
+    # Update Github with the success/failure status
     sudo mv /tmp/gluster_regression.txt $WORKSPACE || true
     sudo chown jenkins:jenkins gluster_regression.txt || true
     echo ${BUILD_URL} >> gluster_regression.txt || true

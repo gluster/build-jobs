@@ -54,4 +54,4 @@
         name: ANNOUNCE_EMAIL
 
     builders:
-    - shell: /opt/qa/debian-ubuntu-package.sh
+    - shell: ../scripts/debian-ubuntu-package.sh

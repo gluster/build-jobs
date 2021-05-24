@@ -67,9 +67,9 @@ else
 	exit
 fi
 
-mkdir ${os}-${flavor}-Glusterfs-${version}
+mkdir ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}
 
-cd ${os}-${flavor}-Glusterfs-${version}
+cd ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}
 
 mkdir build packages
 
@@ -77,7 +77,7 @@ echo "Building glusterfs-${version}-${release} for ${flavor}"
 
 cd build
 
-TGZS=(`ls ~/glusterfs-${version}-?-*/build/glusterfs-${version}.tar.gz`)
+TGZS=(`ls ${WORKSPACE}/build-gluster-org/glusterfs-${version}-?-*/build/glusterfs-${version}.tar.gz`)
 echo ${TGZS[0]}
 
 if [ -z ${TGZS[0]} ]; then
@@ -149,21 +149,22 @@ fi
 cp ~/conf.distributions/${series} conf/distributions
 
 # distribute Debian packages using apt
-for i in ~/${os}-${flavor}-Glusterfs-${version}/packages/glusterfs-*${version}-${release}*; do reprepro includedeb $flavor $i; done
+for i in ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}/packages/glusterfs-*${version}-${release}*; do reprepro includedeb $flavor $i; done
 if [ "$flavor" != "stretch" ]; then
-     for i in ~/${os}-${flavor}-Glusterfs-${version}/packages/libg*${version}-${release}*.deb; do reprepro includedeb $flavor $i; done
+     for i in ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}/packages/libg*${version}-${release}*.deb; do reprepro includedeb $flavor $i; done
 fi
 reprepro includedsc ${flavor} ~/${os}-${flavor}-Glusterfs-${version}/build/glusterfs_${version}-${release}.dsc
 
-tar czf ~/${os}-${flavor}-Glusterfs-${version}/${flavor}-apt-amd64-${version}.tgz pool/ dists/
+tar czf ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}/${flavor}-apt-amd64-${version}.tgz pool/ dists/
 
 echo "Pushing Changelog changes.."
 git push origin ${flavor}-${series}-local:${flavor}-glusterfs-${series}
 
-cd ~/${os}-${flavor}-Glusterfs-${version}
+cd ${WORKSPACE}/build-gluster-org/${os}-${flavor}-Glusterfs-${version}
 
 #copy the tar.gz file produced by the build to download.rht.gluster.org:/var/www/scratch
 scp $flavor-apt-amd64-$version.tgz gluster_ant@download.rht.gluster.org:/var/www/scratch
 
 ssh gluster_ant@download.rht.gluster.org /var/www/html/pub/gluster/unpacking-script.sh $series $version $os $flavor $latest_version $latest_series
+cd ${WORKSPACE}/build-gluster-org/scripts
 echo "Done."

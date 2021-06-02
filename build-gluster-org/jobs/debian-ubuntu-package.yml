@@ -1,6 +1,6 @@
 - job:
     name: debian-package-builder
-    node: master
+    node: debian10
     description: glusterfs package script to build both debian and ubuntu
     project-type: freestyle
 

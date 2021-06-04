@@ -3,11 +3,15 @@
 MY_ENV=$(env | sort)
 BURL=${BUILD_URL}consoleFull
 
-function vote_gerrit() {
-    VOTE="$1"
-    VERDICT="$2"
-    OUTPUT=$(echo ; cat $3)
-    echo "$VOTE '$BURL : $VERDICT \n$OUTPUT'"
+function clear_exit() {
+    # leave result file empty if there is no failure, in context of `comment-file` in ghprb plugin
+    touch gluster_regression.txt
+    # do clean up after a regression test suite is run
+    sudo -E bash /opt/qa/cleanup.sh
+    # make sure that every file/diretory belongs to jenkins
+    sudo chown -R jenkins:jenkins $WORKSPACE
+    RET="$1"
+    exit $RET
 }
 
 # Display all environment variables in the debugging log
@@ -62,9 +66,7 @@ done
 if [[ "$SKIP" == true ]]; then
     echo "Patch only modifies ignored files. Skipping further tests"
     RET=0
-    VERDICT="Skipped tests for change that only modifies ignored files"
-    vote_gerrit "+1" "$VERDICT"
-    exit $RET
+    clear_exit "$RET"
 fi
 
 # Build Gluster
@@ -77,8 +79,7 @@ echo
 RET=$?
 if [ $RET != 0 ]; then
     # Build failed, so abort early
-    vote_gerrit "-1" "FAILED"
-    exit $RET
+    clear_exit "$RET"
 fi
 echo
 

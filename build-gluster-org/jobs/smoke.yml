@@ -1,16 +1,13 @@
 - project:
     name: 'gh_smoke'
     nodeversion:
-      - centos7:
-          node_name: smoke7
-      #- centos8:
-       #   node_name: smoke8
+      - centos7
     jobs:
       - '{name}-{nodeversion}'
 
 - job-template:
     name: '{name}-{nodeversion}'
-    node: '{node_name}'
+    node: '{nodeversion}'
     description: Pre-commit Smoke test - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/smoke.sh
     project-type: freestyle
     concurrent: true

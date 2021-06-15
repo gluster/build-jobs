@@ -15,6 +15,19 @@
 
     triggers:
     - timed: "H 14 * * *"
+    - github-pull-request:
+        cancel-builds-on-update: true
+        allow-whitelist-orgs-as-admins: true
+        org-list:
+          - gluster
+        github-hooks: true
+        only-trigger-phrase: true
+        trigger-phrase: '/run centos8-regression'
+        status-context: "Testing: regression test suite on C8"
+        started-status: "Running: regression test suite on c8"
+        success-status: "OK - No regression"
+        failure-status: "FAIL - please fix for merge"
+        comment-file: "gluster_regression.txt"
 
 
     publishers:

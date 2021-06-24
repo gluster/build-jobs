@@ -36,7 +36,7 @@
         default: devel
         description: "A pull request ID, like 'origin/pr/72/head'"
     - string:
-        default: fedora-32-x86_64
+        default: fedora-34-x86_64
         description: 'Name of the mock chroot used to build'
         name: MOCK_CHROOT
 

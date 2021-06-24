@@ -1,0 +1,75 @@
+- project:
+    name: 'smoke'
+    os_type:
+      - 32-bit-build:
+          node_name: fedora32
+          keyword: 32-bit-build 
+          script_name: 32-bit-build-smoke
+      - fedora:
+          node_name: fedora32
+          keyword: fedora smoke 
+          script_name: fedora-smoke 
+          blacklist_branch: release-.*
+      - freebsd:
+          node_name: freebsd_build
+          keyword: freebsd smoke
+          timeout: 45
+          script_name: freebsd-smoke
+
+    jobs:
+      - 'gh_{os_type}-{name}'
+
+- job-template:
+    #Template default variables
+    disabled_var:
+    blacklist_branch:
+    timeout: 30
+
+    name: 'gh_{os_type}-{name}'
+    node: '{node_name}'
+    description: 'Smoke job for - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/{script_name}.sh'
+    project-type: freestyle
+    disabled: '{obj:disabled_var}'
+
+    scm:
+    - glusterfs
+
+    properties:
+    - github:
+        url: https://github.com/gluster/glusterfs
+    - discard-after-x:
+        x: 30
+    - one-build-per-node
+
+    triggers:
+    - github-pull-request:
+        cancel-builds-on-update: true
+        allow-whitelist-orgs-as-admins: true
+        org-list:
+          - gluster
+        github-hooks: true
+        only-trigger-phrase: false
+        trigger-phrase: '/recheck smoke'
+        permit-all: true
+        status-context: "Testing: {keyword}"
+        started-status: "Running: {keyword}"
+        success-status: "OK - {keyword}"
+        failure-status: "FAIL - please fix for merge"
+        black-list-target-branches:
+          - '{obj:blacklist_branch}'
+
+    parameters:
+    - string:
+        name: sha1
+        default: devel
+        description: "A pull request ID, like 'origin/pr/72/head'"
+
+    builders:
+    - shell: !include-raw: '../scripts/{script_name}.sh'
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: '{obj:timeout}'
+        abort: true
+        type: absolute

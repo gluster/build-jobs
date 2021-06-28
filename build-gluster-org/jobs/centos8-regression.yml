@@ -1,5 +1,5 @@
 - job:
-    name: centos8-regression
+    name: gh_centos8-regression
     node: centos8
     description: Our production regression test on centos8.  Triggerered for once a week.
     project-type: freestyle

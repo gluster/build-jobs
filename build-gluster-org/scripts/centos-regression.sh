@@ -103,6 +103,9 @@ for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
     fi
 done
 
+#enable glusterfs on centos8
+grep -q 'VERSION_ID="8' /etc/os-release && setenforce 1
+
 # Run the regression test
 echo "Start time $(date)"
 echo

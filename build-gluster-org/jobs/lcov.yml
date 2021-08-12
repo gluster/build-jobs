@@ -29,13 +29,11 @@
     - post-tasks:
         - matches:
             - log-text: Build was aborted
-          script: |
-              sudo reboot
-    - post-tasks:
+          script: !include-raw: ../scripts/regression-abort.sh
         - matches:
             - log-text: Building remotely
           script: |
-              sudo chown -R jenkins:jenkins $WORKSPACE
+            sudo chown -R jenkins:jenkins $WORKSPACE
     - archive:
         allow-empty: true
         artifacts: "*-glusterfs-logs.tgz"

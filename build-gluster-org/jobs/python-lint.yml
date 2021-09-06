@@ -1,9 +1,17 @@
-- job:
-    name: gh_python-lint
+- project:
+    name: python-lint
+    linter:
+      - pylint
+      - flake8
+
+    jobs:
+      - 'gh_{linter}'
+
+- job-template:
+    name: 'gh_{linter}'
     node: fedora32
-    description: python validation of code using pylint and flake8 - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python-lint.sh
+    description: 'python validation of code using {linter} - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/{linter}.sh'
     project-type: freestyle
-    concurrent: true
 
     scm:
     - glusterfs
@@ -25,9 +33,9 @@
         only-trigger-phrase: false
         trigger-phrase: '/recheck smoke'
         permit-all: true
-        status-context: "Testing: python lint"
-        started-status: "Running: python lint"
-        success-status: "OK - python lint"
+        status-context: "Testing: python lint (linter)"
+        started-status: "Running: python lint (linter)"
+        success-status: "OK - python lint (linter)"
         failure-status: "FAIL - please fix for merge"
 
     parameters:
@@ -37,12 +45,12 @@
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
-    - shell: !include-raw: ../scripts/python-lint.sh
+    - shell: !include-raw: ../scripts/{linter}.sh
 
     publishers:
     - archive:
         allow-empty: true
-        artifacts: "python-lint/*"
+        artifacts: "{linter}/*"
         default-excludes: true
         fingerprint: false
         only-if-success: false

@@ -3,7 +3,7 @@
 ./configure --enable-fusermount || exit 1
 cd extras/LinuxRPM
 make prep srcrpm || exit 1
-sudo mock -r 'fedora-33-i386' --resultdir=${WORKSPACE}/RPMS/"%(dist)s"/"%(target_arch)s"/ --cleanup-after --rebuild glusterfs*src.rpm || exit 1
+sudo mock -r 'fedora-33-i386' --resultdir=${WORKSPACE}/RPMS/"%(dist)s"/"%(target_arch)s"/ --with=tcmalloc --cleanup-after --rebuild glusterfs*src.rpm || exit 1
 set -x
 sudo chown -R jenkins:jenkins $WORKSPACE
 

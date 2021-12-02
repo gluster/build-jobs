@@ -2,11 +2,11 @@
     name: 'devrpm'
     version:
       - fedora:
-          build_flag: fedora-32-x86_64
-          node_name: fedora32
+          build_flag: fedora-34-x86_64
+          node_name: fedora34
       - el7:
           build_flag: epel-7-x86_64
-          node_name: rpm7
+          node_name: centos7
     jobs:
       - 'gh_{name}-{version}'
 

@@ -1,6 +1,6 @@
 - job:
     name: jenkins-update
-    node: smoke7
+    node: centos8
     description: Updating the jenkins server on patch merged
     project-type: freestyle
     concurrent: true

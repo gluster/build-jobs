@@ -1,6 +1,6 @@
 - job:
     name: cppcheck
-    node: smoke8
+    node: centos8
     description: Run cppcheck analysis on gluster code
     project-type: freestyle
     concurrent: true

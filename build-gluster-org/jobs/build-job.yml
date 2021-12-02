@@ -1,6 +1,6 @@
 - job:
     name: build-job
-    node: smoke8
+    node: centos8
     description: Pre-commit tests for build-jobs
     project-type: freestyle
 

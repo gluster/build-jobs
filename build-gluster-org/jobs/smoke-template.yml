@@ -6,7 +6,7 @@
           keyword: 32-bit-build 
           script_name: 32-bit-build-smoke
       - fedora:
-          node_name: fedora32
+          node_name: fedora34
           keyword: fedora smoke 
           script_name: fedora-smoke 
           blacklist_branch: release-.*

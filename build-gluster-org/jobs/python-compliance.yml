@@ -1,7 +1,7 @@
 - job:
     name: gh_python2-compliance
-    node: fedora30
-    description: Check for python2 compliance - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python-compliance.sh
+    node: centos7
+    description: Check for python2 compliance - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python2-compliance.sh
     project-type: freestyle
     concurrent: true
 
@@ -32,8 +32,8 @@
  
 - job:
     name: gh_python-compliance
-    node: fedora30
-    description: Check for python3 compliance - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python-compliance.sh
+    node: fedora35
+    description: Check for python3 compliance - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/python3-compliance.sh
     project-type: freestyle
     concurrent: true
 

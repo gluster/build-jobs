@@ -1,6 +1,6 @@
 - job:
     name: gh_clang-format
-    node: fedora32
+    node: fedora35
     description: Pre-commit clang-format check - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/clang-format.py
     project-type: freestyle
     concurrent: true

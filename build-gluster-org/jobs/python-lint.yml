@@ -9,7 +9,7 @@
 
 - job-template:
     name: 'gh_{linter}'
-    node: fedora32
+    node: fedora35
     description: 'python validation of code using {linter} - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/{linter}.sh'
     project-type: freestyle
 

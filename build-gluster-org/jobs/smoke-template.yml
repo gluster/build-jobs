@@ -2,7 +2,7 @@
     name: 'smoke'
     os_type:
       - 32-bit-build:
-          node_name: fedora32
+          node_name: fedora35
           keyword: 32-bit-build 
           script_name: 32-bit-build-smoke
       - fedora:

@@ -1,6 +1,6 @@
 - job:
     name: 'gh_strfmt_errors'
-    node: fedora32
+    node: fedora35
     description: Check for strfmt errors in a 32-bit build run inside mock - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/strfmt_errors.sh
     project-type: freestyle
     concurrent: true

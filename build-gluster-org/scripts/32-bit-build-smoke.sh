@@ -9,7 +9,7 @@ $MOCK --install langpacks-en glibc-langpack-en automake autoconf libtool flex bi
 $MOCK --copyin $WORKSPACE /src
 $MOCK --chroot "cd /src && ./autogen.sh"
 $MOCK --chroot "cd /src && ./configure --enable-gnfs --enable-debug"
-$MOCK --chroot "cd /src && make install CFLAGS='-Wall -Wno-address-of-packed-member' -j ${nproc}"
+$MOCK --chroot "cd /src && make install CFLAGS='-Wall -Werror' -j ${nproc}"
 ret=$?
 $MOCK --clean
 exit $ret

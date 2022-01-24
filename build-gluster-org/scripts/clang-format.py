@@ -24,7 +24,6 @@ if changed:
     	file.write("CLANG-FORMAT FAILURE:\nBefore merging the patch, this diff needs to be considered for passing clang-format\n\n```" + changed.decode('utf-8') + "```")
     print(changed)
     print("The above patch needs to be applied to pass clang-format")
-    exit(1)
 
 else:
     # No changes, pass

@@ -1,0 +1,68 @@
+- job:
+    name: centos8-s390-regression
+    node: s390x
+    description: Our production regression test on centos8 on s390x.  Triggerered for once a week.
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - glusterfs
+
+    properties:
+    - discard-after-x:
+        x: 90
+    - one-build-per-node
+
+    triggers:
+    - timed: "H 14 * * *"
+    - github-pull-request:
+        cancel-builds-on-update: true
+        allow-whitelist-orgs-as-admins: true
+        org-list:
+          - gluster
+        github-hooks: true
+        only-trigger-phrase: true
+        trigger-phrase: '/run s390-regression'
+        status-context: "Testing: regression test suite on s390"
+        started-status: "Running: regression test suite on s390"
+        success-status: "OK - No regression"
+        failure-status: "FAIL - please fix for merge"
+        comment-file: "gluster_regression.txt"
+
+
+    publishers:
+    - email:
+        recipients: maintainers@gluster.org
+        send-to-individuals: true
+    - post-tasks:
+        - matches:
+            - log-text: Build was aborted
+          script: !include-raw: ../scripts/regression-abort.sh
+        - matches:
+            - log-text: Building remotely
+          script: |
+            sudo chown -R jenkins:jenkins $WORKSPACE  
+    - gluster-logs
+
+    parameters:
+    - string:
+        name: sha1
+        default: devel
+        description: "A pull request ID, like 'origin/pr/72/head'"
+
+    builders:
+    - shell: !include-raw: ../scripts/regression-test-burn-in.sh
+
+    wrappers:
+    - timestamps
+    - timeout:
+        timeout: 450
+        abort: true
+        type: absolute
+    - credentials-binding:
+        - file:
+           credential-id: 4db32c5c-890f-4f06-a1d8-7c9a128884e8
+           variable: LOG_KEY
+        - file:
+            credential-id: gerrit_build_ssh_key
+            variable: GERRIT_BUILD_SSH_KEY

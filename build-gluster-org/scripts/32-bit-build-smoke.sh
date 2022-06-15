@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHROOT=fedora-34-i386
+CHROOT=fedora-35-i386
 OPTIONS="-r $CHROOT --config-opts=dnf_warning=False"
 MOCK="sudo mock $OPTIONS"
 nproc=$(getconf _NPROCESSORS_ONLN)

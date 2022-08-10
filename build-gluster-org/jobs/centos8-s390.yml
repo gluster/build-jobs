@@ -56,7 +56,7 @@
     wrappers:
     - timestamps
     - timeout:
-        timeout: 450
+        timeout: 6000
         abort: true
         type: absolute
     - credentials-binding:

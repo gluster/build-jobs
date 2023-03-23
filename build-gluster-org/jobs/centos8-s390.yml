@@ -1,7 +1,7 @@
 - job:
     name: centos8-s390-regression
     node: s390x
-    description: Our production regression test on centos8 on s390x.  Triggerered for once a week.
+    description: Our production regression test on centos8 on s390x.  Triggerered for once a day.
     project-type: freestyle
     concurrent: true
 
@@ -14,7 +14,7 @@
     - one-build-per-node
 
     triggers:
-    - timed: "H 14 * * *"
+    - timed: "@daily"
     - github-pull-request:
         cancel-builds-on-update: true
         allow-whitelist-orgs-as-admins: true

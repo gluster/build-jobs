@@ -49,7 +49,7 @@
 
 
     builders:
-        - shell: !include-raw: ../scripts/glusterfs-rpms.sh
+        - shell: !include-raw-escape: ../scripts/glusterfs-rpms.sh
 
     wrappers:
     - timeout:

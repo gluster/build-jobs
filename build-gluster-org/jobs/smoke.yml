@@ -50,7 +50,7 @@
     - gluster-logs
 
     builders:
-    - shell: !include-raw: ../scripts/smoke.sh
+    - shell: !include-raw-escape: ../scripts/smoke.sh
 
     wrappers:
     - timestamps

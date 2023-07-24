@@ -45,7 +45,7 @@
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
-    - shell: !include-raw: ../scripts/{linter}.sh
+    - shell: !include-raw-escape: ../scripts/{linter}.sh
 
     publishers:
     - archive:

@@ -35,7 +35,7 @@
         name: REMOTE_JENKINS_JOB
 
     builders:
-    - shell: !include-raw: ../scripts/glusto.sh
+    - shell: !include-raw-escape: ../scripts/glusto.sh
 
     wrappers:
     - timestamps

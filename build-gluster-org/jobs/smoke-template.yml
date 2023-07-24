@@ -65,7 +65,7 @@
         description: "A pull request ID, like 'origin/pr/72/head'"
 
     builders:
-    - shell: !include-raw: '../scripts/{script_name}.sh'
+    - shell: !include-raw-escape: '../scripts/{script_name}.sh'
 
     wrappers:
     - timestamps

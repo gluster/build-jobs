@@ -60,7 +60,7 @@
             sudo chown -R jenkins:jenkins $WORKSPACE    
 
     builders:
-    - shell: !include-raw: ../scripts/glusterfs-devrpms.sh
+    - shell: !include-raw-escape: ../scripts/glusterfs-devrpms.sh
 
     wrappers:
     - timestamps

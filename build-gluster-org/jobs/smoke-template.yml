@@ -11,7 +11,7 @@
           script_name: fedora-smoke 
           blacklist_branch: release-.*
       - freebsd:
-          node_name: freebsd_build
+          node_name: freebsd
           keyword: freebsd smoke
           timeout: 45
           script_name: freebsd-smoke

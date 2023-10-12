@@ -4,9 +4,11 @@
       - fedora:
           build_flag: fedora-34-x86_64
           node_name: fedora34
+          disabled: true
       - el7:
           build_flag: epel-7-x86_64
           node_name: centos7
+          disabled: true
     jobs:
       - 'gh_{name}-{version}'
 
@@ -16,6 +18,7 @@
     description: Creates RPMs for developers and those who need to verify the patch - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/glusterfs-devrpms.sh
     project-type: freestyle
     concurrent: true
+    disabled: '{disabled}'
 
     scm:
     - glusterfs

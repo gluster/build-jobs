@@ -19,6 +19,7 @@
     description: Creates RPMs for developers and those who need to verify the patch
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     properties:
     - github:

@@ -4,6 +4,7 @@
     description: Run regression with brick multiplex on demand on a patch - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/regression-test-with-multiplex.sh
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     scm:
     - glusterfs

@@ -4,6 +4,7 @@
     description: Regression test run nightly - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/regression-test-burn-in.sh
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     scm:
     - git:

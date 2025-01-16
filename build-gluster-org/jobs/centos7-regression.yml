@@ -4,6 +4,7 @@
     description: Our production regression test.  Triggerered for each Gerrit CR revision - https://github.com/gluster/build-jobs/blob/main/build-gluster-org/scripts/gh_centos-regression.sh
     project-type: freestyle
     concurrent: true
+    disabled: true
 
     scm:
     - glusterfs
